@@ -220,7 +220,10 @@ public class UpdateAppointmentController implements Initializable {
     }
  
     
-
+    /**This method cancels the process of adding a updating an appointment
+    * Then returns he user to the home screen.
+    *@param event Cancel button clicked 
+    */
     @FXML
     private void onActionCancel(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();

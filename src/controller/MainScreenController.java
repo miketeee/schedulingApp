@@ -479,9 +479,9 @@ public class MainScreenController implements Initializable {
      cPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
      cDateCol.setCellValueFactory(new PropertyValueFactory<>("formattedCreatedTime"));
      cUpdatedCol.setCellValueFactory(new PropertyValueFactory<>("formattedUpdatedTime"));
-     cUpdatorCol.setCellValueFactory(new PropertyValueFactory<>("updator"));
+     cUpdatorCol.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
      cDivisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
-     cCreatorCol.setCellValueFactory(new PropertyValueFactory<>("creator"));
+     cCreatorCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
      
      appointmentsTableView.setItems(Appointments.getAllAppointments());
      appIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
