@@ -11,8 +11,9 @@ package exceptions;
  */
 public class noCountryException extends Exception {
     
-        /**This is the noCountryException constructor. 
-     This exception prevents a product from being deleted if it has associated parts. 
+     /**This is the noCountryException constructor. 
+     *This exception prevents a product from being deleted if it has 
+     * associated parts. 
      */
     public noCountryException(){
     

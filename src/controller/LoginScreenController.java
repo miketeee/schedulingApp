@@ -48,9 +48,6 @@ public class LoginScreenController implements Initializable {
     
     @FXML
     private Button btnLogin;
-    
-    @FXML
-    private Button btnLogin1;
 
     @FXML
     private TextField password;

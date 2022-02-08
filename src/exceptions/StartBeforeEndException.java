@@ -15,10 +15,11 @@ import javafx.scene.control.Alert;
 /** This class generates a HasPartsException*/
 public class StartBeforeEndException extends Exception{
    
-    /**This is the HasPartsException constructor. 
-     This exception prevents a product from being deleted if it has associated parts. 
+    /**This is the StartBeforeEndException constructor. 
+     This exception prevents an appointment from being created if the start
+     * time is before the end time.
      */
-    public StartBeforeEndException(){
+    public static void StartBeforeEndException(){
         Alert alert = new Alert(Alert.AlertType.ERROR);  
         alert.setTitle("Error Dialog");
         alert.setContentText("Appointment start must be before end");
