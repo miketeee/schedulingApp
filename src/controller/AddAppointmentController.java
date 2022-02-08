@@ -43,7 +43,7 @@ import helper.CheckForApps;
 /**
  * The class that controls the add appointment form
  *
- * @author tamic
+ * @author 
  */
 public class AddAppointmentController implements Initializable {
     
@@ -92,26 +92,26 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private void onActionSaveAppointment (ActionEvent event) throws IOException, 
             SQLException, HasOverlapExcetption, StartBeforeEndException {
-                LocalDate sDate = FormatTimeEntered
+                LocalDate appStartDate = FormatTimeEntered
                         .formatStringToLocalDate(startDate);
-                LocalDate eDate = FormatTimeEntered
+                LocalDate appEndDate = FormatTimeEntered
                         .formatStringToLocalDate(endDate);
-                LocalTime sTime = FormatTimeEntered
+                LocalTime appStartTime = FormatTimeEntered
                         .formatStringToLocalTime(appStartTimeTxt);
-                LocalTime eTime = FormatTimeEntered
+                LocalTime appEndTime = FormatTimeEntered
                         .formatStringToLocalTime(appEndTimeTxt);
                 ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-                Instant[]tzc = TimeZoneConversion
-                        .opsHours(sDate, sTime, eDate, eTime);
-                Instant open = tzc[0];
-                Instant close = tzc[1];
-                Instant start = tzc[2];
-                Instant end = tzc[3];
+                Instant[]conversion = TimeZoneConversion
+                        .convertTimeToUTC(appStartDate, appStartTime, appEndDate, appEndTime);
+                Instant open = conversion[0];
+                Instant close = conversion[1];
+                Instant appStart = conversion[2];
+                Instant appEnd = conversion[3];
         
         try {
-            if ((start.isAfter(close) || start.isBefore(open) 
-                    || (end.isAfter(close) 
-                    || end.isBefore(open)))){
+            if ((appStart.isAfter(close) || appStart.isBefore(open) 
+                    || (appEnd.isAfter(close) 
+                    || appEnd.isBefore(open)))){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Appointment must be between " 
@@ -120,21 +120,20 @@ public class AddAppointmentController implements Initializable {
                 alert.showAndWait();
             }
 
-            else if(start.isAfter(end)){
+            else if(appStart.isAfter(appEnd)){
                 throw new StartBeforeEndException();
             }
             else{
                 CheckForApps.withOverlap(customerIdComboBox.getValue()
                         .getId(),
-                        start, end, -1);
+                        appStart, appEnd);
                 database.AddAppointment.addAppointment(appTitleTxt.getText(), 
                         appDescriptionTxt.getText(), appLocationTxt.getText(), 
-                        appTypeComboBox.getValue(), sDate, sTime, eDate, eTime, 
+                        appTypeComboBox.getValue(), appStartDate, appStartTime, 
+                        appEndDate, appEndTime, 
                         customerIdComboBox.getValue().getId(), 
                         Integer.parseInt(userIdLabel.getText()), 
                         contactComboBox.getValue().getId());
-       
-      
                 
                 Appointments.appointmentList.clear();
                 LoadAppointments.loadAppointments();
@@ -144,7 +143,7 @@ public class AddAppointmentController implements Initializable {
                         .getResource("/view/MainScreen.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
-            }
+                }
             }
         
         catch(NullPointerException e) {

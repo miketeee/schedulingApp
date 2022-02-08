@@ -5,15 +5,12 @@
  */
 package database;
 
-import model.*;
 import database.DBquery;
 import static database.JDBC.conn;
 import database.LoadDivisions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  *
@@ -43,20 +40,7 @@ public class LoadCountries {
              int Country_ID = rs.getInt("Country_ID");
              String Country = rs.getString("Country");
              LoadDivisions.loadDivisions(Country_ID);
-             System.out.println(Country);
-             System.out.println(Country_ID);
-//             String Division = rs.getString("Division");
-//             LocalDateTime dateTime = rs.getTimestamp("Create_Date").toLocalDateTime();
-//             LocalTime time = rs.getTimestamp("Create_Date").toLocalDateTime().toLocalTime();
-//             String Created_By = rs.getString("Created_By");
-//             LocalDateTime Last_Update = rs.getTimestamp("Last_Update").toLocalDateTime();
-//             String Last_Updated_By = rs.getString("Last_Updated_By");
-//             int Country_ID = rs.getInt("Country_ID");
-             
-             // Display Record
-//             System.out.println(Division_ID + " | " + Division + " | " + dateTime + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Country_ID + " | ");
-//             Division division = new Division(Division_ID ,Division ,dateTime ,Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
-//             allDivisions.addDivisions(division);
+
          }
          
     

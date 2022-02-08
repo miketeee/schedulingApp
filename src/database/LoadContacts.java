@@ -43,10 +43,6 @@ public class LoadContacts {
              String Contact_Name = rs.getString("Contact_Name");
              String Email = rs.getString("Email");
              
-            
-             
-             // Display Record
-//             System.out.println(CustomerID + " | " + Customer_Name + " | " + Address + " | " + Postal_code + " | " + Phone + " | " + date + "" + time + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Division + " | " );
              Contact contact = new Contact(Contact_ID, Contact_Name, Email);
              Contacts.addContact(contact);
          }

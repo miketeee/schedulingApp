@@ -109,7 +109,7 @@ public class AddCustomerController implements Initializable {
     /**
      * This method clears the values in the division combo box when the user
      * selects the radio button for a different country.
-     * @param event country radio button selected
+     * @param event Country radio button selected
      */
     @FXML
     private void onActionClearComboBox(ActionEvent event) throws IOException{
@@ -150,7 +150,7 @@ public class AddCustomerController implements Initializable {
     
     /**This method cancels the process of adding a new customer. Then returns
     * the user to the home screen.
-    *@param event cancel button clicked 
+    *@param event Cancel button clicked 
     */
     @FXML
     private void onActionCancel(ActionEvent event) throws IOException {

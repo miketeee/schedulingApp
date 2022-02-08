@@ -23,14 +23,20 @@ import model.User;
  */
 public class AddAppointment {
       
-    public static void addAppointment(String title, String descript, String location, String type, LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime, int cId, int uId, int contactId) throws SQLException {
+    public static void addAppointment(String title, String descript,
+            String location, String type, LocalDate startDate, 
+            LocalTime startTime, LocalDate endDate, LocalTime endTime, int cId, 
+            int uId, int contactId) throws SQLException {
             
-        LocalDateTime date = LocalDateTime.now();
-        LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
-        LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
-        String insertStatement = "INSERT INTO Appointments(Title, Description, Location, Type,Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            LocalDateTime date = LocalDateTime.now();
+            LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
+            String insertStatement = "INSERT INTO Appointments(Title, Description, "
+                    + "Location, Type,Start, End, Create_Date, Created_By, "
+                    + "Last_Update, Last_Updated_By, Customer_ID, "
+                    + "User_ID, Contact_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
-        DBquery.setPreparedStatement(conn, insertStatement); // Create prepared statement
+        DBquery.setPreparedStatement(conn, insertStatement);
         
         PreparedStatement ps = database.DBquery.getPreparedStatement();
         

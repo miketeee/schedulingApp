@@ -8,7 +8,6 @@ package database;
 import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -18,10 +17,9 @@ import java.time.LocalDateTime;
 public class DeleteAppointment {
     public static void deleteAppointment(int appID) throws SQLException{
         
-        LocalDateTime date = LocalDateTime.now();
         String deleteStatement = "DELETE FROM appointments WHERE Appointment_ID = ?";
         
-        DBquery.setPreparedStatement(conn, deleteStatement); // Create prepared statement
+        DBquery.setPreparedStatement(conn, deleteStatement); 
         
         PreparedStatement ps = database.DBquery.getPreparedStatement();
         

@@ -7,14 +7,9 @@ package database;
 
 //import controller.LoginScreenController;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+
 
 /**
  *
@@ -25,16 +20,15 @@ public abstract class JDBC {
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
     private static final String databaseName = "client_schedule";
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
+    private static final String jdbcUrl = protocol + vendor + location 
+            + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
     public static Connection conn = null;  // Connection Interface
     
 
-    public static Connection openConnection()
-    {
-        
+    public static Connection openConnection() {
         try {
             Class.forName(driver); // Locate Driver
             conn = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object

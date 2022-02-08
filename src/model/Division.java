@@ -19,7 +19,8 @@ public class Division {
     private LocalDateTime lastUpdated;
     private String lastUpdatedBy;
     private int countryId;
-    public Division(int id, String name, LocalDateTime created, String createdBy, LocalDateTime lastUpdated, String lastUpdatedBy, int countryId){
+    public Division(int id, String name, LocalDateTime created, String createdBy, 
+            LocalDateTime lastUpdated, String lastUpdatedBy, int countryId){
         this.id = id;
         this.name = name;
         this.created = created;

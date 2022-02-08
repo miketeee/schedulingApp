@@ -43,21 +43,19 @@ public class LoadDivisions {
          {
              int Division_ID = rs.getInt("Division_ID");
              String Division = rs.getString("Division");
-             LocalDateTime dateTime = rs.getTimestamp("Create_Date").toLocalDateTime();
-             LocalTime time = rs.getTimestamp("Create_Date").toLocalDateTime().toLocalTime();
+             LocalDateTime dateTime = rs.getTimestamp("Create_Date")
+                     .toLocalDateTime();
+             LocalTime time = rs.getTimestamp("Create_Date").toLocalDateTime()
+                     .toLocalTime();
              String Created_By = rs.getString("Created_By");
-             LocalDateTime Last_Update = rs.getTimestamp("Last_Update").toLocalDateTime();
+             LocalDateTime Last_Update = rs.getTimestamp("Last_Update")
+                     .toLocalDateTime();
              String Last_Updated_By = rs.getString("Last_Updated_By");
              int Country_ID = rs.getInt("Country_ID");
-             
-             // Display Record
-//             System.out.println(Division_ID + " | " + Division + " | " + dateTime + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Country_ID + " | ");
-  
-             Division division = new Division(Division_ID ,Division ,dateTime ,Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
+             Division division = new Division(Division_ID, Division, dateTime, 
+                     Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
              Divisions.addDivisions(division);
          }
-         
-    
 }
     
         public static void loadDivisionsByID(int divisionId) throws SQLException {
@@ -81,17 +79,17 @@ public class LoadDivisions {
          {
              int Division_ID = rs.getInt("Division_ID");
              String Division = rs.getString("Division");
-             LocalDateTime dateTime = rs.getTimestamp("Create_Date").toLocalDateTime();
-             LocalTime time = rs.getTimestamp("Create_Date").toLocalDateTime().toLocalTime();
+             LocalDateTime dateTime = rs.getTimestamp("Create_Date")
+                     .toLocalDateTime();
+             LocalTime time = rs.getTimestamp("Create_Date").toLocalDateTime()
+                     .toLocalTime();
              String Created_By = rs.getString("Created_By");
-             LocalDateTime Last_Update = rs.getTimestamp("Last_Update").toLocalDateTime();
+             LocalDateTime Last_Update = rs.getTimestamp("Last_Update")
+                     .toLocalDateTime();
              String Last_Updated_By = rs.getString("Last_Updated_By");
              int Country_ID = rs.getInt("Country_ID");
-             
-             // Display Record
-//             System.out.println(Division_ID + " | " + Division + " | " + dateTime + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Country_ID + " | ");
-             Division division = new Division(Division_ID ,Division ,dateTime ,Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
-//             Divisions.divisionList.clear();
+             Division division = new Division(Division_ID, Division, dateTime,
+                     Created_By, Last_Update, Last_Updated_By, Country_ID);
              Divisions.addDivisions(division);
          }
          

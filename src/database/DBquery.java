@@ -20,7 +20,8 @@ public class DBquery {
     
    // Create statement object
    // setStatement will recieve a connection reference
-    public static void setPreparedStatement(Connection conn, String sqlStatement) throws SQLException
+    public static void setPreparedStatement(Connection conn, String sqlStatement)
+            throws SQLException
     {
        statement =  conn.prepareStatement(sqlStatement);
     }

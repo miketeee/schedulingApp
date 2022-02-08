@@ -7,20 +7,9 @@ package helper;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  *
@@ -49,13 +38,7 @@ public class HandleFile {
     public static void writeToFile(File file, List map) throws IOException {
         FileWriter fWriter = new FileWriter(file.getPath(), true);
         BufferedWriter bWriter = new BufferedWriter(fWriter);
- 
-        String nextLine = System.lineSeparator();
-//            theWriter.append(nextLine + entry.toString());
             bWriter.write("\n" + map.get(map.size() - 1).toString());
-//            theWriter.write("\n" + item.toString());
-
-//        theWriter.write("\n" + map);
         bWriter.close();
     }
     

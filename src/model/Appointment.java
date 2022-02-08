@@ -6,15 +6,7 @@
 package model;
 
 import helper.FormatTimeEntered;
-import database.LoadCustomers;
-import java.security.Timestamp;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.TimeZone;
 import model.Type;
 
 /**
@@ -22,20 +14,6 @@ import model.Type;
  * @author tamic
  */
 public class Appointment {
-    
-//                 LocalDate userDate = LocalDate.now();
-//             LocalTime userTime = LocalTime.now();
-//             ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-//             ZonedDateTime userZDT = ZonedDateTime.of(dateStart, timeStart, localZoneId);
-//
-//             Instant userToGMTInstant = userZDT.toInstant();
-//             LocalTime userToLocalZDT = userZDT.withZoneSameInstant(localZoneId).toLocalTime();
-//             ZonedDateTime gmtToLocalZDT = userToGMTInstant.atZone(localZoneId);
-//             
-//             LocalDate zoneStartDate = gmtToLocalZDT.toLocalDate();
-//             LocalTime zoneStartTime = gmtToLocalZDT.toLocalTime();
-//             System.out.print(userToLocalZDT + " :" + zoneStartTime + " : " + timeStart + " , ");
-             
     
     private int id;
     private String title;
@@ -51,8 +29,12 @@ public class Appointment {
     private int userId;
     private int contactId;
     private String type;
-    public Appointment(int id, String title, String description, String location, java.sql.Timestamp startDateTime, java.sql.Timestamp endDateTime, java.sql.Timestamp createdDateTime, String createdBy, java.sql.Timestamp lastUpdate,
-            String lastUpdatedBy, int customerId, int userId, int contactId, String type) {
+    public Appointment(int id, String title, String description, String location, 
+            java.sql.Timestamp startDateTime, java.sql.Timestamp endDateTime, 
+            java.sql.Timestamp createdDateTime, String createdBy, 
+            java.sql.Timestamp lastUpdate,
+            String lastUpdatedBy, int customerId, int userId, int contactId, 
+            String type) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -183,8 +165,9 @@ public class Appointment {
   @Override
 public String toString(){
     String appTime = FormatTimeEntered.formatTime(startDateTime);
-    return("#" + Integer.toString(id) + " " + title + " " + " " + appTime + " " + Integer.toHexString(customerId));
-}
+    return("#" + Integer.toString(id) + " " + title + " " + " " + appTime + " " 
+            + Integer.toHexString(customerId));
+ }
 }
 
 

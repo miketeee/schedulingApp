@@ -7,27 +7,17 @@ package helper;
 
 import exceptions.HasAppointmentsException;
 import exceptions.HasOverlapExcetption;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import static java.util.Objects.hash;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import collections.Contacts;
 import model.Appointment;
@@ -39,7 +29,8 @@ import collections.Appointments;
  * @author tamic
  */
 public class CheckForApps {
-    public static void check(int customerId) throws HasOverlapExcetption, HasAppointmentsException{
+    public static void check(int customerId) throws HasOverlapExcetption, 
+            HasAppointmentsException{
         for(Appointment app : Appointments.getAllAppointments()){
             if(app.getCustomerId() == customerId){
                     throw new exceptions.HasAppointmentsException();
@@ -48,13 +39,14 @@ public class CheckForApps {
     }
     
 }
-    // Lambda expression to load the app list once instead of for each iteration
+    // Lambda expression to load the existingAppToComapre list once instead of for each iteration
     public static void withinFifteenMinutes() throws HasAppointmentsException {
         Function<Integer, Double> half = x -> x / 2.0;
-        Timestamp dueWithin = Timestamp.valueOf(LocalDateTime.now().plusMinutes(15));
+        Timestamp dueWithin = Timestamp.valueOf(LocalDateTime.now()
+                .plusMinutes(15));
             for(Appointment app : Appointments.getAllAppointments()){
-            if((app.getStartDateTime().before(dueWithin)) & app.getStartDateTime().after(Timestamp.valueOf(LocalDateTime.now()))) {
-//                Appointments.appointmentList.forEach( (n) -> { Appointments.addUpcomingApps(n);} );
+            if((app.getStartDateTime().before(dueWithin)) & app.getStartDateTime()
+                    .after(Timestamp.valueOf(LocalDateTime.now()))) {
                 Appointments.addUpcomingApps(app);
                 }
             }
@@ -76,7 +68,8 @@ public class CheckForApps {
     public static List reportByMonthAndType() throws IOException {
         HashMap<String, Integer> monthAndType = new HashMap<>();
         for(Appointment app : Appointments.getAllAppointments()) {
-            String monthType = app.getStartDateTime().toLocalDateTime().getMonth().toString() + "-" + app.getType();
+            String monthType = app.getStartDateTime().toLocalDateTime()
+                    .getMonth().toString() + "-" + app.getType();
             if(!monthAndType.containsKey(monthType)){
                 monthAndType.put(monthType, 1);
             }
@@ -88,7 +81,7 @@ public class CheckForApps {
         
 
         return Arrays.asList(monthAndType);
-//            
+  
         }
         
         public static List<HashMap<String, List<Appointment>>> reportByShift() {
@@ -99,7 +92,7 @@ public class CheckForApps {
             LocalTime startTime = app.getStartDateTime().toLocalDateTime().toLocalTime();
             LocalDate endDate = app.getEndDateTime().toLocalDateTime().toLocalDate();
             LocalTime endTime = app.getStartDateTime().toLocalDateTime().toLocalTime();
-            Instant[]tzc = TimeZoneConversion.opsHours(startDate, startTime, endDate, endTime);
+            Instant[]tzc = TimeZoneConversion.convertTimeToUTC(startDate, startTime, endDate, endTime);
             Instant start = tzc[2];
             Instant firstShift = tzc[4];
             
@@ -114,9 +107,6 @@ public class CheckForApps {
         HashMap<String, List<Appointment>> shifts = new HashMap<>();
         shifts.put("First Shift",firstShiftApps);
         shifts.put("Second Shift", secondShiftApps);
-        
-//        System.out.print(firstShiftApps + "\n");
-//        System.out.print(secondShiftApps + "\n");
         return Arrays.asList(shifts);
 
     }
@@ -141,16 +131,17 @@ public class CheckForApps {
 
     }
 
-    public static void withOverlap(int customerId, Instant startTime, 
-            Instant endTime, int appId) throws HasOverlapExcetption {
-        for (Appointment app : Appointments.getAllAppointments()) {
-            if (app.getCustomerId() == customerId) {
-                if ((!startTime.isBefore(app.getStartDateTime().toInstant()) 
-                        && !startTime.isBefore(app.getEndDateTime().toInstant())) 
-                        || (!endTime.isAfter(app.getStartDateTime().toInstant()) 
-                        && !endTime.isAfter(app.getEndDateTime().toInstant()))) {
-                    continue;
-                } else if (app.getId() == appId) {
+    public static void withOverlap(int customerId, Instant enteredAppStartTime, 
+            Instant enteredAppEndTime) throws HasOverlapExcetption {
+        
+//        Appointments.getAllAppointments().filtered(x -> x.getCustomerId() 
+//                == )
+        for (Appointment existingAppToComapre : Appointments.getAllAppointments()) {
+            if (existingAppToComapre.getCustomerId() == customerId) {
+                if ((!enteredAppStartTime.isBefore(existingAppToComapre.getStartDateTime().toInstant()) 
+                        && !enteredAppStartTime.isBefore(existingAppToComapre.getEndDateTime().toInstant())) 
+                        || (!enteredAppEndTime.isAfter(existingAppToComapre.getStartDateTime().toInstant()) 
+                        && !enteredAppEndTime.isAfter(existingAppToComapre.getEndDateTime().toInstant()))) {
                     continue;
                 } else {
                     throw new HasOverlapExcetption();

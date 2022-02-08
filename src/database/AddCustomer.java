@@ -9,9 +9,6 @@ import controller.LoginScreenController;
 import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Scanner;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 
@@ -21,12 +18,15 @@ import java.sql.Timestamp;
  */
 public class AddCustomer {
     
-    public static void addCustomer(String name, String address, String postalCode, String phone, int divId) throws SQLException{
+    public static void addCustomer(String name, String address, String postalCode,
+            String phone, int divId) throws SQLException{
         
         LocalDateTime date = LocalDateTime.now();
-        String insertStatement = "INSERT INTO Customers(Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES(?,?,?,?,?,?,?,?,?)";
+        String insertStatement = "INSERT INTO Customers(Customer_Name, Address, "
+                + "Postal_Code, Phone, Create_Date, Created_By, Last_Update, "
+                + "Last_Updated_By, Division_ID) VALUES(?,?,?,?,?,?,?,?,?)";
         
-        DBquery.setPreparedStatement(conn, insertStatement); // Create prepared statement
+        DBquery.setPreparedStatement(conn, insertStatement);
         
         PreparedStatement ps = database.DBquery.getPreparedStatement();
         

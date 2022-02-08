@@ -7,54 +7,47 @@ package helper;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
-/**
+/** This method uses the appointment times entered to along with
+ * the predefined variables  of the method to convert the business
+ * hours to UTC along with the appointments start and end time.
+ * @param startDate Start date of appointment
+ * @param startTime Start time of appointment
+ * @param endDate End date of appointment
+ * @param endTime End time of appointment
+ * @return Instants of open, close,  app start, app end, and first shift end
  *
  * @author tamic
  */
 public class TimeZoneConversion {
-    public static Instant[] opsHours(LocalDate lds, LocalTime lts, LocalDate lde, LocalTime lte){
-        LocalTime bizOpen = LocalTime.of(8, 00);
-        LocalTime bizClose = LocalTime.of(22, 00);
-        LocalTime firstShift = LocalTime.of(15,00);
-        LocalDateTime start = LocalDateTime.of(lds, lts);
-        LocalDateTime end = LocalDateTime.of(lde, lte);
-        LocalDateTime bizHoursOpen = LocalDateTime.of(lds, bizOpen);
-        LocalDateTime bizHoursClose = LocalDateTime.of(lds, bizClose);
-        LocalDateTime bizHoursFirstSift = LocalDateTime.of(lds, firstShift);
+    public static Instant[] convertTimeToUTC(LocalDate startDate, 
+            LocalTime startTime, LocalDate endDate, 
+            LocalTime endTime){
+        LocalTime openTime = LocalTime.of(8, 00);
+        LocalTime closeTime = LocalTime.of(22, 00);
+        LocalTime firstShiftEndTime = LocalTime.of(15,00);
         
        ZoneId bizOpsZoneId = ZoneId.of("America/New_York");
        ZoneId LocalZoneId = ZoneId.of(TimeZone.getDefault().getID());
-       ZonedDateTime bizOpsZDT = ZonedDateTime.of(lds, bizOpen, LocalZoneId);
-       ZonedDateTime firstShiftZDT = ZonedDateTime.of(lds, firstShift, LocalZoneId);
-       ZonedDateTime bizOpsOpenZDT = ZonedDateTime.of(lds, bizOpen, bizOpsZoneId);
-       ZonedDateTime bizOpsCloseZDT = ZonedDateTime.of(lds, bizClose, bizOpsZoneId);
-       ZonedDateTime appStartZDT = ZonedDateTime.of(lds, lts, LocalZoneId);
-       ZonedDateTime appEndZDT = ZonedDateTime.of(lde, lte, LocalZoneId);
-       LocalDateTime bizOpsOpenLDT = bizOpsOpenZDT.toLocalDateTime();
-       LocalDateTime bizOpsCloseLDT = bizOpsCloseZDT.toLocalDateTime();
-       LocalDateTime appStartLDT = appStartZDT.toLocalDateTime();
-       LocalDateTime appEndLDT = appEndZDT.toLocalDateTime();
        
-       Instant firstShiftToGMT = firstShiftZDT.toInstant();
-       Instant openToGMT = bizOpsOpenZDT.toInstant();
-       Instant closeToGMT = bizOpsCloseZDT.toInstant();
-       Instant startToGMT = appStartZDT.toInstant();
-       Instant endToGMT = appEndZDT.toInstant();
+       Instant firstShiftToUTC = ZonedDateTime
+               .of(startDate, firstShiftEndTime, LocalZoneId).toInstant();
+       Instant openTimeToUTC = ZonedDateTime
+               .of(startDate, openTime, bizOpsZoneId).toInstant();
+       Instant closeTimeToUTC = ZonedDateTime
+               .of(startDate, closeTime, bizOpsZoneId).toInstant();
+       Instant appSttartToUTC = ZonedDateTime
+               .of(startDate, startTime, LocalZoneId).toInstant();
+       Instant appEndToUTC = ZonedDateTime
+               .of(endDate, endTime, LocalZoneId).toInstant();
        
-       Instant[] instants = {openToGMT, closeToGMT, startToGMT, endToGMT, firstShiftToGMT};
-       
-       
- 
-//       System.out.print(openToGMT+ "\n");
-//       System.out.print(closeToGMT+ "\n");
-//       System.out.print(startToGMT+ "\n");
-//       System.out.print(endToGMT+ "\n");
+       Instant[] instants = {openTimeToUTC, closeTimeToUTC, appSttartToUTC, 
+           appEndToUTC, firstShiftToUTC};
+
         return instants;
     }
 }

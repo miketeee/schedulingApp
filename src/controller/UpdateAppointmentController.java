@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import exceptions.HasOverlapExcetption;
 import exceptions.StartBeforeEndException;
-import database.LoadDivisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,32 +21,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.AppointmentUniversal;
 import model.Contact;
 import model.Customer;
-import model.Type;
 import collections.Customers;
-import collections.Divisions;
 import helper.FormatTimeEntered;
 import database.LoadAppointments;
 import database.UpdateAppointment;
 import helper.TimeZoneConversion;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.TimeZone;
-import javafx.scene.control.TextFormatter;
 import collections.Contacts;
 import collections.AppTypes;
 import collections.Appointments;
 import helper.CheckForApps;
+import java.util.stream.Collectors;
 
 /**
  * The class that controls the update appointment form
  *
- * @author tamic
+ * @author 
  */
 public class UpdateAppointmentController implements Initializable {
     Stage stage;
@@ -89,57 +80,72 @@ public class UpdateAppointmentController implements Initializable {
     
     @FXML
     private DatePicker endDate;
-    
-    //value returning Lambda Expression
-   
-//    CustomerInterface appCID = a -> {
-//       String name = Customers.getAllCustomers(); 
-//    };
-    
-            /**This method loads the scene with selectedPart's values.
-     @param selectedCustomer is the part that is selected from the main screen. 
-//     */
+
+    /** This method populates the update appointment screen with
+     * the data that the user selected on the main screen.
+     * @param Appointment 
+     */
     public void initData(Appointment selectedAppointment) throws SQLException {
         
         try{
+            
             for(Customer c : Customers.getAllCustomers()){
                     if(c.getId() == selectedAppointment.getCustomerId()){
                         for(Contact ct : Contacts.getAllContacts())
                             if(ct.getId() == selectedAppointment.getContactId()){
-                            appIdTxt.setText(String.valueOf(selectedAppointment.getId()));
+                            appIdTxt.setText(String.valueOf(selectedAppointment
+                                    .getId()));
                             appTitleTxt.setText(selectedAppointment.getTitle());
-                            appDescriptionTxt.setText(selectedAppointment.getDescription());
-                            appLocationTxt.setText(selectedAppointment.getLocation());
-                            appTypeComboBox.setValue(selectedAppointment.getType());
-                            appStartTimeTxt.setText(selectedAppointment.getStartDateTime().toLocalDateTime().toLocalTime().toString());
+                            appDescriptionTxt.setText(selectedAppointment
+                                    .getDescription());
+                            appLocationTxt.setText(selectedAppointment.
+                                    getLocation());
+                            appTypeComboBox.setValue(selectedAppointment
+                                    .getType());
+                            appStartTimeTxt.setText(selectedAppointment
+                                    .getStartDateTime().toLocalDateTime()
+                                    .toLocalTime().toString());
                             
-                            appEndTimeTxt.setText(selectedAppointment.getEndDateTime().toLocalDateTime().toLocalTime().toString());
+                            appEndTimeTxt.setText(selectedAppointment.
+                                    getEndDateTime().toLocalDateTime().toLocalTime()
+                                    .toString());
                             customerIdComboBox.setValue(c);
                             contactComboBox.setValue(ct);
-                            userIdLabel.setText(String.valueOf(LoginScreenController.getUserID()));
-                            startDate.setValue(selectedAppointment.getStartDateTime().toLocalDateTime().toLocalDate());
-                            endDate.setValue(selectedAppointment.getEndDateTime().toLocalDateTime().toLocalDate());
-
+                            userIdLabel.setText(String.valueOf(LoginScreenController
+                                    .getUserID()));
+                            startDate.setValue(selectedAppointment.getStartDateTime()
+                                    .toLocalDateTime().toLocalDate());
+                            endDate.setValue(selectedAppointment.getEndDateTime()
+                                    .toLocalDateTime().toLocalDate());
+                       }
                     }
        
-                    }
-                    }
-        }
+                }
+            }
+         
         
-        //Is thrown if no part is selected when modify button is clicked
-        catch(NullPointerException e)                
-        {
-            Alert saveAlert = new Alert(Alert.AlertType.WARNING);  
-            saveAlert.setTitle("Warning Dialog");
-            saveAlert.setContentText("No customer was selected. Please select customer.");
-            saveAlert.showAndWait();
-        }
+            //Is thrown if no appointment is selected when update button is clicked
+            catch(NullPointerException e)                
+            {
+                Alert saveAlert = new Alert(Alert.AlertType.WARNING);  
+                saveAlert.setTitle("Warning Dialog");
+                saveAlert.setContentText("No appointment was selected"
+                        + "please select an appointment.");
+                saveAlert.showAndWait();
+            }
 
     }
     
+    /** This method saves the data from the form fields then 
+     * takes the user back to the main screen. Error will be 
+     * thrown if any fields are blank.
+     * @param event Save button is clicked
+     */
     @FXML
-    void onActionSaveAppointment (ActionEvent event) throws IOException, SQLException, HasOverlapExcetption, StartBeforeEndException {
+    void onActionSaveAppointment (ActionEvent event) throws IOException, 
+            SQLException, HasOverlapExcetption, StartBeforeEndException {
         
+        /* Check to see if there are any empty fields*/
         if(appTitleTxt.getText().isEmpty() ||
            appDescriptionTxt.getText().isEmpty() ||
            appLocationTxt.getText().isEmpty() ||
@@ -150,8 +156,8 @@ public class UpdateAppointmentController implements Initializable {
            appEndTimeTxt.getText().isEmpty() ||
            customerIdComboBox.getSelectionModel().isEmpty() ||
            contactComboBox.getSelectionModel().isEmpty()
-                        
-            ) {
+            ) 
+        {
        
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -160,24 +166,29 @@ public class UpdateAppointmentController implements Initializable {
         
        
         }
-        else{
-        LocalTime startTime = FormatTimeEntered.formatStringToLocalTime(appStartTimeTxt);
-        LocalTime endTime = FormatTimeEntered.formatStringToLocalTime(appEndTimeTxt);
+        
+        else {
+        
+        LocalTime startTime = FormatTimeEntered
+                .formatStringToLocalTime(appStartTimeTxt);
+        LocalTime endTime = FormatTimeEntered
+                .formatStringToLocalTime(appEndTimeTxt);
         
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        Instant[]tzc = TimeZoneConversion.opsHours(startDate.getValue(), startTime, endDate.getValue(), endTime);
-        Instant open = tzc[0];
-        Instant close = tzc[1];
-        Instant start = tzc[2];
-        Instant end = tzc[3];
-        
-        int startDay = start.atOffset(ZoneOffset.UTC).getDayOfWeek().getValue();
-        int endDay = end.atOffset(ZoneOffset.UTC).getDayOfWeek().getValue();
+        Instant[]convertedTime = TimeZoneConversion.convertTimeToUTC(startDate.getValue(), 
+                startTime, endDate.getValue(), endTime);
+        Instant open = convertedTime[0];
+        Instant close = convertedTime[1];
+        Instant start = convertedTime[2];
+        Instant end = convertedTime[3];
        
-        if ((start.isAfter(close) || start.isBefore(open) || (end.isAfter(close) || end.isBefore(open)))){
+        if ((start.isAfter(close) || start.isBefore(open) || (end.isAfter(close) 
+                || end.isBefore(open)))){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
-                alert.setContentText("Appointment must be between " + open.atZone(localZoneId) + " and " + close.atZone(localZoneId));
+                alert.setContentText("Appointment must be between " 
+                        + open.atZone(localZoneId) + " and " 
+                        + close.atZone(localZoneId));
                 alert.showAndWait();
         }
 
@@ -185,11 +196,22 @@ public class UpdateAppointmentController implements Initializable {
             throw new StartBeforeEndException();
         }
             
-            CheckForApps.withOverlap(customerIdComboBox.getValue().getId(), start, end, Integer.parseInt(appIdTxt.getText().toString()));
-            UpdateAppointment.ModifyAppointment(Integer.parseInt(appIdTxt.getText().toString()), appTitleTxt.getText().toString(), appDescriptionTxt.getText().toString(), appLocationTxt.getText().toString(), appTypeComboBox.getValue().toString(), startDate.getValue(), startTime, endDate.getValue(), endTime,customerIdComboBox.getValue().getId(), Integer.parseInt(userIdLabel.getText()), contactComboBox.getValue().getId());
+            CheckForApps.withOverlap(customerIdComboBox.getValue().getId(), start, 
+                    end);
+            UpdateAppointment.UpdateAppointment(Integer.parseInt(
+                    appIdTxt.getText().toString()), 
+                    appTitleTxt.getText().toString(), 
+                    appDescriptionTxt.getText().toString(), 
+                    appLocationTxt.getText().toString(), 
+                    appTypeComboBox.getValue().toString(), 
+                    startDate.getValue(), startTime, endDate.getValue(), 
+                    endTime,customerIdComboBox.getValue().getId(), 
+                    Integer.parseInt(userIdLabel.getText()), 
+                    contactComboBox.getValue().getId());
 
             Appointments.appointmentList.clear();
             LoadAppointments.loadAppointments();
+            
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
             stage.setScene(new Scene(scene));

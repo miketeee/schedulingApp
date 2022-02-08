@@ -5,7 +5,6 @@
  */
 package model;
 
-import helper.FormatTimeEntered;
 import java.sql.Timestamp;
 
 /**
@@ -18,8 +17,16 @@ public class AppointmentUniversal extends Appointment{
      public String formattedCreatedDateTime;
      public String formattedUpdatedDateTime;
 
-    public AppointmentUniversal(String formattedStartDateTime, String formattedEndDateTime, String formattedCreatedDateTime, String  formattedUpdatedDateTime, int id, String title, String description, String location, Timestamp startDateTime, Timestamp endDateTime, Timestamp createdDateTime, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId, String type) {
-        super(id, title, description, location, startDateTime, endDateTime, createdDateTime, createdBy, lastUpdate, lastUpdatedBy, customerId, userId, contactId, type);
+    public AppointmentUniversal(String formattedStartDateTime, 
+            String formattedEndDateTime, String formattedCreatedDateTime, 
+            String  formattedUpdatedDateTime, int id, String title, 
+            String description, String location, Timestamp startDateTime, 
+            Timestamp endDateTime, Timestamp createdDateTime, String createdBy, 
+            Timestamp lastUpdate, String lastUpdatedBy, int customerId, int userId, 
+            int contactId, String type) {
+        super(id, title, description, location, startDateTime, endDateTime, 
+                createdDateTime, createdBy, lastUpdate, lastUpdatedBy, customerId, 
+                userId, contactId, type);
         this.formattedStartDateTime = formattedStartDateTime;
         this.formattedEndDateTime = formattedEndDateTime;
         this.formattedCreatedDateTime = formattedCreatedDateTime;

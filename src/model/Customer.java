@@ -5,11 +5,6 @@
  */
 package model;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 /**
  *
  * @author tamic
@@ -25,7 +20,9 @@ public class Customer {
     private java.sql.Timestamp updatedDateTime;
     private String updator;
     private int division;
-    public Customer(int id, String name, String address, String zip, String phone, java.sql.Timestamp createdDateTime, String creator, java.sql.Timestamp updatedDateTime, String updator, int division) {
+    public Customer(int id, String name, String address, String zip, String phone, 
+            java.sql.Timestamp createdDateTime, String creator, 
+            java.sql.Timestamp updatedDateTime, String updator, int division) {
         this.id = id;
         this.name = name;
         this.address = address;
