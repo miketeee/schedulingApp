@@ -19,9 +19,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
-import helper.DBquery;
+import database.DBquery;
 import helper.HandleFile;
-import helper.JDBC;
+import database.JDBC;
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -61,9 +61,9 @@ public class LoginScreenController implements Initializable {
     @FXML
     private TextField username;
     
-    private static List attempts = new ArrayList();
+    List attempts = new ArrayList();
     
-    private static File loginActivity;
+    File loginActivity ;
     
     /*Initialize the logged in user's id to 0.*/
     public static int userID = 0;
@@ -85,7 +85,10 @@ public class LoginScreenController implements Initializable {
     public static void setName(String name) {
         LoginScreenController.name = name;
     }
-
+    
+    public LoginScreenController() throws IOException {
+        this.loginActivity = HandleFile.createFile("login_activity");
+    }
     /**
      * This method returns the user id
      * @return Returns user id
@@ -108,7 +111,8 @@ public class LoginScreenController implements Initializable {
      * @param event Login button clicked
      */
     @FXML
-    void onActionLogin(ActionEvent event) throws SQLException, IOException, HasAppointmentsException {
+    void onActionLogin(ActionEvent event) throws SQLException, IOException, 
+            HasAppointmentsException {
         String userName = username.getText();
         String userPass = password.getText();
         Instant loginTime = Instant.now();
@@ -133,10 +137,10 @@ public class LoginScreenController implements Initializable {
 
             int User_ID = rs.getInt("User_ID");
             String User_Name = rs.getString("User_Name");
-                LoginAttempt loginAttempt = new LoginAttempt(User_Name, 
-                        loginTime, "success");
-                attempts.add(loginAttempt);
-                HandleFile.writeToFile(loginActivity, attempts);
+            LoginAttempt loginAttempt = new LoginAttempt(User_Name, 
+                loginTime, "success");
+            attempts.add(loginAttempt);
+            HandleFile.writeToFile(loginActivity, attempts);
 
             LoginScreenController.setUserID(User_ID);
             LoginScreenController.setName(User_Name);
@@ -148,9 +152,9 @@ public class LoginScreenController implements Initializable {
                     .getResource("/view/MainScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
-         }
-         else {
-                LoginAttempt loginAttempt = new LoginAttempt(userName, 
+        }
+        else {
+            LoginAttempt loginAttempt = new LoginAttempt(userName, 
                         loginTime, "failure");
                 attempts.add(loginAttempt);
                 HandleFile.writeToFile(loginActivity, attempts);

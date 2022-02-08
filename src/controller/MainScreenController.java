@@ -8,38 +8,25 @@ package controller;
 import exceptions.HasAppointmentsException;
 import exceptions.HasOverlapExcetption;
 import helper.CheckForApps;
-import helper.DeleteAppointment;
-import helper.DeleteCustomer;
-import static helper.DeleteCustomer.deleteCustomer;
+import database.DeleteAppointment;
+import database.DeleteCustomer;
 import helper.HandleFile;
-import helper.LoadAppointments;
-import helper.LoadContacts;
-import helper.LoadCustomers;
-import helper.LoadUsers;
+import database.LoadAppointments;
+import database.LoadContacts;
+import database.LoadCustomers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,20 +40,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.AppointmentTime;
 import model.Customer;
-import model.Type;
-import model.allAppointments;
-import model.allCustomers;
+import collections.Appointments;
+import collections.Customers;
 
 
 /** 
  * The class that controls the main screen
- @author Tamicheal Wills
+ @author 
  */
 public class MainScreenController implements Initializable {
 
@@ -79,28 +63,26 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableView<Customer> customersTableView;
     
-   @FXML
-   private RadioButton reportMonthTotal;
- 
-   @FXML
-   private RadioButton reportTypeTotal;
-   
-   @FXML
-   private RadioButton reportByShift;
-   
-   @FXML
-   private RadioButton resetAppsRadioBtn;
-   
-   @FXML
-   private RadioButton reportSchedules;
-   
-   @FXML
-   private RadioButton filterByMonth;
-   
-   @FXML
-   private RadioButton filterByWeek;
-    
-    /** This is the exit button on the main screen. */
+    @FXML
+    private RadioButton reportMonthTotal;
+
+    @FXML
+    private RadioButton reportTypeTotal;
+
+    @FXML
+    private RadioButton reportByShift;
+
+    @FXML
+    private RadioButton resetAppsRadioBtn;
+
+    @FXML
+    private RadioButton reportSchedules;
+
+    @FXML
+    private RadioButton filterByMonth;
+
+    @FXML
+    private RadioButton filterByWeek;
     
     @FXML
     public Label userIdMainLabel;
@@ -115,7 +97,7 @@ public class MainScreenController implements Initializable {
     private Button btnDeleteCustomer;
 
     @FXML
-    private Button btnModifyCustomer;
+    private Button btnUpdateCustomer;
     
     @FXML
     private TableColumn<Customer, String> cAddressCol;
@@ -157,7 +139,7 @@ public class MainScreenController implements Initializable {
     private Button btnDeleteAppointment;
 
     @FXML
-    private Button btnModifyAppointment;
+    private Button btnUpdateAppointment;
     
     @FXML
     private TableColumn<Appointment, String> appTitleCol;
@@ -211,9 +193,110 @@ public class MainScreenController implements Initializable {
     @FXML
     private TableView<Appointment> appointmentsTableView;
     
+    
+    /** This method generates a report of appointments
+     * filtered by month and type.
+    @param event Radio Button selected
+    * 
+    */
+    @FXML
+    void onActionShowMonthAndTypeReport(ActionEvent event) throws IOException{
+        File newFile = HandleFile.createFile("appTotalByMonth");
+        List report = CheckForApps.reportByMonthAndType();
+        HandleFile.writeToFile(newFile, report);
+    }
+    
+    /** This method generates a report of appointments
+     * filtered by which of the two shifts they occur
+     * during and writes it to a text file. Appointments 
+     * before 3pm EST are first shift.
+    @param event Radio Button selected
+    * 
+    */
+    @FXML
+    void onActionShowByShiftReport(ActionEvent event) throws IOException{
+        File newFile = HandleFile.createFile("appTotalByShift");
+        List report = CheckForApps.reportByShift();
+        HandleFile.writeToFile(newFile, report);
+    }
+    
+    /** This method generates a report of schedules for
+     * each contact that exists and writes it to a text file. 
+    @param event Radio Button selected 
+    * 
+    */
+    @FXML
+    void onActionShowSchedules(ActionEvent event) throws IOException{
+        File newFile = HandleFile.createFile("appSchedules");
+        List report = CheckForApps.reportByContact();
+        HandleFile.writeToFile(newFile, report);
+    }
+    
+    
+    /** This method filters the appointment table to
+     * show only the appointments that occur during 
+     * the current month.
+     * @param event Radio Button selected
+     */
+    @FXML
+    void onActionFilterMonth(ActionEvent event) {
 
-    /** This loads the AddCustomer form. 
-    @param event Changes scene to AddCustomer screen.
+        // Set result equal to a stream of all appointments that has been filtered
+        // by the current month and collected
+        // This makes the program more efficient by using a stream to filter appointments
+        // rather than using a for loop to check if an appoinments month is equal to the current month
+        // the code set the tableview without the need to create a seperate list to hold the values
+        
+        // The code assumes what to do rather than me having to explicitly tell it
+        // The code allows the appointment tableview to be set without the need to 
+        //  create new variables. The code sets the table view with a stream
+        //  of all current appointments that has been filtered to only show the 
+        // appointments where the current month of the appointment is equal to 
+        // the current month of current month of which the program is running
+        // based off of the current date.
+       
+
+        appointmentsTableView.setItems(Appointments.getAllAppointments().stream().filter((x) ->
+        x.getStartDateTime().toLocalDateTime().toLocalDate().getMonth() == LocalDateTime.now().toLocalDate().getMonth())
+                .collect(Collectors.toCollection(FXCollections::observableArrayList)));
+    }
+    
+    
+    
+    /** This method filters the appointment table view to only show
+     * appointments that occur during the current week based of the 
+     * current date.
+     * @param event Radio Button selected
+     */
+    @FXML
+    void onActionFilterWeek(ActionEvent event) {
+        TimeZone LocalZoneId = TimeZone.getDefault();
+        Calendar currentWeek = Calendar.getInstance(LocalZoneId);
+        Appointments.appsFilterWeek.clear();
+        for(Appointment app : Appointments.getAllAppointments()){
+            Calendar appWeek = Calendar.getInstance();
+            Date date = app.getStartDateTime();
+            appWeek.setTime(date);
+            if(appWeek.get(Calendar.WEEK_OF_YEAR) 
+                    == currentWeek.get(Calendar.WEEK_OF_YEAR)){
+                Appointments.appsFilterWeek.add(app);
+            }
+        }
+        appointmentsTableView.setItems(Appointments.getAppsFilterWeek());
+    }
+    
+    
+    /** This method resets the appointment table view to 
+     * show all appointments.
+     * @param event Radio Button selected
+     */
+    @FXML
+    void onActionResetApps(ActionEvent event) {
+        appointmentsTableView.setItems(Appointments.getAllAppointments());
+    }
+    
+    /** This method takes the user to the the add customer form. 
+    @param event Add button clicked.
     */
     @FXML
     void onActionAddCustomer (ActionEvent event) throws IOException {
@@ -225,100 +308,30 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
     
-        /** This method loads the ModifyPart screen. 
-    @param event gets the selected part and sends it data to the ModifyPart 
-    * screen. 
-    */
     
+    /** This method sends the information of the item that 
+     * was selected to the update customer form.
+     * @param event Update button clicked
+     */
     @FXML
-    void onActionShowMonthAndTypeReport(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appTotalByMonth");
-        List report = CheckForApps.reportByMonth();
-        HandleFile.writeToFile(newFile, report);
-    }
-    
-    @FXML
-    void onActionShowByShiftReport(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appTotalByShift");
-        List report = CheckForApps.reportByShift();
-        HandleFile.writeToFile(newFile, report);
-    }
-    
-    @FXML
-    void onActionShowSchedules(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appSchedules");
-        List report = CheckForApps.reportByContact();
-        HandleFile.writeToFile(newFile, report);
-    }
-    
-    public void clearTable(){
-        appointmentsTableView.getItems().clear();
-    }
-    
-    @FXML
-    void onActionFilterMonth(ActionEvent event) {
-
-        // Set result equal to a stream of all appointments that has been filtered
-        // by the current month and collected
-        // This makes the program more efficient by using a stream to filter appointments
-        // rather than using a for loop to check if an appoinments month is equal to the current month
-        // the code set the tableview without the need to create a seperate list to hold the values
-
-        appointmentsTableView.setItems(allAppointments.getAllAppointments().stream().filter((x) ->
-        x.getStartDateTime().toLocalDateTime().toLocalDate().getMonth() == LocalDateTime.now().toLocalDate().getMonth())
-                .collect(Collectors.toCollection(FXCollections::observableArrayList)));
-    }
-    
-    
-    @FXML
-    void onActionFilterWeek(ActionEvent event) {
-        TimeZone LocalZoneId = TimeZone.getDefault();
-        Calendar currentWeek = Calendar.getInstance(LocalZoneId);
-        allAppointments.appsFilterWeek.clear();
-        for(Appointment app : allAppointments.getAllAppointments()){
-            Calendar appWeek = Calendar.getInstance();
-            Date date = app.getStartDateTime();
-            appWeek.setTime(date);
-            if(appWeek.get(Calendar.WEEK_OF_YEAR) == currentWeek.get(Calendar.WEEK_OF_YEAR)){
-                allAppointments.appsFilterWeek.add(app);
-            }
-        }
-        appointmentsTableView.setItems(allAppointments.getAppsFilterWeek());
-    }
-    
-    @FXML
-    void onActionResetApps(ActionEvent event) {
-        appointmentsTableView.setItems(allAppointments.getAllAppointments());
-    }
-    
-    @FXML
-    private void onActionModifyCustomer(ActionEvent event) throws SQLException {
+    private void onActionUpdateCustomer(ActionEvent event) throws SQLException {
         try {
-            //Load second scene
+
             FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource(("/view/ModifyCustomer.fxml")));
+                    .getResource(("/view/UpdateCustomer.fxml")));
             Parent root = loader.load();
            
-            //Get modifyCustomer controller 
-            UpdateCustomerController modifyCustomerController = loader
+            UpdateCustomerController updateCustomerController = loader
                     .getController();
-            //Pass whatever data you want. You can have multiple method calls here
-           
-            //This sets the basic fields to those of whatever part is selected
-            modifyCustomerController.initData(customersTableView
-                    .getSelectionModel().getSelectedItem());
-            
-//            //This determines whether the selected part is inhouse or outsourced
-//            modifyCustomerController.modPartType(customersTableView.getSelectionModel().getSelectedItem());
 
-                
-            
+            updateCustomerController.initData(customersTableView
+                    .getSelectionModel().getSelectedItem());
+               
             customersTableView.getSelectionModel().getSelectedItem().getId();
 
-            // Changes scene to ModifyPart screen
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass()
-                    .getResource("/view/ModifyCustomer.fxml"));
+                    .getResource("/view/UpdateCustomer.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
          
@@ -327,8 +340,8 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    /** This method deletes a part from the inventory. 
-    @param event removes the selected part. 
+    /** This method deletes a customer from the database. 
+    @param event Delete customer button clicked 
     */
     @FXML
     void onActionDeleteCustomer (ActionEvent event) throws IOException, 
@@ -342,58 +355,57 @@ public class MainScreenController implements Initializable {
         
         Optional<ButtonType> result = alert.showAndWait();
         
-        if(result.isPresent() && result.get() == ButtonType.OK)
-        {
-        DeleteCustomer.deleteCustomer(customersTableView.getSelectionModel()
-                .getSelectedItem().getId());
-        allCustomers.customerList.clear();
-        LoadCustomers.loadCustomers();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            DeleteCustomer.deleteCustomer(customersTableView.getSelectionModel()
+                    .getSelectedItem().getId());
+            Customers.customerList.clear();
+            LoadCustomers.loadCustomers();
         }
         
     }
     
+    /** This method takes the user to the the add appointment form. 
+    @param event Add button clicked.
+    */
     @FXML
-    void onActionAddAppointment (ActionEvent event) throws IOException, SQLException {
+    void onActionAddAppointment (ActionEvent event) throws IOException, 
+            SQLException {
         
-//        LoadUsers.loadUser();
         LoadContacts.loadContacts();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(("/view/AddAppointment.fxml")));
+        FXMLLoader loader = new FXMLLoader(getClass()
+                .getResource(("/view/AddAppointment.fxml")));
         Parent root = loader.load();
-           
         
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        scene = FXMLLoader.load(getClass()
+                .getResource("/view/AddAppointment.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
     
-        /** This method loads the ModifyPart screen. 
-    @param event gets the selected part and sends it data to the ModifyPart screen. 
-    */
+    /** This method sends the information of the item that 
+     * was selected to the update appointment form.
+     * @param event Update button clicked
+     */
     @FXML
-    private void onActionModifyAppointment(ActionEvent event) throws IOException, SQLException {
+    private void onActionUpdateAppointment(ActionEvent event) throws IOException, 
+            SQLException {
         try {
-            //Load second scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/view/ModifyAppointment.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource(("/view/UpdateAppointment.fxml")));
             Parent root = loader.load();
            
-            //Get modifyCustomer controller 
-            UpdateAppointmentController modifyAppointmentController = loader.getController();
-            //Pass whatever data you want. You can have multiple method calls here
+            UpdateAppointmentController updateAppointmentController 
+                    = loader.getController();
            
-            //This sets the basic fields to those of whatever part is selected
-            modifyAppointmentController.initData(appointmentsTableView.getSelectionModel().getSelectedItem());
-            
-//            //This determines whether the selected part is inhouse or outsourced
-//            modifyCustomerController.modPartType(customersTableView.getSelectionModel().getSelectedItem());
-
-                
+            updateAppointmentController.initData(appointmentsTableView
+                    .getSelectionModel().getSelectedItem());
             
             appointmentsTableView.getSelectionModel().getSelectedItem().getId();
 
-            // Changes scene to ModifyPart screen
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/ModifyAppointment.fxml"));
+            scene = FXMLLoader.load(getClass()
+                    .getResource("/view/UpdateAppointment.fxml"));
             stage.setScene(new Scene(root));
             stage.show();
         }
@@ -403,32 +415,43 @@ public class MainScreenController implements Initializable {
         }
     }
     
-    public void canxApp(Appointment app) {
+    /**This method shows an alert with appointment data 
+     * after any appointment is deleted from the database.
+     * @param Appointment object
+     */
+    private void cancelledApp(Appointment app) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setContentText("Appointment ID: " + app.getId() + " Type: " + app.getType() +  " has been canceled");
+        alert.setContentText("Appointment ID: " + app.getId() + " Type: " 
+                + app.getType() +  " has been canceled");
         alert.showAndWait();
     }
     
+    /** This method deletes the selected appointment from the database. 
+    @param event Delete button clicked
+    */
     @FXML
-    void onActionDeleteAppointment (ActionEvent event) throws IOException, SQLException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete the selected do you want to continue?");
+    private void onActionDeleteAppointment (ActionEvent event) throws IOException, 
+            SQLException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, 
+                "This will delete the selected do you want to continue?");
         
         Optional<ButtonType> result = alert.showAndWait();
         
         if(result.isPresent() && result.get() == ButtonType.OK)
         {
-        canxApp(appointmentsTableView.getSelectionModel().getSelectedItem());
-        DeleteAppointment.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getId());
-        allAppointments.appointmentList.clear();
+        cancelledApp(appointmentsTableView.getSelectionModel().getSelectedItem());
+        DeleteAppointment.deleteAppointment(appointmentsTableView
+                .getSelectionModel().getSelectedItem().getId());
+        Appointments.appointmentList.clear();
         LoadAppointments.loadAppointments();
-        CheckForApps.reportByMonth();
+        CheckForApps.reportByMonthAndType();
     }
     }
     
     
     /** This method exits the program. 
-    @param event closes the program.
+    @param event Exit button clicked.
     */
     @FXML
     void onActionExit (ActionEvent event) throws IOException {
@@ -444,15 +467,11 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-//     CheckForApps.reportByMonth();
-//     CheckForApps.reportByType();
-//     CheckForApps.reportForFirstShift();
-//     CheckForApps.reportByContact();
- 
+        // Set user id, customers table view, and appointments table view
   
      userIdMainLabel.setText(String.valueOf(LoginScreenController.getUserID()));
 
-     customersTableView.setItems(allCustomers.getAllCustomers());
+     customersTableView.setItems(Customers.getAllCustomers());
      cidCol.setCellValueFactory(new PropertyValueFactory<>("id"));
      cNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
      cAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -464,7 +483,7 @@ public class MainScreenController implements Initializable {
      cDivisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
      cCreatorCol.setCellValueFactory(new PropertyValueFactory<>("creator"));
      
-     appointmentsTableView.setItems(allAppointments.getAllAppointments());
+     appointmentsTableView.setItems(Appointments.getAllAppointments());
      appIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
      appTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
      appDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));

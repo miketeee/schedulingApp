@@ -19,16 +19,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import helper.LoadCustomers;
+import database.LoadCustomers;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleGroup;
-import model.allCustomers;
-import model.allDivisions;
+import collections.Customers;
+import collections.Divisions;
 import java.lang.NullPointerException;
 import javafx.scene.control.RadioButton;
 import model.Division;
-import helper.LoadCountries;
+import database.LoadCountries;
 
 /**
  * The class that controls the add customer form
@@ -84,7 +84,7 @@ public class AddCustomerController implements Initializable {
               alert.showAndWait();
           }
           else {
-              allDivisions.divisionList.clear();
+              Divisions.divisionList.clear();
               customerDivision.setPromptText("Make a selection");
               
               if (countryTG.getSelectedToggle().equals(ukRadioBtn)){
@@ -100,7 +100,7 @@ public class AddCustomerController implements Initializable {
                  LoadCountries.loadCountries(clickedCountry);
               }
             
-            customerDivision.setItems(allDivisions.getAllDivisions());
+            customerDivision.setItems(Divisions.getAllDivisions());
           
           }
 
@@ -113,7 +113,7 @@ public class AddCustomerController implements Initializable {
      */
     @FXML
     private void onActionClearComboBox(ActionEvent event) throws IOException{
-        allDivisions.divisionList.clear();
+        Divisions.divisionList.clear();
         customerDivision.setValue(null);
         customerDivision.setPromptText("Click on Search");
     }
@@ -127,11 +127,11 @@ public class AddCustomerController implements Initializable {
     private void onActionSaveCustomer (ActionEvent event) throws IOException, 
             SQLException {
         try {
-            helper.AddCustomer.addCustomer(customerNameTxt.getText(), 
+            database.AddCustomer.addCustomer(customerNameTxt.getText(), 
                     customerAddressTxt.getText(), customerPostalTxt.getText(), 
                     customerPhoneTxt.getText(), customerDivision.getValue()
                             .getId());
-            allCustomers.customerList.clear();
+            Customers.customerList.clear();
             LoadCustomers.loadCustomers();
         
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();

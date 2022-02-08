@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Appointment;
 
 /**
  *
  * @author tamic
  */
-public class allAppointments {
+public class Appointments {
     
         /**This list contains all parts in the inventory. */
     public static ObservableList<Appointment>appointmentList = FXCollections
@@ -32,11 +33,11 @@ public class allAppointments {
     }
 
     public static void setAppsFilterMonth(ObservableList<Appointment> appsFilterMonth) {
-        allAppointments.appsFilterMonth = appsFilterMonth;
+        Appointments.appsFilterMonth = appsFilterMonth;
     }
 
     public static void setAppsFilterWeek(ObservableList<Appointment> appsFilterWeek) {
-        allAppointments.appsFilterWeek = appsFilterWeek;
+        Appointments.appsFilterWeek = appsFilterWeek;
     }
 
     public static ObservableList<Appointment> getAppsFilterWeek() {

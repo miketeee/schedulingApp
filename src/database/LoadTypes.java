@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import model.AllTypes;
+import collections.AppTypes;
 import model.Type;
 
 /**
@@ -18,9 +18,9 @@ public class LoadTypes {
         String type2 = new String("Standard");
         String type3 = new String("Express");
         
-        AllTypes.addType(type1);
-        AllTypes.addType(type2);
-        AllTypes.addType(type3);
+        AppTypes.addType(type1);
+        AppTypes.addType(type2);
+        AppTypes.addType(type3);
 
     }
 }

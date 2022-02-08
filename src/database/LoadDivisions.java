@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import static helper.JDBC.conn;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import model.Customer;
 import model.Division;
-import model.allDivisions;
+import collections.Divisions;
 
 /**
  *
@@ -54,7 +54,7 @@ public class LoadDivisions {
 //             System.out.println(Division_ID + " | " + Division + " | " + dateTime + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Country_ID + " | ");
   
              Division division = new Division(Division_ID ,Division ,dateTime ,Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
-             allDivisions.addDivisions(division);
+             Divisions.addDivisions(division);
          }
          
     
@@ -91,8 +91,8 @@ public class LoadDivisions {
              // Display Record
 //             System.out.println(Division_ID + " | " + Division + " | " + dateTime + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Country_ID + " | ");
              Division division = new Division(Division_ID ,Division ,dateTime ,Created_By ,Last_Update ,Last_Updated_By ,Country_ID);
-//             allDivisions.divisionList.clear();
-             allDivisions.addDivisions(division);
+//             Divisions.divisionList.clear();
+             Divisions.addDivisions(division);
          }
          
     

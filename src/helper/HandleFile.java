@@ -45,32 +45,6 @@ public class HandleFile {
         }
         return newFile;
     }
-     
-//    public static ArrayList readFromFile(File file) throws FileNotFoundException, IOException {
-//            
-//            List<String> readLogins = Files.;
-//            
-//            System.out.print(readLogins);
-////            List attempts = readLogins.collect(Collectors.toList());
-//  
-////            System.out.print(logins[0]);
-//            
-//            
-////            previousLogins = readLogins
-////                    .map(x -> x.split("="))
-////                    .collect(Collectors.toMap(
-////                            x -> x[0], 
-////                            x -> x[1]));
-////                        readLogins.close();
-////            System.out.print(readLogins);
-//            
-////        for(Object entry : map.entrySet()){
-////            Stream previous = Stream.of(map);
-////            System.out.print(previous);
-////        }
-// 
-//        return (ArrayList) readLogins;
-//    }
     
     public static void writeToFile(File file, List map) throws IOException {
         FileWriter fWriter = new FileWriter(file.getPath(), true);

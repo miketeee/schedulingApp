@@ -6,7 +6,7 @@
 package model;
 
 import helper.FormatTimeEntered;
-import helper.LoadCustomers;
+import database.LoadCustomers;
 import java.security.Timestamp;
 import java.sql.SQLException;
 import java.time.LocalDate;

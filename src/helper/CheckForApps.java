@@ -29,10 +29,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import model.AllContacts;
+import collections.Contacts;
 import model.Appointment;
 import model.Contact;
-import model.allAppointments;
+import collections.Appointments;
 
 /**
  *
@@ -40,7 +40,7 @@ import model.allAppointments;
  */
 public class CheckForApps {
     public static void check(int customerId) throws HasOverlapExcetption, HasAppointmentsException{
-        for(Appointment app : allAppointments.getAllAppointments()){
+        for(Appointment app : Appointments.getAllAppointments()){
             if(app.getCustomerId() == customerId){
                     throw new exceptions.HasAppointmentsException();
             }
@@ -52,17 +52,17 @@ public class CheckForApps {
     public static void withinFifteenMinutes() throws HasAppointmentsException {
         Function<Integer, Double> half = x -> x / 2.0;
         Timestamp dueWithin = Timestamp.valueOf(LocalDateTime.now().plusMinutes(15));
-            for(Appointment app : allAppointments.getAllAppointments()){
+            for(Appointment app : Appointments.getAllAppointments()){
             if((app.getStartDateTime().before(dueWithin)) & app.getStartDateTime().after(Timestamp.valueOf(LocalDateTime.now()))) {
-//                allAppointments.appointmentList.forEach( (n) -> { allAppointments.addUpcomingApps(n);} );
-                allAppointments.addUpcomingApps(app);
+//                Appointments.appointmentList.forEach( (n) -> { Appointments.addUpcomingApps(n);} );
+                Appointments.addUpcomingApps(app);
                 }
             }
-            if(allAppointments.appWithinFifteenList.size() >= 1){
+            if(Appointments.appWithinFifteenList.size() >= 1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setContentText("Upcoming Appointments");
-                alert.setContentText(allAppointments.getAllUpcomingApps().toString());
+                alert.setContentText(Appointments.getAllUpcomingApps().toString());
                 alert.showAndWait();
             }
             else {
@@ -73,9 +73,9 @@ public class CheckForApps {
             }
     }  
     
-    public static List reportByMonth() throws IOException {
+    public static List reportByMonthAndType() throws IOException {
         HashMap<String, Integer> monthAndType = new HashMap<>();
-        for(Appointment app : allAppointments.getAllAppointments()) {
+        for(Appointment app : Appointments.getAllAppointments()) {
             String monthType = app.getStartDateTime().toLocalDateTime().getMonth().toString() + "-" + app.getType();
             if(!monthAndType.containsKey(monthType)){
                 monthAndType.put(monthType, 1);
@@ -94,7 +94,7 @@ public class CheckForApps {
         public static List<HashMap<String, List<Appointment>>> reportByShift() {
         List<Appointment> firstShiftApps = new ArrayList<>();
         List<Appointment> secondShiftApps = new ArrayList<>();
-        for(Appointment app : allAppointments.getAllAppointments()){
+        for(Appointment app : Appointments.getAllAppointments()){
             LocalDate startDate = app.getStartDateTime().toLocalDateTime().toLocalDate();
             LocalTime startTime = app.getStartDateTime().toLocalDateTime().toLocalTime();
             LocalDate endDate = app.getEndDateTime().toLocalDateTime().toLocalDate();
@@ -123,8 +123,8 @@ public class CheckForApps {
         
         public static List reportByContact() {
             HashMap<Contact, List<Appointment>> schedule = new HashMap<>();
-            for(Appointment app : allAppointments.getAllAppointments()){
-                for(Contact ct : AllContacts.getAllContacts()){
+            for(Appointment app : Appointments.getAllAppointments()){
+                for(Contact ct : Contacts.getAllContacts()){
                 if(!schedule.containsKey(ct))
                     schedule.put(ct, new ArrayList<>());
                     if(app.getContactId() == ct.getId()){
@@ -139,6 +139,24 @@ public class CheckForApps {
         }
         return Arrays.asList(schedule);
 
+    }
+
+    public static void withOverlap(int customerId, Instant startTime, 
+            Instant endTime, int appId) throws HasOverlapExcetption {
+        for (Appointment app : Appointments.getAllAppointments()) {
+            if (app.getCustomerId() == customerId) {
+                if ((!startTime.isBefore(app.getStartDateTime().toInstant()) 
+                        && !startTime.isBefore(app.getEndDateTime().toInstant())) 
+                        || (!endTime.isAfter(app.getStartDateTime().toInstant()) 
+                        && !endTime.isAfter(app.getEndDateTime().toInstant()))) {
+                    continue;
+                } else if (app.getId() == appId) {
+                    continue;
+                } else {
+                    throw new HasOverlapExcetption();
+                }
+            }
+        }
     }
         
 }

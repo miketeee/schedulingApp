@@ -7,7 +7,7 @@ package controller;
 
 import exceptions.HasOverlapExcetption;
 import exceptions.StartBeforeEndException;
-import helper.LoadDivisions;
+import database.LoadDivisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,17 +26,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Appointment;
-import model.AppointmentTime;
+import model.AppointmentUniversal;
 import model.Contact;
 import model.Customer;
 import model.Type;
-import model.allCustomers;
-import model.allDivisions;
+import collections.Customers;
+import collections.Divisions;
 import helper.FormatTimeEntered;
-import helper.LoadAppointments;
-import helper.ModifyAppointment;
+import database.LoadAppointments;
+import database.UpdateAppointment;
 import helper.TimeZoneConversion;
-import helper.CheckForOverlap;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,9 +43,10 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.TimeZone;
 import javafx.scene.control.TextFormatter;
-import model.AllContacts;
-import model.AllTypes;
-import model.allAppointments;
+import collections.Contacts;
+import collections.AppTypes;
+import collections.Appointments;
+import helper.CheckForApps;
 
 /**
  * The class that controls the update appointment form
@@ -93,7 +93,7 @@ public class UpdateAppointmentController implements Initializable {
     //value returning Lambda Expression
    
 //    CustomerInterface appCID = a -> {
-//       String name = allCustomers.getAllCustomers(); 
+//       String name = Customers.getAllCustomers(); 
 //    };
     
             /**This method loads the scene with selectedPart's values.
@@ -102,9 +102,9 @@ public class UpdateAppointmentController implements Initializable {
     public void initData(Appointment selectedAppointment) throws SQLException {
         
         try{
-            for(Customer c : allCustomers.getAllCustomers()){
+            for(Customer c : Customers.getAllCustomers()){
                     if(c.getId() == selectedAppointment.getCustomerId()){
-                        for(Contact ct : AllContacts.getAllContacts())
+                        for(Contact ct : Contacts.getAllContacts())
                             if(ct.getId() == selectedAppointment.getContactId()){
                             appIdTxt.setText(String.valueOf(selectedAppointment.getId()));
                             appTitleTxt.setText(selectedAppointment.getTitle());
@@ -185,10 +185,10 @@ public class UpdateAppointmentController implements Initializable {
             throw new StartBeforeEndException();
         }
             
-            CheckForOverlap.checkForOverlap(customerIdComboBox.getValue().getId(), start, end, Integer.parseInt(appIdTxt.getText().toString()));
-            ModifyAppointment.ModifyAppointment(Integer.parseInt(appIdTxt.getText().toString()), appTitleTxt.getText().toString(), appDescriptionTxt.getText().toString(), appLocationTxt.getText().toString(), appTypeComboBox.getValue().toString(), startDate.getValue(), startTime, endDate.getValue(), endTime,customerIdComboBox.getValue().getId(), Integer.parseInt(userIdLabel.getText()), contactComboBox.getValue().getId());
+            CheckForApps.withOverlap(customerIdComboBox.getValue().getId(), start, end, Integer.parseInt(appIdTxt.getText().toString()));
+            UpdateAppointment.ModifyAppointment(Integer.parseInt(appIdTxt.getText().toString()), appTitleTxt.getText().toString(), appDescriptionTxt.getText().toString(), appLocationTxt.getText().toString(), appTypeComboBox.getValue().toString(), startDate.getValue(), startTime, endDate.getValue(), endTime,customerIdComboBox.getValue().getId(), Integer.parseInt(userIdLabel.getText()), contactComboBox.getValue().getId());
 
-            allAppointments.appointmentList.clear();
+            Appointments.appointmentList.clear();
             LoadAppointments.loadAppointments();
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
@@ -213,9 +213,9 @@ public class UpdateAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    customerIdComboBox.setItems(allCustomers.getAllCustomers());
-    contactComboBox.setItems(AllContacts.getAllContacts());
-    appTypeComboBox.setItems(AllTypes.getAllTypes());
+    customerIdComboBox.setItems(Customers.getAllCustomers());
+    contactComboBox.setItems(Contacts.getAllContacts());
+    appTypeComboBox.setItems(AppTypes.getAllTypes());
     }    
     
 }

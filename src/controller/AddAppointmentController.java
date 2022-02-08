@@ -8,9 +8,8 @@ package controller;
 import exceptions.HasOverlapExcetption;
 import exceptions.StartBeforeEndException;
 import helper.FormatTimeEntered;
-import helper.LoadAppointments;
+import database.LoadAppointments;
 import helper.TimeZoneConversion;
-import helper.CheckForOverlap;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,12 +32,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.AllContacts;
-import model.AllTypes;
+import collections.Contacts;
+import collections.AppTypes;
 import model.Contact;
 import model.Customer;
-import model.allAppointments;
-import model.allCustomers;
+import collections.Appointments;
+import collections.Customers;
+import helper.CheckForApps;
 
 /**
  * The class that controls the add appointment form
@@ -124,10 +124,10 @@ public class AddAppointmentController implements Initializable {
                 throw new StartBeforeEndException();
             }
             else{
-                CheckForOverlap.checkForOverlap(customerIdComboBox.getValue()
+                CheckForApps.withOverlap(customerIdComboBox.getValue()
                         .getId(),
                         start, end, -1);
-                helper.AddAppointment.addAppointment(appTitleTxt.getText(), 
+                database.AddAppointment.addAppointment(appTitleTxt.getText(), 
                         appDescriptionTxt.getText(), appLocationTxt.getText(), 
                         appTypeComboBox.getValue(), sDate, sTime, eDate, eTime, 
                         customerIdComboBox.getValue().getId(), 
@@ -136,7 +136,7 @@ public class AddAppointmentController implements Initializable {
        
       
                 
-                allAppointments.appointmentList.clear();
+                Appointments.appointmentList.clear();
                 LoadAppointments.loadAppointments();
                 stage = (Stage) ((Button)event.getSource()).getScene()
                         .getWindow();
@@ -178,13 +178,13 @@ public class AddAppointmentController implements Initializable {
  
         
         userIdLabel.setText(String.valueOf(LoginScreenController.getUserID()));
-        appTypeComboBox.setItems(AllTypes.getAllTypes());
+        appTypeComboBox.setItems(AppTypes.getAllTypes());
         appTypeComboBox.setPromptText("Appointment type");
         
-        customerIdComboBox.setItems(allCustomers.getAllCustomers());
+        customerIdComboBox.setItems(Customers.getAllCustomers());
         customerIdComboBox.setPromptText("Select a customer");
         
-        contactComboBox.setItems(AllContacts.getAllContacts());
+        contactComboBox.setItems(Contacts.getAllContacts());
         contactComboBox.setPromptText("Select a Contact");
         
         

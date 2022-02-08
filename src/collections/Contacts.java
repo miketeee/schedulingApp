@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Contact;
 
 /**
  *
  * @author tamic
  */
-public class AllUsers {
+public class Contacts {
     
         /**This list contains all parts in the inventory. */
-    public static ObservableList<User>userList = FXCollections.observableArrayList();
+    private static ObservableList<Contact>contactList = FXCollections.observableArrayList();
     
-    public static void addUser(User user)
+    public static void addContact(Contact contact)
     {
-        userList.add(user);        
+        contactList.add(contact);        
     }
     
-    public static ObservableList<User> getAllUsers()
+    public static ObservableList<Contact> getAllContacts()
     {
-    return userList;   
+    return contactList;   
     }
-    
     
 }

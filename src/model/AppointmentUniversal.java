@@ -12,13 +12,13 @@ import java.sql.Timestamp;
  *
  * @author tamic
  */
-public class AppointmentTime extends Appointment{
+public class AppointmentUniversal extends Appointment{
      public String formattedStartDateTime;
      public String formattedEndDateTime;
      public String formattedCreatedDateTime;
      public String formattedUpdatedDateTime;
 
-    public AppointmentTime(String formattedStartDateTime, String formattedEndDateTime, String formattedCreatedDateTime, String  formattedUpdatedDateTime, int id, String title, String description, String location, Timestamp startDateTime, Timestamp endDateTime, Timestamp createdDateTime, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId, String type) {
+    public AppointmentUniversal(String formattedStartDateTime, String formattedEndDateTime, String formattedCreatedDateTime, String  formattedUpdatedDateTime, int id, String title, String description, String location, Timestamp startDateTime, Timestamp endDateTime, Timestamp createdDateTime, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId, String type) {
         super(id, title, description, location, startDateTime, endDateTime, createdDateTime, createdBy, lastUpdate, lastUpdatedBy, customerId, userId, contactId, type);
         this.formattedStartDateTime = formattedStartDateTime;
         this.formattedEndDateTime = formattedEndDateTime;

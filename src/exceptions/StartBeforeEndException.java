@@ -7,11 +7,6 @@ package exceptions;
 
 import javafx.scene.control.Alert;
 
-/**
- *
- * @author tamic
- */
-
 /** This class generates a HasPartsException*/
 public class StartBeforeEndException extends Exception{
    

@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import static helper.JDBC.conn;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import model.AllContacts;
+import collections.Contacts;
 import model.User;
-import model.AllUsers;
+import collections.Users;
 import model.Contact;
 
 /**
@@ -48,7 +48,7 @@ public class LoadContacts {
              // Display Record
 //             System.out.println(CustomerID + " | " + Customer_Name + " | " + Address + " | " + Postal_code + " | " + Phone + " | " + date + "" + time + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Division + " | " );
              Contact contact = new Contact(Contact_ID, Contact_Name, Email);
-             AllContacts.addContact(contact);
+             Contacts.addContact(contact);
          }
     
 }

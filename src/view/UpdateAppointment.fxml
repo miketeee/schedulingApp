@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="538.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyAppointmentController">
+<AnchorPane id="AnchorPane" prefHeight="538.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateAppointmentController">
     <children>
       <VBox layoutX="14.0" layoutY="40.0" prefHeight="248.0" prefWidth="107.0" spacing="20.0">
          <children>

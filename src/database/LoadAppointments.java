@@ -3,27 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import static helper.JDBC.conn;
-import java.security.Timestamp;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
-import model.Appointment;
-import model.AppointmentTime;
-import model.Customer;
-import model.Type;
-import model.allAppointments;
-import model.allCustomers;
+import model.AppointmentUniversal;
+import collections.Appointments;
+import helper.FormatTimeEntered;
 
 /**
  *
@@ -58,11 +48,8 @@ public class LoadAppointments {
              String Location = rsa.getString("Location");
              String Type = rsa.getString("Type"); 
              java.sql.Timestamp startDateTime = rsa.getTimestamp("Start");
-//             String startTimeSliced = dtf.format(startDateTime.toLocalDateTime());
              java.sql.Timestamp endDateTime = rsa.getTimestamp("End");
-//             String endTimeSliced = dtf.format(endDateTime.toLocalDateTime());
              java.sql.Timestamp createdDateTime = rsa.getTimestamp("Create_Date");
-//             String createdSliced = dtf.format(createdDateTime.toLocalDateTime());
              String Created_By = rsa.getString("Created_By");
              java.sql.Timestamp lastUpdateDateTime = rsa.getTimestamp("Last_Update");
              String Last_Updated_By = rsa.getString("Last_Updated_By");
@@ -70,17 +57,17 @@ public class LoadAppointments {
              int User_ID = rsa.getInt("User_ID");
              int Contact_ID = rsa.getInt("Contact_ID");
           
-             
              String startDT = FormatTimeEntered.formatTime(startDateTime);
              String endDT = FormatTimeEntered.formatTime(endDateTime);
              String createdDT = FormatTimeEntered.formatTime(createdDateTime);
              String updatedDT = FormatTimeEntered.formatTime(lastUpdateDateTime);
              
-             
-             // Display Record
-//             System.out.println(Appointment_ID + " | " + Title + " | " + Description + " | " + Location + " | " + Type + " | " + dateStart + " | " + timeStart + " | " + dateEnd + " | " + timeEnd + " | "+ date + "" + time + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Customer_ID + " | " + User_ID + " | "+ Contact_ID + " | " );
-             AppointmentTime appointment = new AppointmentTime(startDT, endDT, createdDT, updatedDT, Appointment_ID, Title ,Description ,Location, startDateTime, endDateTime, createdDateTime, Created_By, lastUpdateDateTime, Last_Updated_By, Customer_ID, User_ID, Contact_ID, Type);
-             allAppointments.addAppointments(appointment);
+             AppointmentUniversal appointment = new AppointmentUniversal(startDT, 
+                     endDT, createdDT, updatedDT, Appointment_ID, Title,
+                     Description ,Location, startDateTime, endDateTime, 
+                     createdDateTime, Created_By, lastUpdateDateTime, 
+                     Last_Updated_By, Customer_ID, User_ID, Contact_ID, Type);
+             Appointments.addAppointments(appointment);
          }
     
 }

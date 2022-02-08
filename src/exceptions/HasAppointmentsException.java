@@ -7,16 +7,12 @@ package exceptions;
 
 import javafx.scene.control.Alert;
 
-/**
- *
- * @author tamic
- */
-
 /** This class generates a HasPartsException*/
 public class HasAppointmentsException extends Exception{
    
-    /**This is the HasPartsException constructor. 
-     This exception prevents a product from being deleted if it has associated parts. 
+    /**This is the HasAppointmentsException constructor. 
+     *This exception prevents a customer from being deleted if the customer
+     * id is associated with an existing appointment.
      */
     public HasAppointmentsException(){
         Alert saveAlert = new Alert(Alert.AlertType.ERROR);  

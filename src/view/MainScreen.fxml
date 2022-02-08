@@ -34,7 +34,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnAddCustomer" layoutX="449.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add" />
-      <Button fx:id="btnModifyCustomer" layoutX="508.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Modify" />
+      <Button fx:id="btnUpdateCustomer" layoutX="508.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionUpdateCustomer" text="Update" />
       <Button fx:id="btnDeleteCustomer" layoutX="580.0" layoutY="301.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" text="Delete" />
       <TableView fx:id="appointmentsTableView" layoutX="22.0" layoutY="374.0" prefHeight="200.0" prefWidth="1054.0">
          <columns>
@@ -55,7 +55,7 @@
          </columns>
       </TableView>
       <Button fx:id="btnAddAppointment" layoutX="449.0" layoutY="605.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add" />
-      <Button fx:id="btnModifyAppointment" layoutX="508.0" layoutY="605.0" mnemonicParsing="false" onAction="#onActionModifyAppointment" text="Modify" />
+      <Button fx:id="btnUpdateAppointment" layoutX="508.0" layoutY="605.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update" />
       <Button fx:id="btnDeleteAppointment" layoutX="580.0" layoutY="605.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete" />
       <Label layoutX="17.0" layoutY="340.0" text="Appointments">
          <font>
@@ -75,8 +75,8 @@
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="1076.0" layoutY="99.0" prefHeight="17.0" prefWidth="173.0" text="Select button to view report" textAlignment="RIGHT" />
-      <RadioButton fx:id="reportMonthTotalRadioBtn" layoutX="1089.0" layoutY="134.0" mnemonicParsing="false" onAction="#onActionShowMonthAndTypeReport" text="Total by month" />
-      <RadioButton fx:id="reportByShiftRadioBtn" layoutX="1088.0" layoutY="161.0" mnemonicParsing="false" onAction="#onActionShowByShiftReport" text="By shift" />
+      <RadioButton fx:id="reportMonthTotalRadioBtn" layoutX="1089.0" layoutY="134.0" mnemonicParsing="false" onAction="#onActionShowMonthAndTypeReport" text="Total by month and type" />
+      <RadioButton fx:id="reportByShiftRadioBtn" layoutX="1088.0" layoutY="161.0" mnemonicParsing="false" onAction="#onActionShowByShiftReport" text="Total by shift" />
       <RadioButton fx:id="reportSchedulesRadioBtn" layoutX="1086.0" layoutY="190.0" mnemonicParsing="false" onAction="#onActionShowSchedules" text="Contact Schedules" />
       <RadioButton fx:id="resetAppsRadioBtn" layoutX="1098.0" layoutY="433.0" mnemonicParsing="false" onAction="#onActionResetApps" text="Reset Appointments" toggleGroup="$filterTG" />
    </children>   

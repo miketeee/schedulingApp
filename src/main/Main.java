@@ -1,12 +1,12 @@
 
 package main;
 
-import helper.DBquery;
-import helper.JDBC;
-import helper.LoadAppointments;
-import helper.LoadContacts;
-import helper.LoadCustomers;
-import helper.LoadTypes;
+import database.DBquery;
+import database.JDBC;
+import database.LoadAppointments;
+import database.LoadContacts;
+import database.LoadCustomers;
+import database.LoadTypes;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +32,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TimeZone;
 import model.Customer;
-import model.allCustomers;
-import model.allAppointments;
+import collections.Customers;
+import collections.Appointments;
 import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
 import model.Appointment;

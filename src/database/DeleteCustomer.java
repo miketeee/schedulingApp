@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import static helper.JDBC.conn;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,20 +15,20 @@ import java.time.LocalDateTime;
  *
  * @author tamic
  */
-public class DeleteAppointment {
-    public static void deleteAppointment(int appID) throws SQLException{
+public class DeleteCustomer {
+    public static void deleteCustomer(int customerID) throws SQLException{
         
         LocalDateTime date = LocalDateTime.now();
-        String deleteStatement = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        String deleteStatement = "DELETE FROM customers WHERE Customer_ID = ?";
         
         DBquery.setPreparedStatement(conn, deleteStatement); // Create prepared statement
         
-        PreparedStatement ps = helper.DBquery.getPreparedStatement();
+        PreparedStatement ps = database.DBquery.getPreparedStatement();
         
-        int Appointment_ID = appID;
+        int Customer_ID = customerID;
 
         //Key value mapping
-        ps.setInt(1, Appointment_ID);
+        ps.setInt(1, Customer_ID);
       
         ps.execute(); // Execute PreparedStatement
         

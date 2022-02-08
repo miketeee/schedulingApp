@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
 import model.*;
-import helper.DBquery;
-import static helper.JDBC.conn;
-import helper.LoadDivisions;
+import database.DBquery;
+import static database.JDBC.conn;
+import database.LoadDivisions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

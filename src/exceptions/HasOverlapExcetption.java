@@ -7,16 +7,12 @@ package exceptions;
 
 import javafx.scene.control.Alert;
 
-/**
- *
- * @author tamic
- */
-
-/** This class generates a HasPartsException*/
+/** This class generates a HasOverlapExcetption*/
 public class HasOverlapExcetption extends Exception{
    
-    /**This is the HasPartsException constructor. 
-     This exception prevents a product from being deleted if it has associated parts. 
+    /**This is the HasOverlapExcetption constructor. 
+     This exception prevents an appointment from being created if
+     * the associated customer already has an appointment during this time. 
      */
     public HasOverlapExcetption(){
         Alert saveAlert = new Alert(Alert.AlertType.ERROR);  

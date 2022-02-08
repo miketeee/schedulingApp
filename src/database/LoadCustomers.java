@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
-import static helper.JDBC.conn;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import model.Customer;
-import model.allCustomers;
+import collections.Customers;
+import helper.FormatTimeEntered;
 import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
-import model.CustomerTime;
+import model.CustomerUniversal;
 
 /**
  *
@@ -63,9 +64,9 @@ public class LoadCustomers {
              
              // Display Record
 //             System.out.println(CustomerID + " | " + Customer_Name + " | " + Address + " | " + Postal_code + " | " + Phone + " | " + date + "" + time + " | " + Created_By + " | " + Last_Update + " | " + Last_Updated_By + " | " + Division + " | " );
-             CustomerTime customer = new CustomerTime(CustomerID ,Customer_Name ,Address ,Postal_code ,Phone ,createdDateTime ,Created_By ,lastUpdatedDateTime ,Last_Updated_By ,Division, createdDT, updatedDT);
+             CustomerUniversal customer = new CustomerUniversal(CustomerID ,Customer_Name ,Address ,Postal_code ,Phone ,createdDateTime ,Created_By ,lastUpdatedDateTime ,Last_Updated_By ,Division, createdDT, updatedDT);
            
-             allCustomers.addCustomers(customer);
+             Customers.addCustomers(customer);
          }
     
 }

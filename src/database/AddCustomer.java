@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package helper;
+package database;
 
 import controller.LoginScreenController;
-import static helper.JDBC.conn;
+import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -28,7 +28,7 @@ public class AddCustomer {
         
         DBquery.setPreparedStatement(conn, insertStatement); // Create prepared statement
         
-        PreparedStatement ps = helper.DBquery.getPreparedStatement();
+        PreparedStatement ps = database.DBquery.getPreparedStatement();
         
         String Customer_Name = name;
         String Address = address;

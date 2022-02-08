@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.User;
 
 /**
  *
  * @author tamic
  */
-public class AllTypes {
+public class Users {
     
         /**This list contains all parts in the inventory. */
-    private static ObservableList<String>typetList = FXCollections.observableArrayList();
+    public static ObservableList<User>userList = FXCollections.observableArrayList();
     
-    public static void addType(String type)
+    public static void addUser(User user)
     {
-        typetList.add(type);        
+        userList.add(user);        
     }
     
-    public static ObservableList<String> getAllTypes()
+    public static ObservableList<User> getAllUsers()
     {
-    return typetList;   
+    return userList;   
     }
+    
     
 }

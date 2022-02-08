@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Division;
 
 /**
  *
  * @author tamic
  */
-public class allDivisions {
+public class Divisions {
     
     /**This list contains all parts in the inventory. */
     public static ObservableList<Division>divisionList = FXCollections.observableArrayList();

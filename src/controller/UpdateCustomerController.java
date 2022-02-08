@@ -5,7 +5,7 @@
  */
 package controller;
 
-import helper.LoadDivisions;
+import database.LoadDivisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,14 +25,14 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Division;
-import model.allDivisions;
-import helper.LoadCountries;
-import helper.LoadCustomers;
-import helper.UpdateCustomer;
+import collections.Divisions;
+import database.LoadCountries;
+import database.LoadCustomers;
+import database.UpdateCustomer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import model.allCustomers;
+import collections.Customers;
 
 /**
  * The class that controls the update customer form
@@ -90,19 +90,19 @@ public class UpdateCustomerController implements Initializable {
         
         cId = selectedCustomer.getId();
         LoadDivisions.loadDivisionsByID(selectedCustomer.getDivision()); // get customers division
-        LoadDivisions.loadDivisions(allDivisions.getAllDivisions().get(0).getCountryId()); // fill combo box with states/provinces
-//        allDivisions.getAllDivisions().get(0).getCountryId();
-        setRadioBtn(allDivisions.getAllDivisions().get(0).getCountryId());
-        customerDivision.setValue(allDivisions.getAllDivisions().get(0)); // set value of combo box to customers division
-        allDivisions.getAllDivisions().remove(0); // delete index 0 it is a duplicate
-        customerDivision.setItems(allDivisions.getAllDivisions());
+        LoadDivisions.loadDivisions(Divisions.getAllDivisions().get(0).getCountryId()); // fill combo box with states/provinces
+//        Divisions.getAllDivisions().get(0).getCountryId();
+        setRadioBtn(Divisions.getAllDivisions().get(0).getCountryId());
+        customerDivision.setValue(Divisions.getAllDivisions().get(0)); // set value of combo box to customers division
+        Divisions.getAllDivisions().remove(0); // delete index 0 it is a duplicate
+        customerDivision.setItems(Divisions.getAllDivisions());
         customerNameTxt.setText(selectedCustomer.getName());
         customerAddressTxt.setText(selectedCustomer.getAddress());
         customerPostalTxt.setText(selectedCustomer.getZip());
         customerPhoneTxt.setText(selectedCustomer.getPhone());
         }
         
-        //Is thrown if no part is selected when modify button is clicked
+        //Is thrown if no part is selected when update button is clicked
         catch(NullPointerException e)                
         {
             Alert saveAlert = new Alert(Alert.AlertType.WARNING);  
@@ -146,7 +146,7 @@ public class UpdateCustomerController implements Initializable {
           }
           else {
               
-              allDivisions.divisionList.clear();
+              Divisions.divisionList.clear();
               customerDivision.setPromptText("Make a selection");
               
               if (countryTG.getSelectedToggle().equals(ukRadioBtn)){
@@ -162,7 +162,7 @@ public class UpdateCustomerController implements Initializable {
                  LoadCountries.loadCountries(clickedCountry);
               }
             
-            customerDivision.setItems(allDivisions.getAllDivisions());
+            customerDivision.setItems(Divisions.getAllDivisions());
           
           }
 
@@ -170,7 +170,7 @@ public class UpdateCustomerController implements Initializable {
     
     @FXML
     void onActionClearComboBox(ActionEvent event) throws IOException{
-        allDivisions.divisionList.clear();
+        Divisions.divisionList.clear();
         customerDivision.setValue(null);
         customerDivision.setPromptText("Click on Search");
 
@@ -200,10 +200,10 @@ public class UpdateCustomerController implements Initializable {
         
 //        System.out.print(customerDivision.getValue().getId());
         
-        helper.UpdateCustomer.updateCustomer(cId, customerNameTxt.getText(), customerAddressTxt.getText(),  customerPostalTxt.getText(), customerPhoneTxt.getText(),customerDivision.getValue().getId());
-        allCustomers.customerList.clear();
+        database.UpdateCustomer.updateCustomer(cId, customerNameTxt.getText(), customerAddressTxt.getText(),  customerPostalTxt.getText(), customerPhoneTxt.getText(),customerDivision.getValue().getId());
+        Customers.customerList.clear();
         LoadCustomers.loadCustomers();
-        allDivisions.divisionList.clear(); // Clear combo box
+        Divisions.divisionList.clear(); // Clear combo box
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
@@ -214,7 +214,7 @@ public class UpdateCustomerController implements Initializable {
     @FXML
     private void onActionCancel(ActionEvent event) throws IOException {
         
-        allDivisions.divisionList.clear(); // Clear combo box
+        Divisions.divisionList.clear(); // Clear combo box
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
