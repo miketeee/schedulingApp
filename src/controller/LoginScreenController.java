@@ -118,9 +118,11 @@ public class LoginScreenController implements Initializable {
         
         Connection conn = JDBC.openConnection();
        
-        String selectStatement = "SELECT * FROM client_schedule.users WHERE User_Name = '" + userName+ "' and Password = '" + userPass + "'";
+        String selectStatement = 
+                "SELECT * FROM client_schedule.users WHERE User_Name = '" 
+                + userName+ "' and Password = '" + userPass + "'";
         
-        DBquery.setPreparedStatement(conn, selectStatement); // Create prepared statement
+        DBquery.setPreparedStatement(conn, selectStatement);
         
         PreparedStatement ps = DBquery.getPreparedStatement();
         
@@ -134,37 +136,43 @@ public class LoginScreenController implements Initializable {
 
             int User_ID = rs.getInt("User_ID");
             String User_Name = rs.getString("User_Name");
-                LoginAttempt loginAttempt = new LoginAttempt(User_Name, loginTime, "success");
+                LoginAttempt loginAttempt = new LoginAttempt(User_Name, 
+                        loginTime, "success");
                 attempts.add(loginAttempt);
                 HandleFile.writeToFile(loginActivity, attempts);
 
             LoginScreenController.setUserID(User_ID);
             LoginScreenController.setName(User_Name);
             
-            
             CheckForApps.withinFifteenMinutes();
+            
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+            scene = FXMLLoader.load(getClass()
+                    .getResource("/view/MainScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
          }
          else {
-                LoginAttempt loginAttempt = new LoginAttempt(userName, loginTime, "failure");
+                LoginAttempt loginAttempt = new LoginAttempt(userName, 
+                        loginTime, "failure");
                 attempts.add(loginAttempt);
                 HandleFile.writeToFile(loginActivity, attempts);
 
-             ResourceBundle rb = ResourceBundle.getBundle("rb/Nat", Locale.getDefault());
+             ResourceBundle rb = ResourceBundle.getBundle("rb/Nat", 
+                     Locale.getDefault());
              if(Locale.getDefault().getLanguage().equals("fr")){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("boîte de dialogue d'erreur");
-                alert.setContentText("la combinaison nom d'utilisateur et mot de passe n'existe pas");
+                alert.setContentText(
+                        "la combinaison nom d'utilisateur et mot de passe "
+                                + "n'existe pas");
                 alert.showAndWait();
              }
              else {
-                 // print bad name password combo to list with req'd info
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
-                alert.setContentText("Username and Password combination doesn't exist");
+                alert.setContentText(
+                        "Username and Password combination doesn't exist");
                 alert.showAndWait();
              }
 
@@ -172,6 +180,9 @@ public class LoginScreenController implements Initializable {
 
     }
 
+     /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rbs) {
         //TODO
@@ -181,7 +192,8 @@ public class LoginScreenController implements Initializable {
        String zId = String.valueOf(localZoneId);
        userLocation.setText(zId);
        try {
-            ResourceBundle rb = ResourceBundle.getBundle("rb/Nat", Locale.getDefault());
+            ResourceBundle rb = ResourceBundle.getBundle("rb/Nat", 
+                    Locale.getDefault());
 
             if(Locale.getDefault().getLanguage().equals("fr"))
                 btnLogin.setText(rb.getString("Login"));
@@ -194,7 +206,8 @@ public class LoginScreenController implements Initializable {
        }
        
        catch(MissingResourceException e) {
-           System.out.println("Can't find bundle for base name rb/Nat, locale en_US");
+           System.out.println(
+                   "Can't find bundle for base name rb/Nat, locale en_US");
        }
     }
 
