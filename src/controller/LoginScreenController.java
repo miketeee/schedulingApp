@@ -20,73 +20,34 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 import helper.DBquery;
-import helper.FormatTimeEntered;
 import helper.HandleFile;
 import helper.JDBC;
-import helper.LoadUsers;
-import helper.LogActivity;
-import helper.ReportsInterface;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.TimeZone;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import model.AllUsers;
-import model.CurrentUser;
-import model.Customer;
 import model.LoginAttempt;
-import model.User;
-import model.allCustomers;
+
 /**
- *The class that controls the login form
+ *The class that controls the login form.
  * @author tamic
  */
 public class LoginScreenController implements Initializable {
     Stage stage;
     Parent scene;
-    public static int userID = 0;
-    public static String name;
-
-    public static String getName() {
-        return name;
-    }
-
-    public static void setName(String name) {
-        LoginScreenController.name = name;
-    }
-
-    public static int getUserID() {
-        return userID;
-    }
-
-    public static void setUserID(int userID) {
-        LoginScreenController.userID = userID;
-    }
-
+    
     @FXML
     private Button btnLogin;
-    
     
     @FXML
     private Button btnLogin1;
@@ -103,21 +64,57 @@ public class LoginScreenController implements Initializable {
     @FXML
     private TextField username;
     
+    private static List attempts = new ArrayList();
     
-    List attempts = new ArrayList();
-    File loginActivity;
+    private static File loginActivity;
+    
+    /*Initialize the logged in user's id to 0.*/
+    public static int userID = 0;
+    
+    /*Initialize the logged in user's id to 0.*/
+    public static String name;
 
-    public LoginScreenController() throws IOException {
-        this.loginActivity = HandleFile.createFile("login_activity");
+    /**
+     * This method returns the user name.
+     * @return Returns user name
+     */
+    public static String getName() {
+        return name;
+    }
+
+    /**
+     * This method sets the user name.
+     */
+    public static void setName(String name) {
+        LoginScreenController.name = name;
+    }
+
+    /**
+     * This method returns the user id
+     * @return Returns user id
+     */
+    public static int getUserID() {
+        return userID;
     }
     
+    /**
+     * This method sets the user id.
+     */
+    public static void setUserID(int userID) {
+        LoginScreenController.userID = userID;
+    }
+
+    
+    /**
+     * This method checks if the entered user name and password combination
+     * is correct. Then logs whether the login attempt was successful or not.
+     * @param event Login button clicked
+     */
     @FXML
     void onActionLogin(ActionEvent event) throws SQLException, IOException, HasAppointmentsException {
         String userName = username.getText();
         String userPass = password.getText();
-        Instant instant = Instant.now();
-        
-        
+        Instant loginTime = Instant.now();
         
         Connection conn = JDBC.openConnection();
        
@@ -134,11 +131,10 @@ public class LoginScreenController implements Initializable {
          // Forward scroll ResultSet
          if(rs.next())
          {
-             //call is good func
-            //Load second scene
+
             int User_ID = rs.getInt("User_ID");
             String User_Name = rs.getString("User_Name");
-                LoginAttempt loginAttempt = new LoginAttempt(User_Name, instant, "success");
+                LoginAttempt loginAttempt = new LoginAttempt(User_Name, loginTime, "success");
                 attempts.add(loginAttempt);
                 HandleFile.writeToFile(loginActivity, attempts);
 
@@ -153,7 +149,7 @@ public class LoginScreenController implements Initializable {
             stage.show();
          }
          else {
-                LoginAttempt loginAttempt = new LoginAttempt(userName, instant, "failure");
+                LoginAttempt loginAttempt = new LoginAttempt(userName, loginTime, "failure");
                 attempts.add(loginAttempt);
                 HandleFile.writeToFile(loginActivity, attempts);
 
