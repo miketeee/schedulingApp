@@ -40,7 +40,7 @@
       </RadioButton>
       <RadioButton fx:id="ukRadioBtn" layoutX="357.0" layoutY="109.0" mnemonicParsing="false" onAction="#onActionClearComboBox" text="UK" toggleGroup="$countryTG" />
       <RadioButton fx:id="canadaRadioBtn" layoutX="415.0" layoutY="109.0" mnemonicParsing="false" onAction="#onActionClearComboBox" text="Canada" toggleGroup="$countryTG" />
-      <Label layoutX="293.0" layoutY="78.0" text="Select you county then click search" />
+      <Label layoutX="293.0" layoutY="78.0" text="Select your county then click search" />
       <Button fx:id="fillComboBox" layoutX="509.0" layoutY="105.0" mnemonicParsing="false" onAction="#onActionFillComboBox" text="Search" />
    </children>  
 </AnchorPane>

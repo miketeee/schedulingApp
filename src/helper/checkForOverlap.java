@@ -11,7 +11,7 @@ import model.Appointment;
 import model.allAppointments;
 
 /**
- *
+ * This method 
  * @author tamic
  */
 public class CheckForOverlap {

@@ -19,20 +19,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import helper.UpdateCustomer;
 import helper.LoadCustomers;
-import static helper.LoadCustomers.loadCustomers;
-import helper.LoadDivisions;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleGroup;
-import model.allAppointments;
 import model.allCustomers;
 import model.allDivisions;
 import java.lang.NullPointerException;
-import javafx.collections.ObservableList;
 import javafx.scene.control.RadioButton;
 import model.Division;
 import helper.LoadCountries;
@@ -74,21 +67,23 @@ public class AddCustomerController implements Initializable {
     
     /** Toggles between country radio buttons. */
     @FXML
-    public ToggleGroup countryTG;
+    private ToggleGroup countryTG;
     
+    /**
+     * This method fills the division combo box with values based on what 
+     * country radio button is selected when the search button is clicked.
+     */
     @FXML
-    void onActionFillComboBox(ActionEvent event) throws SQLException {
+    private void onActionFillComboBox(ActionEvent event) throws SQLException {
         
-//        LoadCountries.LoadCountries(countryTG.getSelectedToggle().toString());
-          if (!usRadioBtn.isSelected() && !ukRadioBtn.isSelected() && !canadaRadioBtn.isSelected()){
-//              System.out.println("Select A country");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setContentText("Select A country");
-                alert.showAndWait();
+          if (!usRadioBtn.isSelected() && !ukRadioBtn.isSelected() 
+                  && !canadaRadioBtn.isSelected()){
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle("Error Dialog");
+              alert.setContentText("Select A country");
+              alert.showAndWait();
           }
           else {
-              
               allDivisions.divisionList.clear();
               customerDivision.setPromptText("Make a selection");
               
@@ -111,29 +106,39 @@ public class AddCustomerController implements Initializable {
 
     }
     
+    /**
+     * This method clears the values in the division combo box when the user
+     * selects the radio button for a different country.
+     * @param event country radio button selected
+     */
     @FXML
-    void onActionClearComboBox(ActionEvent event) throws IOException{
+    private void onActionClearComboBox(ActionEvent event) throws IOException{
         allDivisions.divisionList.clear();
         customerDivision.setValue(null);
         customerDivision.setPromptText("Click on Search");
-
-   
     }
     
-    @FXML
-    void onActionSaveCustomer (ActionEvent event) throws IOException, SQLException {
-        
-        try {
-        helper.AddCustomer.addCustomer(customerNameTxt.getText(), customerAddressTxt.getText(), customerPostalTxt.getText(), customerPhoneTxt.getText(), customerDivision.getValue().getId());
-        
-        allCustomers.customerList.clear();
-        LoadCustomers.loadCustomers();
     
+    /** This method saves the customer information
+     * entered into the add customer form.
+     * @param event Saved button clicked
+     */
+    @FXML
+    private void onActionSaveCustomer (ActionEvent event) throws IOException, 
+            SQLException {
+        try {
+            helper.AddCustomer.addCustomer(customerNameTxt.getText(), 
+                    customerAddressTxt.getText(), customerPostalTxt.getText(), 
+                    customerPhoneTxt.getText(), customerDivision.getValue()
+                            .getId());
+            allCustomers.customerList.clear();
+            LoadCustomers.loadCustomers();
         
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass()
+                    .getResource("/view/MainScreen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
         }
         catch(NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -142,22 +147,24 @@ public class AddCustomerController implements Initializable {
             alert.showAndWait();            
         }
     }
-
+    
+    /**This method cancels the process of adding a new customer. Then returns
+    * the user to the home screen.
+    *@param event cancel button clicked 
+    */
     @FXML
     private void onActionCancel(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        scene = FXMLLoader.load(getClass()
+                .getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
     
     
-
     /**
      * Initializes the controller class.
      */
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
