@@ -16,13 +16,13 @@ public class Customer {
     private String zip;
     private String phone;
     private java.sql.Timestamp createdDateTime;
-    private String creator;
+    private String createdBy;
     private java.sql.Timestamp updatedDateTime;
-    private String updator;
+    private String updatedBy;
     private int division;
     public Customer(int id, String name, String address, String zip, String phone, 
             java.sql.Timestamp createdDateTime, String creator, 
-            java.sql.Timestamp updatedDateTime, String updator, int division) {
+            java.sql.Timestamp updatedDateTime, String updatedBy, int division) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -30,9 +30,9 @@ public class Customer {
         this.phone = phone;
         this.createdDateTime = createdDateTime;
         this.name = name;
-        this.creator = creator;
+        this.createdBy = creator;
         this.updatedDateTime = updatedDateTime;
-        this.updator = updator;
+        this.updatedBy = updatedBy;
         this.division = division;
     }
 
@@ -114,7 +114,7 @@ public class Customer {
     }
 
     /**
-     * @param date the date to set
+     * @param createdDateTime the date to set
      */
     public void setCreatedDateTime(java.sql.Timestamp createdDateTime) {
         this.createdDateTime = createdDateTime;
@@ -122,17 +122,17 @@ public class Customer {
 
 
     /**
-     * @return the creator
+     * @return createdBy
      */
-    public String getCreator() {
-        return creator;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
     /**
-     * @param creator the creator to set
+     * @param createdBy the createdBy to set
      */
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     /**
@@ -143,24 +143,24 @@ public class Customer {
     }
 
     /**
-     * @param updated the updated to set
+     * @param updatedDateTime the updated to set
      */
     public void setUpdatedDateTime(java.sql.Timestamp updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
     }
 
     /**
-     * @return the updator
+     * @return updatedBy
      */
-    public String getUpdator() {
-        return updator;
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
     /**
-     * @param updator the updator to set
+     * @param updatedBy the updatedBy to set
      */
-    public void setUpdator(String updator) {
-        this.updator = updator;
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     /**

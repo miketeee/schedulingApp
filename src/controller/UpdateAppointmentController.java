@@ -83,7 +83,7 @@ public class UpdateAppointmentController implements Initializable {
 
     /** This method populates the update appointment screen with
      * the data that the user selected on the main screen.
-     * @param Appointment 
+     * @param selectedAppointment 
      */
     public void initData(Appointment selectedAppointment) throws SQLException {
         

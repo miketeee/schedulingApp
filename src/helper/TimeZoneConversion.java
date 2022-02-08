@@ -12,18 +12,18 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
-/** This method uses the appointment times entered to along with
- * the predefined variables  of the method to convert the business
- * hours to UTC along with the appointments start and end time.
- * @param startDate Start date of appointment
- * @param startTime Start time of appointment
- * @param endDate End date of appointment
- * @param endTime End time of appointment
- * @return Instants of open, close,  app start, app end, and first shift end
- *
- * @author tamic
- */
 public class TimeZoneConversion {
+    
+    
+    /** This method uses the appointment times entered along with
+     the predefined variables  of the method to convert the business
+     hours to UTC along with the appointments start and end time.
+     @param startDate Start date of appointment
+     @param startTime Start time of appointment
+     @param endDate End date of appointment
+     @param endTime End time of appointment
+     @return Instants of open, close,  app start, app end, and first shift end
+     */
     public static Instant[] convertTimeToUTC(LocalDate startDate, 
             LocalTime startTime, LocalDate endDate, 
             LocalTime endTime){

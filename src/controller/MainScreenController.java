@@ -417,7 +417,7 @@ public class MainScreenController implements Initializable {
     
     /**This method shows an alert with appointment data 
      * after any appointment is deleted from the database.
-     * @param Appointment object
+     * @param app object
      */
     private void cancelledApp(Appointment app) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
