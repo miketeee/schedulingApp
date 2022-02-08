@@ -38,7 +38,7 @@ import model.Division;
 import helper.LoadCountries;
 
 /**
- * FXML Controller class
+ * The class that controls the add customer form
  *
  * @author tamic
  */

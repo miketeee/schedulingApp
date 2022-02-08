@@ -28,6 +28,12 @@ import java.util.stream.Stream;
  */
 public class HandleFile {
     
+    /**
+     * This method creates text file
+     * @param fileName - The application predefined file name
+     * @return Returns new text file
+     * @throws IOException 
+     */
     public static File createFile(String fileName) throws IOException{
         String fileType = ".txt";
         String fileLocation = "src\\reports\\";

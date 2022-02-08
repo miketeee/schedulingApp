@@ -36,7 +36,7 @@ import helper.FormatTimeEntered;
 import helper.LoadAppointments;
 import helper.ModifyAppointment;
 import helper.TimeZoneConversion;
-import helper.checkForOverlap;
+import helper.CheckForOverlap;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -49,11 +49,11 @@ import model.AllTypes;
 import model.allAppointments;
 
 /**
- * FXML Controller class
+ * The class that controls the update appointment form
  *
  * @author tamic
  */
-public class ModifyAppointmentController implements Initializable {
+public class UpdateAppointmentController implements Initializable {
     Stage stage;
     Parent scene;
 
@@ -185,7 +185,7 @@ public class ModifyAppointmentController implements Initializable {
             throw new StartBeforeEndException();
         }
             
-            checkForOverlap.check(customerIdComboBox.getValue().getId(), start, end, Integer.parseInt(appIdTxt.getText().toString()));
+            CheckForOverlap.checkForOverlap(customerIdComboBox.getValue().getId(), start, end, Integer.parseInt(appIdTxt.getText().toString()));
             ModifyAppointment.ModifyAppointment(Integer.parseInt(appIdTxt.getText().toString()), appTitleTxt.getText().toString(), appDescriptionTxt.getText().toString(), appLocationTxt.getText().toString(), appTypeComboBox.getValue().toString(), startDate.getValue(), startTime, endDate.getValue(), endTime,customerIdComboBox.getValue().getId(), Integer.parseInt(userIdLabel.getText()), contactComboBox.getValue().getId());
 
             allAppointments.appointmentList.clear();

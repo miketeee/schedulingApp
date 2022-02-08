@@ -35,13 +35,13 @@ import java.util.Arrays;
 import model.allCustomers;
 
 /**
- * FXML Controller class
+ * The class that controls the update customer form
  *
  * @author tamic
  */
 
 
-public class ModifyCustomerController implements Initializable {
+public class UpdateCustomerController implements Initializable {
     
     
     Stage stage;
@@ -80,8 +80,9 @@ public class ModifyCustomerController implements Initializable {
     
 
 
-        /**This method loads the scene with selectedPart's values.
+     /**This method loads the scene with selectedPart's values.
      @param selectedCustomer is the part that is selected from the main screen. 
+     * @throws java.sql.SQLException 
      */
     public void initData(Customer selectedCustomer) throws SQLException {
         

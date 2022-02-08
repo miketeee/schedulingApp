@@ -59,7 +59,7 @@ import model.LoginAttempt;
 import model.User;
 import model.allCustomers;
 /**
- *
+ *The class that controls the login form
  * @author tamic
  */
 public class LoginScreenController implements Initializable {

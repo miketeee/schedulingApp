@@ -8,28 +8,18 @@ package controller;
 import exceptions.HasOverlapExcetption;
 import exceptions.StartBeforeEndException;
 import helper.FormatTimeEntered;
-import helper.HandleFile;
 import helper.LoadAppointments;
-import helper.LoadCustomers;
 import helper.TimeZoneConversion;
-import helper.checkForOverlap;
+import helper.CheckForOverlap;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import static java.util.Calendar.SATURDAY;
-import static java.util.Calendar.SUNDAY;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
-import static java.util.TimeZone.getDefault;
-import java.util.function.BiPredicate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,16 +35,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.AllContacts;
 import model.AllTypes;
-import model.AllUsers;
 import model.Contact;
 import model.Customer;
-import model.Type;
-import model.User;
 import model.allAppointments;
 import model.allCustomers;
 
 /**
- * FXML Controller class
+ * The class that controls the add appointment form
  *
  * @author tamic
  */
@@ -62,7 +49,7 @@ public class AddAppointmentController implements Initializable {
     
     Stage stage;
     Parent scene;
-
+    
     @FXML
     private Button btnSave;
     @FXML
@@ -96,64 +83,71 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private DatePicker endDate;
     
-//    public void initUserInfo(int userInfo){
-//     try{
-//         userIdLabel.setText(String.valueOf(userInfo));
-//     }
-//     catch(IllegalArgumentException e) {
-//         System.out.print(e);
-//     }
-//        }
     
+    /** This method saves the appointment information
+     * entered into the add appointment form.
+     * @param event Saved button clicked
+     */
     
     @FXML
-    void onActionSaveAppointment (ActionEvent event) throws IOException, SQLException, HasOverlapExcetption, StartBeforeEndException {
-        LocalDate sDate = FormatTimeEntered.formatStringToLocalDate(startDate);
-        LocalDate eDate = FormatTimeEntered.formatStringToLocalDate(endDate);
-        LocalTime sTime = FormatTimeEntered.formatStringToLocalTime(appStartTimeTxt);
-        LocalTime eTime = FormatTimeEntered.formatStringToLocalTime(appEndTimeTxt);
-        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        Instant[]tzc = TimeZoneConversion.opsHours(sDate, sTime, eDate, eTime);
-        Instant open = tzc[0];
-        Instant close = tzc[1];
-        Instant start = tzc[2];
-        Instant end = tzc[3];
-        int startDay = start.atOffset(ZoneOffset.UTC).getDayOfWeek().getValue();
-        int endDay = end.atOffset(ZoneOffset.UTC).getDayOfWeek().getValue();
+    private void onActionSaveAppointment (ActionEvent event) throws IOException, 
+            SQLException, HasOverlapExcetption, StartBeforeEndException {
+                LocalDate sDate = FormatTimeEntered
+                        .formatStringToLocalDate(startDate);
+                LocalDate eDate = FormatTimeEntered
+                        .formatStringToLocalDate(endDate);
+                LocalTime sTime = FormatTimeEntered
+                        .formatStringToLocalTime(appStartTimeTxt);
+                LocalTime eTime = FormatTimeEntered
+                        .formatStringToLocalTime(appEndTimeTxt);
+                ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+                Instant[]tzc = TimeZoneConversion
+                        .opsHours(sDate, sTime, eDate, eTime);
+                Instant open = tzc[0];
+                Instant close = tzc[1];
+                Instant start = tzc[2];
+                Instant end = tzc[3];
         
         try {
-        
-        
-        BiPredicate<Instant, Instant> biPred = (x, y) -> x.isAfter(y);
-        Boolean startBeforeClose = biPred.test(start, close);
-       
-        if ((startBeforeClose || start.isBefore(open) || (end.isAfter(close) || end.isBefore(open)))){
+            if ((start.isAfter(close) || start.isBefore(open) 
+                    || (end.isAfter(close) 
+                    || end.isBefore(open)))){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
-                alert.setContentText("Appointment must be between " + open.atZone(localZoneId) + " and " + close.atZone(localZoneId));
+                alert.setContentText("Appointment must be between " 
+                    + open.atZone(localZoneId) + " and " 
+                    + close.atZone(localZoneId));
                 alert.showAndWait();
-        }
+            }
 
-        else if(start.isAfter(end)){
-            throw new StartBeforeEndException();
-        }
-        else{
-                checkForOverlap.check(customerIdComboBox.getValue().getId(), start, end, -1);
-                helper.AddAppointment.addAppointment(appTitleTxt.getText(), appDescriptionTxt.getText(), appLocationTxt.getText(), appTypeComboBox.getValue(), sDate, sTime, eDate, eTime, customerIdComboBox.getValue().getId(), 
-                Integer.parseInt(userIdLabel.getText()), contactComboBox.getValue().getId());
+            else if(start.isAfter(end)){
+                throw new StartBeforeEndException();
+            }
+            else{
+                CheckForOverlap.checkForOverlap(customerIdComboBox.getValue()
+                        .getId(),
+                        start, end, -1);
+                helper.AddAppointment.addAppointment(appTitleTxt.getText(), 
+                        appDescriptionTxt.getText(), appLocationTxt.getText(), 
+                        appTypeComboBox.getValue(), sDate, sTime, eDate, eTime, 
+                        customerIdComboBox.getValue().getId(), 
+                        Integer.parseInt(userIdLabel.getText()), 
+                        contactComboBox.getValue().getId());
        
       
                 
                 allAppointments.appointmentList.clear();
                 LoadAppointments.loadAppointments();
-                stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+                stage = (Stage) ((Button)event.getSource()).getScene()
+                        .getWindow();
+                scene = FXMLLoader.load(getClass()
+                        .getResource("/view/MainScreen.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
-        }
-        }
+            }
+            }
         
-                 catch(NullPointerException e) {
+        catch(NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("All fields must have a value");
@@ -161,11 +155,16 @@ public class AddAppointmentController implements Initializable {
             }
  
     }
-
+    
+    /**This method cancels the process of adding a new appointment. Then returns
+    * the user to the home screen.
+    *@param event cancel button clicked 
+    */
     @FXML
     private void onActionCancel(ActionEvent event) throws IOException {
         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+        scene = FXMLLoader.load(getClass()
+                .getResource("/view/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

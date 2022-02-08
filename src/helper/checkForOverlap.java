@@ -7,10 +7,6 @@ package helper;
 
 import exceptions.HasOverlapExcetption;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-import javafx.scene.control.Alert;
 import model.Appointment;
 import model.allAppointments;
 
@@ -18,13 +14,17 @@ import model.allAppointments;
  *
  * @author tamic
  */
-public class checkForOverlap {
-    public static void check(int customerId, Instant s1, Instant s2, int appId) 
+public class CheckForOverlap {
+    public static void checkForOverlap(int customerId, Instant startTime, 
+            Instant endTime, int appId) 
             throws HasOverlapExcetption{
         
         for(Appointment app : allAppointments.getAllAppointments()){
             if(app.getCustomerId() == customerId){
-                if((!s1.isBefore(app.getStartDateTime().toInstant()) && !s1.isBefore(app.getEndDateTime().toInstant())) || (!s2.isAfter(app.getStartDateTime().toInstant()) && !s2.isAfter(app.getEndDateTime().toInstant()))){
+                if((!startTime.isBefore(app.getStartDateTime().toInstant()) 
+                        && !startTime.isBefore(app.getEndDateTime().toInstant())) 
+                        || (!endTime.isAfter(app.getStartDateTime().toInstant()) 
+                        && !endTime.isAfter(app.getEndDateTime().toInstant()))){
                     continue;
                 }
                 else if(app.getId() == appId){
@@ -35,6 +35,8 @@ public class checkForOverlap {
                 }
             }
         }
+        
+
         
     }
     

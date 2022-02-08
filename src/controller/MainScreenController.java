@@ -65,10 +65,9 @@ import model.allCustomers;
 
 
 /** 
+ * The class that controls the main screen
  @author Tamicheal Wills
  */
-
-/** The MainScreenController class is the controller for the ModifyPart Screen. */
 public class MainScreenController implements Initializable {
 
     Stage stage;
@@ -301,7 +300,7 @@ public class MainScreenController implements Initializable {
             Parent root = loader.load();
            
             //Get modifyCustomer controller 
-            ModifyCustomerController modifyCustomerController = loader
+            UpdateCustomerController modifyCustomerController = loader
                     .getController();
             //Pass whatever data you want. You can have multiple method calls here
            
@@ -379,7 +378,7 @@ public class MainScreenController implements Initializable {
             Parent root = loader.load();
            
             //Get modifyCustomer controller 
-            ModifyAppointmentController modifyAppointmentController = loader.getController();
+            UpdateAppointmentController modifyAppointmentController = loader.getController();
             //Pass whatever data you want. You can have multiple method calls here
            
             //This sets the basic fields to those of whatever part is selected
