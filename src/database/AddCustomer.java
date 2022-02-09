@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 
-    /**
-    * This class contains a method for adding customers to the database.
-    */ 
+/**
+* This class contains a method for adding customers to the database.
+*/ 
 public class AddCustomer {
      
     /**

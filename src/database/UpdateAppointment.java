@@ -15,14 +15,30 @@ import java.sql.Timestamp;
 import java.time.LocalTime;
 
 /**
- *
- * @author tamic
- */
+* This class contains a method for updating appointments that
+* exist in the database.
+*/ 
 public class UpdateAppointment {
     
-    public static void UpdateAppointment(int appId, String title, String descript, 
-            String location, String type, LocalDate startDate, LocalTime startTime, 
-            LocalDate endDate, LocalTime endTime, int cId, int uId, int contactId) 
+    /**
+    * This method updates an appointment based on the
+    * the passed in appointment ID.
+    * @param appId ID of appointment
+    * @param title Title of appointment
+    * @param description Description of appointment
+    * @param location Location of appointment
+    * @param appType Type of appointment
+    * @param startDate Start date of appointment
+    * @param startTime Start time of appointment
+    * @param endDate End date of appointment
+    * @param endTime End time of appointment
+    * @param customerID Customer ID of appointment
+    * @param userID User ID of appointment
+    * @param contactID Contact ID of appointment
+    */
+    public static void UpdateAppointment(int appId, String title, String description, 
+            String location, String appType, LocalDate startDate, LocalTime startTime, 
+            LocalDate endDate, LocalTime endTime, int customerID, int userID, int contactID) 
             throws SQLException{
         
             LocalDateTime date = LocalDateTime.now();
@@ -38,9 +54,9 @@ public class UpdateAppointment {
             PreparedStatement ps = database.DBquery.getPreparedStatement();
 
             String Title = title;
-            String Description = descript;
+            String Description = description;
             String Location = location;
-            String Type = type;
+            String Type = appType;
             Timestamp Start = Timestamp.valueOf(startDateTime);
             Timestamp End = Timestamp.valueOf(endDateTime);
             Timestamp Create_Date = Timestamp.valueOf(date);
@@ -49,9 +65,9 @@ public class UpdateAppointment {
             Timestamp Last_Update = Timestamp.valueOf(LocalDateTime.now());
 
             String Last_Upadatd_By =  LoginScreenController.getName();
-            int Customer_ID = cId;
-            int User_ID = uId;
-            int Contact_ID = contactId;
+            int Customer_ID = customerID;
+            int User_ID = userID;
+            int Contact_ID = contactID;
             int Appointment_ID = appId;
 
             //Key value mapping

@@ -12,12 +12,21 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 
-/**
- *
- * @author tamic
- */
+/* This class contains a method for updating customers that
+* exist in the database.
+*/ 
 public class UpdateCustomer {
     
+    /**
+    * This method updates a customer based on the
+    * the passed in customer ID.
+    * @param customerID Customer ID of customer
+    * @param name Name of customer
+    * @param address Address of customer
+    * @param postalCode Postal code of customer
+    * @param phone Phone number of customer
+    * @param divId Division id of customer
+    */
     public static void updateCustomer(int customerID, String name, String address,
             String postalCode, String phone, int divId) throws SQLException{              
         
