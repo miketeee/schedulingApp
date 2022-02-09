@@ -12,12 +12,20 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
 
-/**
- *
- * @author tamic
- */
+    /**
+    * This class contains a method for adding customers to the database.
+    */ 
 public class AddCustomer {
-    
+     
+    /**
+    * This method adds a new customer to the database using
+    * the passed in values.
+    * @param name Name of customer
+    * @param address Address of customer
+    * @param postalCode Postal code of customer
+    * @param phone Phone number of customer
+    * @param divId Division id of customer
+    */
     public static void addCustomer(String name, String address, String postalCode,
             String phone, int divId) throws SQLException{
         
