@@ -50,7 +50,7 @@ public class CheckForApps {
                 Appointments.addUpcomingApps(app);
                 }
             }
-            if(Appointments.appWithinFifteenList.size() >= 1){
+            if(Appointments.appsWithinFifteenMinutes.size() >= 1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setContentText("Upcoming Appointments");

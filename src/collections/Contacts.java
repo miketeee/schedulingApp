@@ -10,19 +10,27 @@ import javafx.collections.ObservableList;
 import model.Contact;
 
 /**
- *
- * @author tamic
+ * This class creates a collection of contacts,
+ * adds contacts and returns all contacts.
  */
 public class Contacts {
     
-        /**This list contains all parts in the inventory. */
+    /**This list contains all available contacts. */
     private static ObservableList<Contact>contactList = FXCollections.observableArrayList();
     
+    
+    /** This method adds a contact to the list of 
+     * contacts.
+     * @param contact Object of type contact
+     */
     public static void addContact(Contact contact)
     {
         contactList.add(contact);        
     }
-    
+   
+    /** This method returns all contacts that exist.
+    * @return Returns list of contacts
+    */
     public static ObservableList<Contact> getAllContacts()
     {
     return contactList;   

@@ -10,19 +10,27 @@ import javafx.collections.ObservableList;
 import model.Division;
 
 /**
- *
- * @author tamic
- */
+ * This class creates a list of divisions,
+ * adds divisions and returns all divisions.
+. */
 public class Divisions {
     
-    /**This list contains all parts in the inventory. */
+    /**This list contains all available divisions. */
     public static ObservableList<Division>divisionList = FXCollections.observableArrayList();
     
+     /** This method adds a division to the list of 
+     * divisions.
+     * @param division Object of type division
+     */
     public static void addDivisions(Division division)
     {
         divisionList.add(division);        
     }
     
+    
+    /** This method returns all divisions that exist.
+    * @return Returns list of divisions
+    */
     public static ObservableList<Division> getAllDivisions()
     {
     return divisionList;   

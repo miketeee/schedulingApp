@@ -9,22 +9,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
- * @author tamic
+ * This class creates a collection of appointment types,
+ * adds appointment types and returns all types.
  */
 public class AppTypes {
     
-        /**This list contains all parts in the inventory. */
-    private static ObservableList<String>typetList = FXCollections.observableArrayList();
+    /**This list contains all available appointment types. */
+    private static ObservableList<String>appTypesList = FXCollections.observableArrayList();
     
-    public static void addType(String type)
+    /** This method adds an appointment type to the list of 
+     * appointment types.
+     * @param appType String value of appointment type
+     */
+    public static void addType(String appType)
     {
-        typetList.add(type);        
+        appTypesList.add(appType);        
     }
     
+    /** This method returns all appointment types that exist.
+     * @return Returns list of appointment types
+     */
     public static ObservableList<String> getAllTypes()
     {
-    return typetList;   
+    return appTypesList;   
     }
     
 }

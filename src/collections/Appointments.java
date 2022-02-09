@@ -9,17 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 
-/**
- *
- * @author tamic
+/** This class creates and amends collections pertaining to appointments.
  */
 public class Appointments {
-    
-        /**This list contains all parts in the inventory. */
+     
     public static ObservableList<Appointment>appointmentList = FXCollections
             .observableArrayList();
     
-    public static ObservableList<Appointment>appWithinFifteenList = FXCollections
+    public static ObservableList<Appointment>appsWithinFifteenMinutes = FXCollections
             .observableArrayList();
     
     public static ObservableList<Appointment>appsFilterMonth = FXCollections
@@ -61,7 +58,7 @@ public class Appointments {
     
         public static void addUpcomingApps(Appointment appointment)
     {
-        appWithinFifteenList.add(appointment);        
+        appsWithinFifteenMinutes.add(appointment);        
     }
     
     public static ObservableList<Appointment> getAllAppointments()
@@ -71,7 +68,7 @@ public class Appointments {
     
     public static ObservableList<Appointment> getAllUpcomingApps()
     {
-    return appWithinFifteenList;   
+    return appsWithinFifteenMinutes;   
     }
     
 }
