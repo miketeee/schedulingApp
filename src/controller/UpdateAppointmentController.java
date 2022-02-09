@@ -31,13 +31,11 @@ import helper.TimeZoneConversion;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.TimeZone;
 import collections.Contacts;
 import collections.AppTypes;
 import collections.Appointments;
 import helper.CheckForApps;
-import java.util.stream.Collectors;
 
 /**
  * The class that controls the update appointment form
@@ -142,7 +140,7 @@ public class UpdateAppointmentController implements Initializable {
      * @param event Save button is clicked
      */
     @FXML
-    void onActionSaveAppointment (ActionEvent event) throws IOException, 
+    private void onActionSaveAppointment (ActionEvent event) throws IOException, 
             SQLException, HasOverlapExcetption, StartBeforeEndException {
         
         /* Check to see if there are any empty fields*/
@@ -220,8 +218,8 @@ public class UpdateAppointmentController implements Initializable {
     }
  
     
-    /**This method cancels the process of adding a updating an appointment
-    * Then returns he user to the home screen.
+    /**This method cancels the process of updating an appointment
+    * then returns he user to the home screen.
     *@param event Cancel button clicked 
     */
     @FXML
