@@ -23,9 +23,9 @@ public class CustomerUniversal extends Customer {
         super(id, name, address, zip, phone, createdDateTime, creator, 
                 updatedDateTime, updator, division);
         this.formattedCreatedTime = Time
-                .formatTime(createdDateTime);
+                .formatTimestampToString(createdDateTime);
         this.formattedUpdatedTime = Time
-                .formatTime(updatedDateTime);
+                .formatTimestampToString(updatedDateTime);
     }
 
     public String getFormattedUpdatedTime() {

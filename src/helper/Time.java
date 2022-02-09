@@ -15,28 +15,45 @@ import java.util.TimeZone;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-/**
- *
- * @author tamic
- */
+/** This class contains methods that allow for the formatting
+ * of time to a string, local date, local time, and convert to 
+ * UTC.
+ */ 
 public class Time {
-    public static String formatTime(java.sql.Timestamp tStamp) {
+    
+    /** This method takes in a timestamp, formats the
+     * timestamp to a string, then returns the string
+     * @param tStamp Timestamp to format
+     * @return Returns tStamp as string
+     */ 
+    public static String formatTimestampToString(java.sql.Timestamp tStamp) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-YYYY HH:mm");
         String formattedTime = dtf.format(tStamp.toLocalDateTime());
         return formattedTime;
     }
     
-        public static LocalDate formatStringToLocalDate(DatePicker dateString){
-            String aDate = dateString.getValue().toString();
-            int dateYear = Integer.parseInt(aDate.subSequence(0, 4).toString());
-            int dateMonth = Integer.parseInt(aDate.subSequence(5, 7).toString());
-            int dateDay = Integer.parseInt(aDate.subSequence(8, 10).toString());
-            LocalDate datePickerDate = LocalDate.of(dateYear, dateMonth, dateDay); 
+        /** This method takes in a string from the date picker object.
+         * Then it converts the string into a local date.
+         * @param datePicker DatePicker date to format
+         * @return datePicker as string
+         */
+    
+        public static LocalDate formatStringToLocalDate(DatePicker datePicker){
+            String date = datePicker.getValue().toString();
+            int year = Integer.parseInt(date.subSequence(0, 4).toString());
+            int month = Integer.parseInt(date.subSequence(5, 7).toString());
+            int day = Integer.parseInt(date.subSequence(8, 10).toString());
+            LocalDate datePickerDate = LocalDate.of(year, month, day); 
         return datePickerDate;
         }
         
-        public static LocalTime formatStringToLocalTime(TextField timeString){
-        String timeOfDate = timeString.getText();
+        /** This method takes in a string from the time input text fields, 
+         * converts the string into a local time, then returns the string.
+         * @param textField TextField time to format
+         * @return Returns textField as Local Time
+         */
+        public static LocalTime formatStringToLocalTime(TextField textField){
+        String timeOfDate = textField.getText();
         int timeOfHour = Integer.parseInt(timeOfDate.subSequence(0, 2).toString());
         int timeOfMin = Integer.parseInt(timeOfDate.subSequence(3, 5).toString());
         LocalTime localTimeOfDate = LocalTime.of(timeOfHour, timeOfMin);
@@ -50,20 +67,27 @@ public class Time {
     @param startTime Start time of appointment
     @param endDate End date of appointment
     @param endTime End time of appointment
-    @return Instants of open, close,  app start, app end, and first shift end
+    @return Returns Instants of open, close,  app start, app end, and first shift end
      */
-    public static Instant[] convertTimeToUTC(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+    public static Instant[] convertTimeToUTC(LocalDate startDate, LocalTime startTime, 
+            LocalDate endDate, LocalTime endTime) {
         LocalTime openTime = LocalTime.of(8, 0);
         LocalTime closeTime = LocalTime.of(22, 0);
         LocalTime firstShiftEndTime = LocalTime.of(15, 0);
         ZoneId bizOpsZoneId = ZoneId.of("America/New_York");
         ZoneId LocalZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        Instant firstShiftToUTC = ZonedDateTime.of(startDate, firstShiftEndTime, LocalZoneId).toInstant();
-        Instant openTimeToUTC = ZonedDateTime.of(startDate, openTime, bizOpsZoneId).toInstant();
-        Instant closeTimeToUTC = ZonedDateTime.of(startDate, closeTime, bizOpsZoneId).toInstant();
-        Instant appSttartToUTC = ZonedDateTime.of(startDate, startTime, LocalZoneId).toInstant();
-        Instant appEndToUTC = ZonedDateTime.of(endDate, endTime, LocalZoneId).toInstant();
-        Instant[] instants = {openTimeToUTC, closeTimeToUTC, appSttartToUTC, appEndToUTC, firstShiftToUTC};
+        Instant firstShiftToUTC = ZonedDateTime.of(startDate, firstShiftEndTime, 
+                LocalZoneId).toInstant();
+        Instant openTimeToUTC = ZonedDateTime.of(startDate, openTime, bizOpsZoneId)
+                .toInstant();
+        Instant closeTimeToUTC = ZonedDateTime.of(startDate, closeTime, bizOpsZoneId)
+                .toInstant();
+        Instant appSttartToUTC = ZonedDateTime.of(startDate, startTime, LocalZoneId)
+                .toInstant();
+        Instant appEndToUTC = ZonedDateTime.of(endDate, endTime, LocalZoneId)
+                .toInstant();
+        Instant[] instants = {openTimeToUTC, closeTimeToUTC, appSttartToUTC, appEndToUTC,
+            firstShiftToUTC};
         return instants;
     }
 }

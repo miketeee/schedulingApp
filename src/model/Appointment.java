@@ -164,7 +164,7 @@ public class Appointment {
 
   @Override
 public String toString(){
-    String appTime = Time.formatTime(startDateTime);
+    String appTime = Time.formatTimestampToString(startDateTime);
     return("#" + Integer.toString(id) + " " + title + " " + " " + appTime + " " 
             + Integer.toHexString(customerId));
  }

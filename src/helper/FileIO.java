@@ -11,14 +11,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-/**
- *
- * @author tamic
+/** This class contains methods that allow for the
+ * creation of files and the ability to write to fails
  */
 public class FileIO {
     
     /**
-     * This method creates text file
+     * This method creates text file using the passed in parameter
+     * as the file name.
      * @param fileName - The application predefined file name
      * @return Returns new text file
      * @throws IOException 
@@ -35,10 +35,15 @@ public class FileIO {
         return newFile;
     }
     
-    public static void writeToFile(File file, List map) throws IOException {
+    /** This method takes in a file  and a list. The contents of
+     * the list are written to the passed in file.
+     * @param file File to write to
+     * @param list List of data to write
+     */
+    public static void writeToFile(File file, List list) throws IOException {
         FileWriter fWriter = new FileWriter(file.getPath(), true);
         BufferedWriter bWriter = new BufferedWriter(fWriter);
-            bWriter.write("\n" + map.get(map.size() - 1).toString());
+            bWriter.write("\n" + list.get(list.size() - 1).toString());
         bWriter.close();
     }
     

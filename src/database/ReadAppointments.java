@@ -53,10 +53,10 @@ public class ReadAppointments {
              int User_ID = rsa.getInt("User_ID");
              int Contact_ID = rsa.getInt("Contact_ID");
           
-             String startDT = Time.formatTime(startDateTime);
-             String endDT = Time.formatTime(endDateTime);
-             String createdDT = Time.formatTime(createdDateTime);
-             String updatedDT = Time.formatTime(lastUpdateDateTime);
+             String startDT = Time.formatTimestampToString(startDateTime);
+             String endDT = Time.formatTimestampToString(endDateTime);
+             String createdDT = Time.formatTimestampToString(createdDateTime);
+             String updatedDT = Time.formatTimestampToString(lastUpdateDateTime);
              
              // Create object of type appoinmentUniversal
              AppointmentUniversal appointment = new AppointmentUniversal(startDT, 

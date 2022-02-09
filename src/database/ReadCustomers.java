@@ -48,8 +48,8 @@ public class ReadCustomers {
              String Last_Updated_By = rs.getString("Last_Updated_By");
              int Division = rs.getInt("Division_ID");
              
-             String createdDT = Time.formatTime(createdDateTime);
-             String updatedDT = Time.formatTime(lastUpdatedDateTime);
+             String createdDT = Time.formatTimestampToString(createdDateTime);
+             String updatedDT = Time.formatTimestampToString(lastUpdatedDateTime);
              
             
              CustomerUniversal customer = new CustomerUniversal(CustomerID ,
