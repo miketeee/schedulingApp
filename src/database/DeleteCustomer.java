@@ -10,11 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-/**
- *
- * @author tamic
- */
+    /**
+    * This class contains a method for deleting customers from the database.
+    */ 
 public class DeleteCustomer {
+    
+     /** This method uses the passed in customer id to find and
+     * delete a specified customer.
+     * @param customerID Customer ID to delete
+     */
     public static void deleteCustomer(int customerID) throws SQLException{
         
         LocalDateTime date = LocalDateTime.now();

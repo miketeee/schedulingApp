@@ -8,13 +8,17 @@ package database;
 import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
-/**
- *
- * @author tamic
- */
+    /**
+    * This class contains a method for deleting appointments from the database.
+    */ 
 public class DeleteAppointment {
+    
+    /** This method uses the passed in appointment id to find and
+     * delete a specified appointment.
+     * @param appID Appointment ID to delete
+     */
+    
     public static void deleteAppointment(int appID) throws SQLException{
         
         String deleteStatement = "DELETE FROM appointments WHERE Appointment_ID = ?";

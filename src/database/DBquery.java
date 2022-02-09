@@ -7,13 +7,8 @@ package database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-/**
- *
- * @author tamic
- */
 public class DBquery {
     
     private static PreparedStatement statement;
