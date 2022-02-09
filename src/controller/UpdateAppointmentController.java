@@ -98,7 +98,7 @@ public class UpdateAppointmentController implements Initializable {
                             appLocationTxt.setText(selectedAppointment.
                                     getLocation());
                             appTypeComboBox.setValue(selectedAppointment
-                                    .getType());
+                                    .getAppointmentType());
                             appStartTimeTxt.setText(selectedAppointment
                                     .getStartDateTime().toLocalDateTime()
                                     .toLocalTime().toString());

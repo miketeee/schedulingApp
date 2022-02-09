@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.sql.Timestamp;
 
 /* This class contains a method for updating customers that
-* exist in the database.
-*/ 
+ * exist in the database.
+ */ 
 public class UpdateCustomer {
     
     /**

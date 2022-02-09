@@ -423,7 +423,7 @@ public class MainScreenController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setContentText("Appointment ID: " + app.getId() + " Type: " 
-                + app.getType() +  " has been canceled");
+                + app.getAppointmentType() +  " has been canceled");
         alert.showAndWait();
     }
     
@@ -488,7 +488,7 @@ public class MainScreenController implements Initializable {
      appTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
      appDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
      appLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-     appTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+     appTypeCol.setCellValueFactory(new PropertyValueFactory<>("AppointmentType"));
      appStartCol.setCellValueFactory(new PropertyValueFactory<>("formattedStartDateTime"));
      appEndCol.setCellValueFactory(new PropertyValueFactory<>("formattedEndDateTime"));
      appCreatedCol.setCellValueFactory(new PropertyValueFactory<>("formattedCreatedDateTime"));

@@ -28,13 +28,13 @@ public class Appointment {
     private int customerId;
     private int userId;
     private int contactId;
-    private String type;
+    private String appointmentType;
     public Appointment(int id, String title, String description, String location, 
             java.sql.Timestamp startDateTime, java.sql.Timestamp endDateTime, 
             java.sql.Timestamp createdDateTime, String createdBy, 
             java.sql.Timestamp lastUpdate,
             String lastUpdatedBy, int customerId, int userId, int contactId, 
-            String type) {
+            String appointmentType) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -48,7 +48,7 @@ public class Appointment {
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;  
-        this.type = type;
+        this.appointmentType = appointmentType;
     }
 
     public int getId() {
@@ -154,12 +154,12 @@ public class Appointment {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
-    public String getType() {
-        return type;
+    public String getAppointmentType() {
+        return appointmentType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
     }
 
   @Override

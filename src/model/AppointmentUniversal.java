@@ -23,10 +23,10 @@ public class AppointmentUniversal extends Appointment{
             String description, String location, Timestamp startDateTime, 
             Timestamp endDateTime, Timestamp createdDateTime, String createdBy, 
             Timestamp lastUpdate, String lastUpdatedBy, int customerId, int userId, 
-            int contactId, String type) {
+            int contactId, String appointmentType) {
         super(id, title, description, location, startDateTime, endDateTime, 
                 createdDateTime, createdBy, lastUpdate, lastUpdatedBy, customerId, 
-                userId, contactId, type);
+                userId, contactId, appointmentType);
         this.formattedStartDateTime = formattedStartDateTime;
         this.formattedEndDateTime = formattedEndDateTime;
         this.formattedCreatedDateTime = formattedCreatedDateTime;

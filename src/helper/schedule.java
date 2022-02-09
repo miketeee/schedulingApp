@@ -69,7 +69,7 @@ public class Schedule {
         HashMap<String, Integer> monthAndType = new HashMap<>();
         for(Appointment app : Appointments.getAllAppointments()) {
             String monthType = app.getStartDateTime().toLocalDateTime()
-                    .getMonth().toString() + "-" + app.getType();
+                    .getMonth().toString() + "-" + app.getAppointmentType();
             if(!monthAndType.containsKey(monthType)){
                 monthAndType.put(monthType, 1);
             }
