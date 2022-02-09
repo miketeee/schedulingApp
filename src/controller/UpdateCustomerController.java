@@ -5,7 +5,7 @@
  */
 package controller;
 
-import database.LoadDivisions;
+import database.ReadDivisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,8 +26,8 @@ import javafx.stage.Stage;
 import model.Customer;
 import model.Division;
 import collections.Divisions;
-import database.LoadCountries;
-import database.LoadCustomers;
+import database.ReadCountries;
+import database.ReadCustomers;
 import collections.Customers;
 
 /**
@@ -78,15 +78,15 @@ public class UpdateCustomerController implements Initializable {
 
     /** This method populates the update customer screen with
      * the data that the user selected on the main screen.
-     * @param selectedCustomer 
+     * @param selectedCustomer Customer data from main screen
      */
     public void initData(Customer selectedCustomer) throws SQLException {
         
         try{
         
         cId = selectedCustomer.getId();
-        LoadDivisions.loadDivisionsByID(selectedCustomer.getDivision()); 
-        LoadDivisions.loadDivisions(Divisions.getAllDivisions().get(0).getCountryId());
+        ReadDivisions.readDivisionsByID(selectedCustomer.getDivision()); 
+        ReadDivisions.readDivisionsByCountryID(Divisions.getAllDivisions().get(0).getCountryId());
         setRadioBtn(Divisions.getAllDivisions().get(0).getCountryId());
         customerDivision.setValue(Divisions.getAllDivisions().get(0));
         Divisions.getAllDivisions().remove(0); 
@@ -147,15 +147,15 @@ public class UpdateCustomerController implements Initializable {
               
               if (countryTG.getSelectedToggle().equals(ukRadioBtn)){
                   String clickedCountry = "UK";
-                  LoadCountries.loadCountries(clickedCountry);
+                  ReadCountries.readCountries(clickedCountry);
               }
               else if (countryTG.getSelectedToggle().equals(usRadioBtn)){
                   String clickedCountry = "U.S";
-                  LoadCountries.loadCountries(clickedCountry);
+                  ReadCountries.readCountries(clickedCountry);
               }
               else {
                  String clickedCountry = "Canada"; 
-                 LoadCountries.loadCountries(clickedCountry);
+                 ReadCountries.readCountries(clickedCountry);
               }
             
             customerDivision.setItems(Divisions.getAllDivisions());
@@ -201,7 +201,7 @@ public class UpdateCustomerController implements Initializable {
                     customerAddressTxt.getText(),  customerPostalTxt.getText(), 
                     customerPhoneTxt.getText(),customerDivision.getValue().getId());
             Customers.customerList.clear();
-            LoadCustomers.loadCustomers();
+            ReadCustomers.readCustomers();
             Divisions.divisionList.clear(); // Clear combo box
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));

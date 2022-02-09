@@ -1,8 +1,2 @@
 
-{MAY=1, FEBRUARY=2}
-{MAY=Planning Session, FEBRUARY=routine}
-{MAY-Planning Session=1, FEBRUARY-routine=2}
-{MAY-Planning Session=1, MARCH-Express=1, FEBRUARY-routine=2}
-{MAY-Planning Session=1, MARCH-Express=1, FEBRUARY-routine=2}
-{MAY-Planning Session=1, MARCH-Express=1, FEBRUARY-Standard=1, FEBRUARY-routine=2}
-{MAY-Planning Session=1, MARCH-Express=1, FEBRUARY-Standard=1, FEBRUARY-routine=2}
+{MAY-Standard=1, MARCH-Express=1, MARCH-Standard=1, FEBRUARY-routine=2}

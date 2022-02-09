@@ -9,20 +9,23 @@ import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import model.Customer;
 import model.Division;
 import collections.Divisions;
 
-/**
- *
- * @author tamic
+/** This class contains methods query the database by specific
+ * country or ID.
  */
-public class LoadDivisions {
+public class ReadDivisions {
     
-    public static void loadDivisions(int countryId) throws SQLException {
+    /** This method queries the database and returns all divisions
+     * that have a country id equal to the passed in id.
+     * The returned division data is used to instantiate division
+     * objects. Then the objects are added to a collection of divisions.
+     * @param selectedCountryID Country id to filter by
+     */
+    public static void readDivisionsByCountryID(int selectedCountryID) throws SQLException {
         
         String selectDivisions = "SELECT * FROM first_level_divisions WHERE Country_ID = ?";
         
@@ -30,7 +33,7 @@ public class LoadDivisions {
         
         PreparedStatement ps = DBquery.getPreparedStatement();
   
-        int countryID = countryId;
+        int countryID = selectedCountryID;
         
         ps.setInt(1, countryID);
         
@@ -58,7 +61,12 @@ public class LoadDivisions {
          }
 }
     
-        public static void loadDivisionsByID(int divisionId) throws SQLException {
+        /** This method queries the database for the passed in division id.
+         * The returned division data is used to instantiate a division object.
+         * The division is added to a collection.
+         * @param divisionId Division ID to filter by
+         */
+        public static void readDivisionsByID(int divisionId) throws SQLException {
         
         String selectDivisions = "SELECT * FROM first_level_divisions WHERE Division_ID = ?";
         
@@ -73,6 +81,8 @@ public class LoadDivisions {
         ps.execute(); // Execute PreparedStatement
         
         ResultSet rs = ps.getResultSet();
+        
+        
         
           // Forward scroll ResultSet
          while(rs.next())
@@ -90,11 +100,9 @@ public class LoadDivisions {
              int Country_ID = rs.getInt("Country_ID");
              Division division = new Division(Division_ID, Division, dateTime,
                      Created_By, Last_Update, Last_Updated_By, Country_ID);
+             
              Divisions.addDivisions(division);
          }
-         
-    
+        }
 }
-    
-    
-}
+ 

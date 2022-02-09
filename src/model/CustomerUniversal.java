@@ -5,7 +5,7 @@
  */
 package model;
 
-import helper.FormatTimeEntered;
+import helper.Time;
 import java.sql.Timestamp;
 
 /**
@@ -22,9 +22,9 @@ public class CustomerUniversal extends Customer {
             String formattedCreatedTime, String formattedUpdatedTime) {
         super(id, name, address, zip, phone, createdDateTime, creator, 
                 updatedDateTime, updator, division);
-        this.formattedCreatedTime = FormatTimeEntered
+        this.formattedCreatedTime = Time
                 .formatTime(createdDateTime);
-        this.formattedUpdatedTime = FormatTimeEntered
+        this.formattedUpdatedTime = Time
                 .formatTime(updatedDateTime);
     }
 

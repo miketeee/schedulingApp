@@ -7,9 +7,8 @@ package controller;
 
 import exceptions.HasOverlapExcetption;
 import exceptions.StartBeforeEndException;
-import helper.FormatTimeEntered;
-import database.LoadAppointments;
-import helper.TimeZoneConversion;
+import helper.Time;
+import database.ReadAppointments;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,12 +32,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import collections.Contacts;
-import collections.AppTypes;
+import collections.AppointmentTypes;
 import model.Contact;
 import model.Customer;
 import collections.Appointments;
 import collections.Customers;
-import helper.CheckForApps;
+import helper.Schedule;
 
 /**
  * The class that controls the add appointment form
@@ -92,16 +91,16 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private void onActionSaveAppointment (ActionEvent event) throws IOException, 
             SQLException, HasOverlapExcetption, StartBeforeEndException {
-                LocalDate appStartDate = FormatTimeEntered
+                LocalDate appStartDate = Time
                         .formatStringToLocalDate(startDate);
-                LocalDate appEndDate = FormatTimeEntered
+                LocalDate appEndDate = Time
                         .formatStringToLocalDate(endDate);
-                LocalTime appStartTime = FormatTimeEntered
+                LocalTime appStartTime = Time
                         .formatStringToLocalTime(appStartTimeTxt);
-                LocalTime appEndTime = FormatTimeEntered
+                LocalTime appEndTime = Time
                         .formatStringToLocalTime(appEndTimeTxt);
                 ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-                Instant[]conversion = TimeZoneConversion
+                Instant[]conversion = Time
                         .convertTimeToUTC(appStartDate, appStartTime, appEndDate, appEndTime);
                 Instant open = conversion[0];
                 Instant close = conversion[1];
@@ -124,7 +123,7 @@ public class AddAppointmentController implements Initializable {
                 throw new StartBeforeEndException();
             }
             else{
-                CheckForApps.withOverlap(customerIdComboBox.getValue()
+                Schedule.checkForOverlap(customerIdComboBox.getValue()
                         .getId(),
                         appStart, appEnd);
                 database.AddAppointment.addAppointment(appTitleTxt.getText(), 
@@ -136,7 +135,7 @@ public class AddAppointmentController implements Initializable {
                         contactComboBox.getValue().getId());
                 
                 Appointments.appointmentList.clear();
-                LoadAppointments.loadAppointments();
+                ReadAppointments.readAppointments();
                 stage = (Stage) ((Button)event.getSource()).getScene()
                         .getWindow();
                 scene = FXMLLoader.load(getClass()
@@ -177,7 +176,7 @@ public class AddAppointmentController implements Initializable {
  
         
         userIdLabel.setText(String.valueOf(LoginScreenController.getUserID()));
-        appTypeComboBox.setItems(AppTypes.getAllTypes());
+        appTypeComboBox.setItems(AppointmentTypes.getAllTypes());
         appTypeComboBox.setPromptText("Appointment type");
         
         customerIdComboBox.setItems(Customers.getAllCustomers());

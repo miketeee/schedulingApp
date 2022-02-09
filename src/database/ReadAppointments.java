@@ -9,23 +9,21 @@ import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import model.AppointmentUniversal;
 import collections.Appointments;
-import helper.FormatTimeEntered;
+import helper.Time;
 
-/**
- *
- * @author tamic
+/** This class contains a method reads all appointments stored
+ * in the database.
  */
-public class LoadAppointments {
-    
-        public static void checkTimes(LocalDateTime localDateTime){
-            
-        } 
+public class ReadAppointments {
         
-        public static void loadAppointments() throws SQLException {
+        /** This method queries the database and returns all appointments.
+         * The returned appointment data is used to instantiate appointment
+         * objects. Then the objects are added to a collection of appointments.
+         */
+        public static void readAppointments() throws SQLException {
             String selectAppointments = "SELECT * FROM Appointments";
 
             DBquery.setPreparedStatement(conn, selectAppointments); // Create prepared statement
@@ -39,8 +37,6 @@ public class LoadAppointments {
           // Forward scroll ResultSet
          while(rsa.next())
          {
-             
-             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-YYYY HH:mm");
              
              int Appointment_ID = rsa.getInt("Appointment_ID");
              String Title = rsa.getString("Title");
@@ -57,16 +53,19 @@ public class LoadAppointments {
              int User_ID = rsa.getInt("User_ID");
              int Contact_ID = rsa.getInt("Contact_ID");
           
-             String startDT = FormatTimeEntered.formatTime(startDateTime);
-             String endDT = FormatTimeEntered.formatTime(endDateTime);
-             String createdDT = FormatTimeEntered.formatTime(createdDateTime);
-             String updatedDT = FormatTimeEntered.formatTime(lastUpdateDateTime);
+             String startDT = Time.formatTime(startDateTime);
+             String endDT = Time.formatTime(endDateTime);
+             String createdDT = Time.formatTime(createdDateTime);
+             String updatedDT = Time.formatTime(lastUpdateDateTime);
              
+             // Create object of type appoinmentUniversal
              AppointmentUniversal appointment = new AppointmentUniversal(startDT, 
                      endDT, createdDT, updatedDT, Appointment_ID, Title,
                      Description ,Location, startDateTime, endDateTime, 
                      createdDateTime, Created_By, lastUpdateDateTime, 
                      Last_Updated_By, Customer_ID, User_ID, Contact_ID, Type);
+             
+             // Add appointment to collection
              Appointments.addAppointments(appointment);
          }
     

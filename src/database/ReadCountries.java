@@ -7,18 +7,21 @@ package database;
 
 import database.DBquery;
 import static database.JDBC.conn;
-import database.LoadDivisions;
+import database.ReadDivisions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author tamic
+/** This class contains a method reads a specific country
+ * in the database.
  */
-public class LoadCountries {
+public class ReadCountries {
     
-    public static void loadCountries(String chosenCountry) throws SQLException {
+     /** This method queries the database for a match to the 
+      * passed in country name. The ID of that country is then
+      * passed into the readDivisionsByCountryID method.
+      */
+    public static void readCountries(String chosenCountry) throws SQLException {
         
         String selectCountries = "SELECT * FROM countries WHERE Country = ?";
         
@@ -26,9 +29,7 @@ public class LoadCountries {
         
         PreparedStatement ps = DBquery.getPreparedStatement();
         
-        String selectedCountry = chosenCountry;
-        
-        ps.setString(1, selectedCountry);
+        ps.setString(1, chosenCountry);
         
         ps.execute(); // Execute PreparedStatement
         
@@ -38,8 +39,7 @@ public class LoadCountries {
          while(rs.next())
          {
              int Country_ID = rs.getInt("Country_ID");
-             String Country = rs.getString("Country");
-             LoadDivisions.loadDivisions(Country_ID);
+             ReadDivisions.readDivisionsByCountryID(Country_ID);
 
          }
          

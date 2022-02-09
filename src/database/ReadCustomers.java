@@ -10,16 +10,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import collections.Customers;
-import helper.FormatTimeEntered;
+import helper.Time;
 import model.CustomerUniversal;
 
-/**
- *
- * @author tamic
+/** This class contains a method that reads all customers stored
+ * in the database.
  */
-public class LoadCustomers {
+public class ReadCustomers {
     
-    public static void loadCustomers() throws SQLException {
+    /** This method queries the database and returns all customers.
+     * The returned customer data is used to instantiate customer
+     * objects. Then the objects are added to a collection of customers.
+     */
+    public static void readCustomers() throws SQLException {
         
         String selectCustomers = "SELECT * FROM Customers";
         
@@ -45,8 +48,8 @@ public class LoadCustomers {
              String Last_Updated_By = rs.getString("Last_Updated_By");
              int Division = rs.getInt("Division_ID");
              
-             String createdDT = FormatTimeEntered.formatTime(createdDateTime);
-             String updatedDT = FormatTimeEntered.formatTime(lastUpdatedDateTime);
+             String createdDT = Time.formatTime(createdDateTime);
+             String updatedDT = Time.formatTime(lastUpdatedDateTime);
              
             
              CustomerUniversal customer = new CustomerUniversal(CustomerID ,

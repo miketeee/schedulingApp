@@ -5,9 +5,9 @@
  */
 package model;
 
-import helper.FormatTimeEntered;
+import helper.Time;
 import java.sql.SQLException;
-import model.Type;
+import model.AppointmentType;
 
 /**
  *
@@ -164,7 +164,7 @@ public class Appointment {
 
   @Override
 public String toString(){
-    String appTime = FormatTimeEntered.formatTime(startDateTime);
+    String appTime = Time.formatTime(startDateTime);
     return("#" + Integer.toString(id) + " " + title + " " + " " + appTime + " " 
             + Integer.toHexString(customerId));
  }

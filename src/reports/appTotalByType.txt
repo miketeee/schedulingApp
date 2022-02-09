@@ -1,2 +1,0 @@
-
-{routine=2, Planning Session=1}

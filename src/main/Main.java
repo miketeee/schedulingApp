@@ -1,43 +1,19 @@
 
 package main;
 
-import database.DBquery;
+import collections.AppointmentTypes;
 import database.JDBC;
-import database.LoadAppointments;
-import database.LoadContacts;
-import database.LoadCustomers;
-import database.LoadTypes;
+import database.ReadAppointments;
+import database.ReadContacts;
+import database.ReadCustomers;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.TimeZone;
-import model.Customer;
-import collections.Customers;
-import collections.Appointments;
-import java.sql.PreparedStatement;
-import java.time.format.DateTimeFormatter;
-import model.Appointment;
-
 
 
 
@@ -77,13 +53,15 @@ public class Main extends Application {
         Connection conn = JDBC.openConnection();
         
 
-        LoadCustomers.loadCustomers();
+        ReadCustomers.readCustomers();
          
-        LoadAppointments.loadAppointments();
+        ReadAppointments.readAppointments();
         
-        LoadTypes.loadTypes();
+        ReadContacts.readContacts();
         
-        LoadContacts.loadContacts();
+        AppointmentTypes.addType(new String("routine"));
+        AppointmentTypes.addType(new String("Standard"));
+        AppointmentTypes.addType(new String("Express"));
         
         
         

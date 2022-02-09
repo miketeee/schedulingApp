@@ -9,21 +9,19 @@ import static database.JDBC.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import collections.Contacts;
-import model.User;
-import collections.Users;
 import model.Contact;
 
-/**
- *
- * @author tamic
+/** This class contains a method reads all contacts stored
+ * in the database.
  */
-public class LoadContacts {
+public class ReadContacts {
     
-    public static void loadContacts() throws SQLException {
+     /** This method queries the database and returns all contacts.
+     * The returned contact data is used to instantiate contact
+     * objects. Then the objects are added to a collection of contacts.
+     */
+    public static void readContacts() throws SQLException {
         
         
         String selectContacts = "SELECT * FROM Contacts";

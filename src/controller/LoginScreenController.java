@@ -6,7 +6,7 @@
 package controller;
 
 import exceptions.HasAppointmentsException;
-import helper.CheckForApps;
+import helper.Schedule;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 import database.DBquery;
-import helper.HandleFile;
+import helper.FileIO;
 import database.JDBC;
 import java.io.File;
 import java.io.IOException;
@@ -87,7 +87,7 @@ public class LoginScreenController implements Initializable {
     }
     
     public LoginScreenController() throws IOException {
-        this.loginActivity = HandleFile.createFile("login_activity");
+        this.loginActivity = FileIO.createFile("login_activity");
     }
     /**
      * This method returns the user id
@@ -140,12 +140,12 @@ public class LoginScreenController implements Initializable {
             LoginAttempt loginAttempt = new LoginAttempt(User_Name, 
                 loginTime, "success");
             attempts.add(loginAttempt);
-            HandleFile.writeToFile(loginActivity, attempts);
+            FileIO.writeToFile(loginActivity, attempts);
 
             LoginScreenController.setUserID(User_ID);
             LoginScreenController.setName(User_Name);
             
-            CheckForApps.withinFifteenMinutes();
+            Schedule.checkForUpcomingAppointments();
             
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass()
@@ -157,7 +157,7 @@ public class LoginScreenController implements Initializable {
             LoginAttempt loginAttempt = new LoginAttempt(userName, 
                         loginTime, "failure");
                 attempts.add(loginAttempt);
-                HandleFile.writeToFile(loginActivity, attempts);
+                FileIO.writeToFile(loginActivity, attempts);
 
              ResourceBundle rb = ResourceBundle.getBundle("rb/Nat", 
                      Locale.getDefault());

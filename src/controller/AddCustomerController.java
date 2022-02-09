@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import database.LoadCustomers;
+import database.ReadCustomers;
 import java.sql.SQLException;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ToggleGroup;
@@ -28,7 +28,7 @@ import collections.Divisions;
 import java.lang.NullPointerException;
 import javafx.scene.control.RadioButton;
 import model.Division;
-import database.LoadCountries;
+import database.ReadCountries;
 
 /**
  * The class that controls the add customer form
@@ -89,15 +89,15 @@ public class AddCustomerController implements Initializable {
               
               if (countryTG.getSelectedToggle().equals(ukRadioBtn)){
                   String clickedCountry = "UK";
-                  LoadCountries.loadCountries(clickedCountry);
+                  ReadCountries.readCountries(clickedCountry);
               }
               else if (countryTG.getSelectedToggle().equals(usRadioBtn)){
                   String clickedCountry = "U.S";
-                  LoadCountries.loadCountries(clickedCountry);
+                  ReadCountries.readCountries(clickedCountry);
               }
               else {
                  String clickedCountry = "Canada"; 
-                 LoadCountries.loadCountries(clickedCountry);
+                 ReadCountries.readCountries(clickedCountry);
               }
             
             customerDivision.setItems(Divisions.getAllDivisions());
@@ -132,7 +132,7 @@ public class AddCustomerController implements Initializable {
                     customerPhoneTxt.getText(), customerDivision.getValue()
                             .getId());
             Customers.customerList.clear();
-            LoadCustomers.loadCustomers();
+            ReadCustomers.readCustomers();
         
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass()

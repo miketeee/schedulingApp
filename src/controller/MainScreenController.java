@@ -7,13 +7,13 @@ package controller;
 
 import exceptions.HasAppointmentsException;
 import exceptions.HasOverlapExcetption;
-import helper.CheckForApps;
+import helper.Schedule;
 import database.DeleteAppointment;
 import database.DeleteCustomer;
-import helper.HandleFile;
-import database.LoadAppointments;
-import database.LoadContacts;
-import database.LoadCustomers;
+import helper.FileIO;
+import database.ReadAppointments;
+import database.ReadContacts;
+import database.ReadCustomers;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -201,9 +201,9 @@ public class MainScreenController implements Initializable {
     */
     @FXML
     void onActionShowMonthAndTypeReport(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appTotalByMonth");
-        List report = CheckForApps.reportByMonthAndType();
-        HandleFile.writeToFile(newFile, report);
+        File newFile = FileIO.createFile("appTotalByMonth");
+        List report = Schedule.reportByMonthAndType();
+        FileIO.writeToFile(newFile, report);
     }
     
     /** This method generates a report of appointments
@@ -215,9 +215,9 @@ public class MainScreenController implements Initializable {
     */
     @FXML
     void onActionShowByShiftReport(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appTotalByShift");
-        List report = CheckForApps.reportByShift();
-        HandleFile.writeToFile(newFile, report);
+        File newFile = FileIO.createFile("appTotalByShift");
+        List report = Schedule.reportByShift();
+        FileIO.writeToFile(newFile, report);
     }
     
     /** This method generates a report of schedules for
@@ -227,9 +227,9 @@ public class MainScreenController implements Initializable {
     */
     @FXML
     void onActionShowSchedules(ActionEvent event) throws IOException{
-        File newFile = HandleFile.createFile("appSchedules");
-        List report = CheckForApps.reportByContact();
-        HandleFile.writeToFile(newFile, report);
+        File newFile = FileIO.createFile("appSchedules");
+        List report = Schedule.reportByContact();
+        FileIO.writeToFile(newFile, report);
     }
     
     
@@ -244,7 +244,7 @@ public class MainScreenController implements Initializable {
         // Set result equal to a stream of all appointments that has been filtered
         // by the current month and collected
         // This makes the program more efficient by using a stream to filter appointments
-        // rather than using a for loop to check if an appoinments month is equal to the current month
+        // rather than using a for loop to checkForExistingAppointments if an appoinments month is equal to the current month
         // the code set the tableview without the need to create a seperate list to hold the values
         
         // The code assumes what to do rather than me having to explicitly tell it
@@ -346,7 +346,7 @@ public class MainScreenController implements Initializable {
     @FXML
     void onActionDeleteCustomer (ActionEvent event) throws IOException, 
             SQLException, HasOverlapExcetption, HasAppointmentsException {
-        CheckForApps.check(customersTableView.getSelectionModel()
+        Schedule.checkForExistingAppointments(customersTableView.getSelectionModel()
                 .getSelectedItem().getId());
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will "
                 + "delete the customer: " + customersTableView
@@ -359,7 +359,7 @@ public class MainScreenController implements Initializable {
             DeleteCustomer.deleteCustomer(customersTableView.getSelectionModel()
                     .getSelectedItem().getId());
             Customers.customerList.clear();
-            LoadCustomers.loadCustomers();
+            ReadCustomers.readCustomers();
         }
         
     }
@@ -371,7 +371,7 @@ public class MainScreenController implements Initializable {
     void onActionAddAppointment (ActionEvent event) throws IOException, 
             SQLException {
         
-        LoadContacts.loadContacts();
+        ReadContacts.readContacts();
         FXMLLoader loader = new FXMLLoader(getClass()
                 .getResource(("/view/AddAppointment.fxml")));
         Parent root = loader.load();
@@ -444,8 +444,8 @@ public class MainScreenController implements Initializable {
         DeleteAppointment.deleteAppointment(appointmentsTableView
                 .getSelectionModel().getSelectedItem().getId());
         Appointments.appointmentList.clear();
-        LoadAppointments.loadAppointments();
-        CheckForApps.reportByMonthAndType();
+        ReadAppointments.readAppointments();
+        Schedule.reportByMonthAndType();
     }
     }
     
@@ -499,4 +499,6 @@ public class MainScreenController implements Initializable {
      appUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
      appContactIdCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
     }    
+    
+
 }

@@ -5,8 +5,6 @@
  */
 package database;
 
-//import controller.LoginScreenController;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 

@@ -46,8 +46,8 @@ public class UpdateAppointment {
             LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
             String updateStatement = "UPDATE Appointments SET Title=?, "
                     + "Description=?, Location=?, Type=?,Start=?, End=?, "
-                    + "Customer_ID=?, User_ID=?, Contact_ID=?, Last_Update=? "
-                    + "WHERE Appointment_ID=?;";
+                    + "Customer_ID=?, User_ID=?, Contact_ID=?, Last_Update=?, "
+                    + " Last_Updated_By=? WHERE Appointment_ID=?;";
 
             DBquery.setPreparedStatement(conn, updateStatement); // Create prepared statement
 
@@ -59,11 +59,7 @@ public class UpdateAppointment {
             String Type = appType;
             Timestamp Start = Timestamp.valueOf(startDateTime);
             Timestamp End = Timestamp.valueOf(endDateTime);
-            Timestamp Create_Date = Timestamp.valueOf(date);
-            String Created_By = LoginScreenController.getName();
-    ;
             Timestamp Last_Update = Timestamp.valueOf(LocalDateTime.now());
-
             String Last_Upadatd_By =  LoginScreenController.getName();
             int Customer_ID = customerID;
             int User_ID = userID;
@@ -81,7 +77,8 @@ public class UpdateAppointment {
             ps.setInt(8, User_ID);
             ps.setInt(9, Contact_ID);
             ps.setTimestamp(10, Last_Update);
-            ps.setInt(11, Appointment_ID);
+            ps.setString(11, Last_Upadatd_By);
+            ps.setInt(12, Appointment_ID);
 
             ps.execute(); // Execute PreparedStatement
 

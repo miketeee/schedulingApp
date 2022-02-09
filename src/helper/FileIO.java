@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author tamic
  */
-public class HandleFile {
+public class FileIO {
     
     /**
      * This method creates text file

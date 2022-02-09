@@ -28,8 +28,8 @@ import collections.Appointments;
  *
  * @author tamic
  */
-public class CheckForApps {
-    public static void check(int customerId) throws HasOverlapExcetption, 
+public class Schedule {
+    public static void checkForExistingAppointments(int customerId) throws HasOverlapExcetption, 
             HasAppointmentsException{
         for(Appointment app : Appointments.getAllAppointments()){
             if(app.getCustomerId() == customerId){
@@ -40,7 +40,7 @@ public class CheckForApps {
     
 }
     // Lambda expression to load the existingAppToComapre list once instead of for each iteration
-    public static void withinFifteenMinutes() throws HasAppointmentsException {
+    public static void checkForUpcomingAppointments() throws HasAppointmentsException {
         Function<Integer, Double> half = x -> x / 2.0;
         Timestamp dueWithin = Timestamp.valueOf(LocalDateTime.now()
                 .plusMinutes(15));
@@ -92,7 +92,7 @@ public class CheckForApps {
             LocalTime startTime = app.getStartDateTime().toLocalDateTime().toLocalTime();
             LocalDate endDate = app.getEndDateTime().toLocalDateTime().toLocalDate();
             LocalTime endTime = app.getStartDateTime().toLocalDateTime().toLocalTime();
-            Instant[]tzc = TimeZoneConversion.convertTimeToUTC(startDate, startTime, endDate, endTime);
+            Instant[]tzc = Time.convertTimeToUTC(startDate, startTime, endDate, endTime);
             Instant start = tzc[2];
             Instant firstShift = tzc[4];
             
@@ -131,10 +131,10 @@ public class CheckForApps {
 
     }
 
-    public static void withOverlap(int customerId, Instant enteredAppStartTime, 
+    public static void checkForOverlap(int customerId, Instant enteredAppStartTime, 
             Instant enteredAppEndTime) throws HasOverlapExcetption {
         
-//        Appointments.getAllAppointments().filtered(x -> x.getCustomerId() 
+//        Schedule.getAllAppointments().filtered(x -> x.getCustomerId() 
 //                == )
         for (Appointment existingAppToComapre : Appointments.getAllAppointments()) {
             if (existingAppToComapre.getCustomerId() == customerId) {

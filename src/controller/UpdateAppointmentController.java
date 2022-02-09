@@ -24,18 +24,17 @@ import model.Appointment;
 import model.Contact;
 import model.Customer;
 import collections.Customers;
-import helper.FormatTimeEntered;
-import database.LoadAppointments;
+import helper.Time;
+import database.ReadAppointments;
 import database.UpdateAppointment;
-import helper.TimeZoneConversion;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.TimeZone;
 import collections.Contacts;
-import collections.AppTypes;
+import collections.AppointmentTypes;
 import collections.Appointments;
-import helper.CheckForApps;
+import helper.Schedule;
 
 /**
  * The class that controls the update appointment form
@@ -167,13 +166,13 @@ public class UpdateAppointmentController implements Initializable {
         
         else {
         
-        LocalTime startTime = FormatTimeEntered
+        LocalTime startTime = Time
                 .formatStringToLocalTime(appStartTimeTxt);
-        LocalTime endTime = FormatTimeEntered
+        LocalTime endTime = Time
                 .formatStringToLocalTime(appEndTimeTxt);
         
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        Instant[]convertedTime = TimeZoneConversion.convertTimeToUTC(startDate.getValue(), 
+        Instant[]convertedTime = Time.convertTimeToUTC(startDate.getValue(), 
                 startTime, endDate.getValue(), endTime);
         Instant open = convertedTime[0];
         Instant close = convertedTime[1];
@@ -194,7 +193,7 @@ public class UpdateAppointmentController implements Initializable {
             throw new StartBeforeEndException();
         }
             
-            CheckForApps.withOverlap(customerIdComboBox.getValue().getId(), start, 
+            Schedule.checkForOverlap(customerIdComboBox.getValue().getId(), start, 
                     end);
             UpdateAppointment.UpdateAppointment(Integer.parseInt(
                     appIdTxt.getText().toString()), 
@@ -208,7 +207,7 @@ public class UpdateAppointmentController implements Initializable {
                     contactComboBox.getValue().getId());
 
             Appointments.appointmentList.clear();
-            LoadAppointments.loadAppointments();
+            ReadAppointments.readAppointments();
             
             stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
@@ -238,7 +237,7 @@ public class UpdateAppointmentController implements Initializable {
         // TODO
     customerIdComboBox.setItems(Customers.getAllCustomers());
     contactComboBox.setItems(Contacts.getAllContacts());
-    appTypeComboBox.setItems(AppTypes.getAllTypes());
+    appTypeComboBox.setItems(AppointmentTypes.getAllTypes());
     }    
     
 }
