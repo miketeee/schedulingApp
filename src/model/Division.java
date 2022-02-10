@@ -7,9 +7,9 @@ package model;
 
 import java.time.LocalDateTime;
 
-/**
- *
- * @author tamic
+
+/** This class represents the division model and is 
+ * used to create division objects.
  */
 public class Division {
     private int id;
@@ -30,64 +30,108 @@ public class Division {
         this.countryId = countryId;
     }
 
+    
+     /**
+     * @return Returns the id
+     */
     public int getId() {
         return id;
     }
 
+    /** Sets the id
+     * @param id ID to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+     /**
+     * @return Returns the name
+     */
     public String getName() {
         return name;
     }
 
+    /** Sets the name
+     * @param name Name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+     /**
+     * @return Returns the created date time
+     */
     public LocalDateTime getCreated() {
         return created;
     }
 
+    /** Sets the created date time
+     * @param created Created date time to set
+     */
     public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
+     /**
+     * @return Returns the created by
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
+    /** Sets the created by
+     * @param createdBy Created by name to set
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
+     /**
+     * @return Returns the last updated by
+     */
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
+    /** Sets the last updated time
+     * @param lastUpdated Last updated time to set
+     */
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
+    /**
+     * @return Returns the last updated by
+     */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
+    /** Sets the last updated by
+     * @param lastUpdatedBy Last updated by time to set
+     */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
+    /**
+     * @return Returns the country id
+     */
     public int getCountryId() {
         return countryId;
     }
 
+    /** Sets the country id.
+     * @param countryId Country ID to set
+     */
     public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
     
-@Override
-public String toString(){
-    return("#" + Integer.toString(id) + " " + name);
-}
+    /** This prints out the division object in string format*/
+    @Override
+    public String toString(){
+        return("#" + Integer.toString(id) + " " + name);
+    }
 }

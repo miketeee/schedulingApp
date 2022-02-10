@@ -7,48 +7,60 @@ package model;
 
 import java.time.Instant;
 
-/**
- *
- * @author tamic
+/** This class represents the loginAttempt model and is 
+ * used to create loginAttempt objects.
  */
 public class LoginAttempt {
     public String name;
-    public Instant timeNow;
-    public String status;
+    public Instant currentTime;
+    public String loginResult;
 
     public LoginAttempt(String name, Instant timeNow, String status) {
         this.name = name;
-        this.timeNow = timeNow;
-        this.status = status;
+        this.currentTime = timeNow;
+        this.loginResult = status;
     }
 
+    /**
+     * @return Returns the id
+     */
     public String getName() {
         return name;
     }
 
+    /** Sets the name*/
     public void setName(String name) {
         this.name = name;
     }
 
-    public Instant getTimeNow() {
-        return timeNow;
+    /**
+     * @return Returns the current time
+     */
+    public Instant getCurrentTime() {
+        return currentTime;
     }
 
-    public void setTimeNow(Instant timeNow) {
-        this.timeNow = timeNow;
+    /** Sets the current time*/
+    public void setCurrentTime(Instant currentTime) {
+        this.currentTime = currentTime;
     }
 
-    public String getStatus() {
-        return status;
+    /**
+     * @return Returns the login result
+     */
+    public String getLoginResult() {
+        return loginResult;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    /** Sets the login result*/
+    public void setLoginResult(String loginResult) {
+        this.loginResult = loginResult;
     }
     
+    /** This prints out the loginAttempt object in string format*/
     @Override
     public String toString(){
-    return(name + " " + timeNow + ": UTC" + " " + status);
-}
+        return(name + " " + currentTime + ": UTC" + " " + loginResult);
+    }
     
 }

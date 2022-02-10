@@ -5,9 +5,8 @@
  */
 package model;
 
-/**
- *
- * @author tamic
+/** This class represents the contact model and is 
+ * used to create contact objects.
  */
 public class Contact {
     private int id;
@@ -19,34 +18,53 @@ public class Contact {
         this.email = email;
     }
 
+    /**
+     * @return Returns the id
+     */
     public int getId() {
         return id;
     }
 
+    /** Sets the id
+     * @param id ID to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+     /**
+     * @return Returns the name
+     */
     public String getName() {
         return name;
     }
 
+    /** Sets the name
+     * @param name Name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return Returns the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /** Sets the email
+     * @param email Email to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
     
-@Override
-public String toString(){
-    return("#" + Integer.toString(id) + " " + name);
-}
+    /** This prints out the contact object in string format*/
+    @Override
+    public String toString(){
+        return("#" + Integer.toString(id) + " " + name);
+    }
 }
 
 
