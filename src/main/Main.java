@@ -6,6 +6,7 @@ import database.JDBC;
 import database.ReadAppointments;
 import database.ReadContacts;
 import database.ReadCustomers;
+import database.ReadUsers;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +18,6 @@ import java.sql.SQLException;
 
 
 
-
-/**
- *
- * @author Tamicheal Wills
- */
-
 /**This class creates and app that functions as an scheduling app that allows
    for the creating, reading, updating, and deleting of customers and appointments*/
 public class Main extends Application {
@@ -32,6 +27,20 @@ public class Main extends Application {
      */
     /**This is the main method. This is the first method that gets called when the program is ran*/
     public static void main(String[] args) throws IOException, SQLException {
+        
+        
+        // ********
+        // LAMDBDA EXPRESSION LOCATIONS
+        // src/Schedule/ line 39
+        // src/MainScreenController/ line 242
+        
+        
+        
+        
+        
+        
+        
+        
        
 //       Locale.setDefault(new Locale("fr"));
  
@@ -49,9 +58,7 @@ public class Main extends Application {
         
         
 
-
         Connection conn = JDBC.openConnection();
-        
 
         ReadCustomers.readCustomers();
          
@@ -59,6 +66,9 @@ public class Main extends Application {
         
         ReadContacts.readContacts();
         
+        ReadUsers.readUsers();
+        
+        // Create appointment types
         AppointmentTypes.addType(new String("routine"));
         AppointmentTypes.addType(new String("Standard"));
         AppointmentTypes.addType(new String("Express"));

@@ -241,16 +241,12 @@ public class MainScreenController implements Initializable {
     @FXML
     void onActionFilterMonth(ActionEvent event) {
 
-        // Set result equal to a stream of all appointments that has been filtered
-        // by the current month and collected
-        // This makes the program more efficient by using a stream to filter appointments
-        // rather than using a for loop to checkForExistingAppointments if an appoinments month is equal to the current month
-        // the code set the tableview without the need to create a seperate list to hold the values
-        
+        // This makes the program more efficient by filtering a stream of appointments
+        // rather than using a traditional for loop to check.
         // The code assumes what to do rather than me having to explicitly tell it
         // The code allows the appointment tableview to be set without the need to 
-        //  create new variables. The code sets the table view with a stream
-        //  of all current appointments that has been filtered to only show the 
+        //  create new variables. The code sets the table view to a list derived
+        // from a stream of all current appointments that has been filtered to only show the 
         // appointments where the current month of the appointment is equal to 
         // the current month of current month of which the program is running
         // based off of the current date.

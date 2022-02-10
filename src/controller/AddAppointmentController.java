@@ -37,7 +37,9 @@ import model.Contact;
 import model.Customer;
 import collections.Appointments;
 import collections.Customers;
+import collections.Users;
 import helper.Schedule;
+import model.User;
 
 /**
  * The class that controls the add appointment form
@@ -75,6 +77,8 @@ public class AddAppointmentController implements Initializable {
     private ComboBox<Customer> customerIdComboBox;
     @FXML
     private ComboBox<Contact> contactComboBox;
+    @FXML
+    private ComboBox<User> userComboBox;
     
     @FXML
     private DatePicker startDate;
@@ -131,7 +135,7 @@ public class AddAppointmentController implements Initializable {
                         appTypeComboBox.getValue(), appStartDate, appStartTime, 
                         appEndDate, appEndTime, 
                         customerIdComboBox.getValue().getId(), 
-                        Integer.parseInt(userIdLabel.getText()), 
+                        userComboBox.getValue().getId(), 
                         contactComboBox.getValue().getId());
                 
                 Appointments.appointmentList.clear();
@@ -175,7 +179,6 @@ public class AddAppointmentController implements Initializable {
         // TODO
  
         
-        userIdLabel.setText(String.valueOf(LoginScreenController.getUserID()));
         appTypeComboBox.setItems(AppointmentTypes.getAllTypes());
         appTypeComboBox.setPromptText("Appointment type");
         
@@ -183,7 +186,10 @@ public class AddAppointmentController implements Initializable {
         customerIdComboBox.setPromptText("Select a customer");
         
         contactComboBox.setItems(Contacts.getAllContacts());
-        contactComboBox.setPromptText("Select a Contact");
+        contactComboBox.setPromptText("Select a contact");
+        
+        userComboBox.setItems(Users.getAllUsers());
+        userComboBox.setPromptText("Select a user");
         
         
     }    

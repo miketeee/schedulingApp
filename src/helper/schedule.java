@@ -22,12 +22,7 @@ import collections.Contacts;
 import model.Appointment;
 import model.Contact;
 import collections.Appointments;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class contains methods for checking for appointment conflict,
@@ -48,8 +43,8 @@ public class Schedule {
         // to declare any variables. The lambda expression allows
         // the program to stream the existing appoinments and filter
         // the appointments to a list based on if their customer id field
-        // has a value that matches the passed in customer id. The if statment
-        // will produce throw an exception if the size of the list has a value
+        // has a value that matches the passed in customer. The code
+        // will throw an exception if the size of the list has a value
         // greater than or equal to zero.
         
        if(Appointments.getAllAppointments().stream()
