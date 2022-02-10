@@ -22,6 +22,12 @@ import collections.Contacts;
 import model.Appointment;
 import model.Contact;
 import collections.Appointments;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class contains methods for checking for appointment conflict,
@@ -34,16 +40,24 @@ public class Schedule {
      * that would prevent the customer from being deleted.
      * @param customerId Customer ID to reference
      */
+    
     public static void checkForExistingAppointments(int customerId) throws HasOverlapExcetption, 
             HasAppointmentsException{
-        for(Appointment app : Appointments.getAllAppointments()){
-            if(app.getCustomerId() == customerId){
-                    throw new exceptions.HasAppointmentsException();
-            }
         
+        // This lambda expression enhances the program by alleviating the need
+        // to declare any variables. The lambda expression allows
+        // the program to stream the existing appoinments and filter
+        // the appointments to a list based on if their customer id field
+        // has a value that matches the passed in customer id. The if statment
+        // will produce throw an exception if the size of the list has a value
+        // greater than or equal to zero.
+        
+       if(Appointments.getAllAppointments().stream()
+               .filter(x -> x.getCustomerId() == customerId)
+               .collect(Collectors.toList()).size() >= 1);
+       
+           throw new exceptions.HasAppointmentsException();
         }
-    
-    }
     
     /** This method check for appointments that occur within fifteen
      * minutes of a user logging in. If there is an appointment  an 

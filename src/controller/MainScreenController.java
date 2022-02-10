@@ -434,7 +434,7 @@ public class MainScreenController implements Initializable {
     private void onActionDeleteAppointment (ActionEvent event) throws IOException, 
             SQLException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, 
-                "This will delete the selected do you want to continue?");
+                "This will delete the selected appointment do you want to continue?");
         
         Optional<ButtonType> result = alert.showAndWait();
         
