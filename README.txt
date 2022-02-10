@@ -48,12 +48,6 @@ Directions:
 		  a form to fill out for both. After successful completion of the 	          
                   form the user will be taken back to the home screen.
 
-            - Launch application within netbeans.
-            - Launch application within netbeans.
-            - Launch application within netbeans.
-            - Launch application within netbeans.
-            - Launch application within netbeans.
-
 Custom Report: The custom report that I created is based on the premise that the
 	       company using the software has a first shift and second shift of 
                employees. The end of the first shift is at 3pm eastern standard time.
