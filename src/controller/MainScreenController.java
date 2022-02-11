@@ -236,28 +236,24 @@ public class MainScreenController implements Initializable {
     /** This method filters the appointment table to
      * show only the appointments that occur during 
      * the current month.
+     * Lambda - The included expression makes the program more efficient by 
+         filtering a stream of appointments rather than using a traditional for loop to check.
+         The code assumes what to do rather than me having to explicitly tell it
+         The code allows the appointment table view to be set without the need to 
+          create new variables. The code sets the table view to a list derived
+         from a stream of all current appointments that has been filtered to only show the 
+         appointments where the current month of the appointment is equal to 
+         the current month of current month of which the program is running
+         based off of the current date.
      * @param event Radio Button selected
      */
     @FXML
     void onActionFilterMonth(ActionEvent event) {
 
-        // This makes the program more efficient by filtering a stream of appointments
-        // rather than using a traditional for loop to check.
-        // The code assumes what to do rather than me having to explicitly tell it
-        // The code allows the appointment tableview to be set without the need to 
-        //  create new variables. The code sets the table view to a list derived
-        // from a stream of all current appointments that has been filtered to only show the 
-        // appointments where the current month of the appointment is equal to 
-        // the current month of current month of which the program is running
-        // based off of the current date.
-       
-
         appointmentsTableView.setItems(Appointments.getAllAppointments().stream().filter((x) ->
         x.getStartDateTime().toLocalDateTime().toLocalDate().getMonth() == LocalDateTime.now().toLocalDate().getMonth())
                 .collect(Collectors.toCollection(FXCollections::observableArrayList)));
     }
-    
-    
     
     /** This method filters the appointment table view to only show
      * appointments that occur during the current week based of the 

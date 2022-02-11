@@ -31,8 +31,8 @@ public class Main extends Application {
         
         // ********
         // LAMDBDA EXPRESSION LOCATIONS
-        // src/Schedule/ line 39
-        // src/MainScreenController/ line 242
+        // src/helper/schedule/ line 31
+        // src/controller/MainScreenController/ line 242
         
         
         

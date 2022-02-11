@@ -33,19 +33,18 @@ public class Schedule {
     /** This method takes in a customer ID that is used to 
      * check and see if a customer has an existing appointment
      * that would prevent the customer from being deleted.
+     * Lambda - The included expression enhances the program by alleviating
+        the need to declare any variables. The lambda expression allows
+        the program to stream the existing appointments and filter
+        the appointments to a list based on if their customer id field
+        has a value that matches the passed in customer. The code
+        will throw an exception if the size of the list has a value
+        greater than or equal to zero. 
      * @param customerId Customer ID to reference
      */
     
     public static void checkForExistingAppointments(int customerId) throws HasOverlapExcetption, 
             HasAppointmentsException{
-        
-        // This lambda expression enhances the program by alleviating the need
-        // to declare any variables. The lambda expression allows
-        // the program to stream the existing appoinments and filter
-        // the appointments to a list based on if their customer id field
-        // has a value that matches the passed in customer. The code
-        // will throw an exception if the size of the list has a value
-        // greater than or equal to zero.
         
        if(Appointments.getAllAppointments().stream()
                .filter(x -> x.getCustomerId() == customerId)
