@@ -1,3 +1,0 @@
-
-{MAY-Standard=1, MARCH-Express=1, MARCH-Standard=1, FEBRUARY-routine=2}
-{MAY-Standard=1, MARCH-Express=1, MARCH-Standard=1, FEBRUARY-routine=2}

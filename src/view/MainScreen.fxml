@@ -76,8 +76,8 @@
       </Label>
       <Label alignment="CENTER" layoutX="1076.0" layoutY="99.0" prefHeight="17.0" prefWidth="173.0" text="Select button to view report" textAlignment="RIGHT" />
       <RadioButton fx:id="reportMonthTotalRadioBtn" layoutX="1089.0" layoutY="134.0" mnemonicParsing="false" onAction="#onActionShowMonthAndTypeReport" text="Total by month and type" />
-      <RadioButton fx:id="reportByShiftRadioBtn" layoutX="1088.0" layoutY="161.0" mnemonicParsing="false" onAction="#onActionShowByShiftReport" text="Total by shift" />
-      <RadioButton fx:id="reportSchedulesRadioBtn" layoutX="1086.0" layoutY="190.0" mnemonicParsing="false" onAction="#onActionShowSchedules" text="Contact Schedules" />
+      <RadioButton fx:id="reportByShiftRadioBtn" layoutX="1089.0" layoutY="161.0" mnemonicParsing="false" onAction="#onActionShowByShiftReport" text="Total by shift" />
+      <RadioButton fx:id="reportSchedulesRadioBtn" layoutX="1089.0" layoutY="189.0" mnemonicParsing="false" onAction="#onActionShowSchedules" text="Contact Schedules" />
       <RadioButton fx:id="resetAppsRadioBtn" layoutX="1098.0" layoutY="433.0" mnemonicParsing="false" onAction="#onActionResetApps" text="Reset Appointments" toggleGroup="$filterTG" />
    </children>   
 </AnchorPane>
