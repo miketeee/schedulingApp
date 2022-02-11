@@ -35,7 +35,7 @@
             <TextField fx:id="appEndTimeTxt" />
             <ComboBox fx:id="customerIdComboBox" prefWidth="150.0" />
             <ComboBox fx:id="contactComboBox" prefWidth="150.0" />
-            <Label fx:id="userIdLabel" alignment="CENTER" prefHeight="17.0" prefWidth="151.0" text="user ID" textAlignment="RIGHT" />
+            <ComboBox fx:id="userComboBox" prefWidth="150.0" />
          </children>
       </VBox>
       <Button fx:id="btnSave" layoutX="241.0" layoutY="455.0" mnemonicParsing="false" onAction="#onActionSaveAppointment" text="Save" />

@@ -34,7 +34,10 @@ import java.util.TimeZone;
 import collections.Contacts;
 import collections.AppointmentTypes;
 import collections.Appointments;
+import collections.Users;
 import helper.Schedule;
+import java.util.Optional;
+import model.User;
 
 /**
  * The class that controls the update appointment form
@@ -71,12 +74,15 @@ public class UpdateAppointmentController implements Initializable {
     private ComboBox<Customer> customerIdComboBox;
     @FXML
     private ComboBox<Contact> contactComboBox;
-    
+    @FXML
+    private ComboBox<User> userComboBox;
     @FXML
     private DatePicker startDate;
     
     @FXML
     private DatePicker endDate;
+    
+    
 
     /** This method populates the update appointment screen with
      * the data that the user selected on the main screen.
@@ -84,43 +90,41 @@ public class UpdateAppointmentController implements Initializable {
      */
     public void initData(Appointment selectedAppointment) throws SQLException {
         
+        Optional<Customer> customer = Customers.getAllCustomers().stream()
+        .filter(x -> x.getId() == selectedAppointment.getCustomerId()).findAny();
+        
+        Optional<Contact> contact = Contacts.getAllContacts().stream()
+                .filter(x -> x.getId() == selectedAppointment.getContactId()).findAny();
+        
+        Optional<User> user = Users.getAllUsers().stream()
+        .filter(x -> x.getId() == selectedAppointment.getUserId()).findAny();
+        
         try{
-            
-            for(Customer c : Customers.getAllCustomers()){
-                    if(c.getId() == selectedAppointment.getCustomerId()){
-                        for(Contact ct : Contacts.getAllContacts())
-                            if(ct.getId() == selectedAppointment.getContactId()){
-                            appIdTxt.setText(String.valueOf(selectedAppointment
-                                    .getId()));
-                            appTitleTxt.setText(selectedAppointment.getTitle());
-                            appDescriptionTxt.setText(selectedAppointment
-                                    .getDescription());
-                            appLocationTxt.setText(selectedAppointment.
-                                    getLocation());
-                            appTypeComboBox.setValue(selectedAppointment
-                                    .getAppointmentType());
-                            appStartTimeTxt.setText(selectedAppointment
-                                    .getStartDateTime().toLocalDateTime()
-                                    .toLocalTime().toString());
-                            
-                            appEndTimeTxt.setText(selectedAppointment.
-                                    getEndDateTime().toLocalDateTime().toLocalTime()
-                                    .toString());
-                            customerIdComboBox.setValue(c);
-                            contactComboBox.setValue(ct);
-                            userIdLabel.setText(String.valueOf(LoginScreenController
-                                    .getUserID()));
-                            startDate.setValue(selectedAppointment.getStartDateTime()
-                                    .toLocalDateTime().toLocalDate());
-                            endDate.setValue(selectedAppointment.getEndDateTime()
-                                    .toLocalDateTime().toLocalDate());
-                       }
-                    }
-       
-                }
+            appIdTxt.setText(String.valueOf(selectedAppointment
+                    .getId()));
+            appTitleTxt.setText(selectedAppointment.getTitle());
+            appDescriptionTxt.setText(selectedAppointment
+                    .getDescription());
+            appLocationTxt.setText(selectedAppointment.
+                    getLocation());
+            appTypeComboBox.setValue(selectedAppointment
+                    .getAppointmentType());
+            appStartTimeTxt.setText(selectedAppointment
+                    .getStartDateTime().toLocalDateTime()
+                    .toLocalTime().toString());
+
+            appEndTimeTxt.setText(selectedAppointment.
+                    getEndDateTime().toLocalDateTime().toLocalTime()
+                    .toString());
+            customerIdComboBox.setValue(customer.get());
+            contactComboBox.setValue(contact.get());
+            userComboBox.setValue(user.get());
+            startDate.setValue(selectedAppointment.getStartDateTime()
+                    .toLocalDateTime().toLocalDate());
+            endDate.setValue(selectedAppointment.getEndDateTime()
+                    .toLocalDateTime().toLocalDate());
             }
          
-        
             //Is thrown if no appointment is selected when update button is clicked
             catch(NullPointerException e)                
             {
@@ -203,7 +207,7 @@ public class UpdateAppointmentController implements Initializable {
                     appTypeComboBox.getValue().toString(), 
                     startDate.getValue(), startTime, endDate.getValue(), 
                     endTime,customerIdComboBox.getValue().getId(), 
-                    Integer.parseInt(userIdLabel.getText()), 
+                    userComboBox.getValue().getId(), 
                     contactComboBox.getValue().getId());
 
             Appointments.appointmentList.clear();
@@ -238,6 +242,7 @@ public class UpdateAppointmentController implements Initializable {
     customerIdComboBox.setItems(Customers.getAllCustomers());
     contactComboBox.setItems(Contacts.getAllContacts());
     appTypeComboBox.setItems(AppointmentTypes.getAllTypes());
+    userComboBox.setItems(Users.getAllUsers());
     }    
     
 }
