@@ -48,10 +48,10 @@ public class Schedule {
         
        if(Appointments.getAllAppointments().stream()
                .filter(x -> x.getCustomerId() == customerId)
-               .collect(Collectors.toList()).size() >= 1);
-       
+               .collect(Collectors.toList()).size() >= 1){
            throw new exceptions.HasAppointmentsException();
-        }
+       }
+    }
     
     /** This method check for appointments that occur within fifteen
      * minutes of a user logging in. If there is an appointment  an 
