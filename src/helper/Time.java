@@ -9,9 +9,11 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import static java.time.ZoneOffset.UTC;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
+import java.util.function.Supplier;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -56,8 +58,8 @@ public class Time {
         String timeOfDate = textField.getText();
         int timeOfHour = Integer.parseInt(timeOfDate.subSequence(0, 2).toString());
         int timeOfMin = Integer.parseInt(timeOfDate.subSequence(3, 5).toString());
-        LocalTime localTimeOfDate = LocalTime.of(timeOfHour, timeOfMin);
-        return localTimeOfDate;
+        LocalTime localTime = LocalTime.of(timeOfHour, timeOfMin);
+        return localTime;
         }
 
     /** This method uses the appointment times entered along with
@@ -74,7 +76,7 @@ public class Time {
         LocalTime openTime = LocalTime.of(8, 0);
         LocalTime closeTime = LocalTime.of(22, 0);
         LocalTime firstShiftEndTime = LocalTime.of(15, 0);
-        ZoneId bizOpsZoneId = ZoneId.of("America/New_York");
+        ZoneId bizOpsZoneId = ZoneId.of("Etc/GMT+5");
         ZoneId LocalZoneId = ZoneId.of(TimeZone.getDefault().getID());
         Instant firstShiftToUTC = ZonedDateTime.of(startDate, firstShiftEndTime, 
                 LocalZoneId).toInstant();

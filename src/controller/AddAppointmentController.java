@@ -118,8 +118,8 @@ public class AddAppointmentController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Appointment must be between " 
-                    + open.atZone(localZoneId) + " and " 
-                    + close.atZone(localZoneId));
+                    + open + " and " 
+                    + close);
                 alert.showAndWait();
             }
 
@@ -127,7 +127,9 @@ public class AddAppointmentController implements Initializable {
                 throw new StartBeforeEndException();
             }
             else{
-                Schedule.checkForOverlap(customerIdComboBox.getValue()
+                // Pass in zero as a place holder id since one has not been
+                // generated yet for this appointment.
+                Schedule.checkForOverlap(0, customerIdComboBox.getValue()
                         .getId(),
                         appStart, appEnd);
                 database.AddAppointment.addAppointment(appTitleTxt.getText(), 

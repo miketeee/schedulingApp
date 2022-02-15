@@ -189,8 +189,7 @@ public class UpdateCustomerController implements Initializable {
         if( customerNameTxt.getText().isEmpty() || 
             customerAddressTxt.getText().isEmpty() ||
             customerPostalTxt.getText().isEmpty() ||
-            customerPhoneTxt.getText().isEmpty() ||
-            customerDivision.getSelectionModel().isEmpty()) {
+            customerPhoneTxt.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("All fields must have a value"

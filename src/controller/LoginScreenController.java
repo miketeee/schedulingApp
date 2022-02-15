@@ -111,8 +111,7 @@ public class LoginScreenController implements Initializable {
      * @param event Login button clicked
      */
     @FXML
-    void onActionLogin(ActionEvent event) throws SQLException, IOException, 
-            HasAppointmentsException {
+    void onActionLogin(ActionEvent event) throws SQLException, IOException, HasAppointmentsException{
         String userName = username.getText();
         String userPass = password.getText();
         Instant loginTime = Instant.now();

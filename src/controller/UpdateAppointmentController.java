@@ -161,8 +161,6 @@ public class UpdateAppointmentController implements Initializable {
             alert.setContentText("All fields must have a value."
                     + "Make sure to click on combo box values");
             alert.showAndWait(); 
-        
-       
         }
         
         else {
@@ -179,23 +177,26 @@ public class UpdateAppointmentController implements Initializable {
         Instant close = convertedTime[1];
         Instant start = convertedTime[2];
         Instant end = convertedTime[3];
+        
        
         if ((start.isAfter(close) || start.isBefore(open) || (end.isAfter(close) 
                 || end.isBefore(open)))){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Appointment must be between " 
-                        + open.atZone(localZoneId) + " and " 
-                        + close.atZone(localZoneId));
+                        + open + " and " 
+                        + close);
                 alert.showAndWait();
         }
 
         else if(start.isAfter(end)){
             throw new StartBeforeEndException();
         }
+        
+        else {
             
-            Schedule.checkForOverlap(customerIdComboBox.getValue().getId(), start, 
-                    end);
+            Schedule.checkForOverlap(Integer.parseInt(appIdTxt.getText().toString()),
+                    customerIdComboBox.getValue().getId(), start, end);
             UpdateAppointment.UpdateAppointment(Integer.parseInt(
                     appIdTxt.getText().toString()), 
                     appTitleTxt.getText().toString(), 
@@ -214,6 +215,7 @@ public class UpdateAppointmentController implements Initializable {
             scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
+        }
         }
     }
  
