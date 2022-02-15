@@ -31,7 +31,7 @@ public class Main extends Application {
     /**This is the main method. This is the first method that gets called when the program is ran*/
     public static void main(String[] args) throws IOException, SQLException {
         
-        
+        System.out.print("test");
         // ********
         // LAMDBDA EXPRESSION LOCATIONS
         // src/helper/schedule/ line 31
