@@ -150,14 +150,10 @@ public class UpdateAppointmentController implements Initializable {
         if(appTitleTxt.getText().isEmpty() ||
            appDescriptionTxt.getText().isEmpty() ||
            appLocationTxt.getText().isEmpty() ||
-           appTypeComboBox.getSelectionModel().isEmpty() ||
            startDate.getValue().toString().isEmpty() ||
            endDate.getValue().toString().isEmpty() ||
            appStartTimeTxt.getText().isEmpty() ||
-           appEndTimeTxt.getText().isEmpty() ||
-           customerIdComboBox.getSelectionModel().isEmpty() ||
-           contactComboBox.getSelectionModel().isEmpty()
-            ) 
+           appEndTimeTxt.getText().isEmpty())
         {
        
             Alert alert = new Alert(Alert.AlertType.ERROR);
