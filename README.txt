@@ -9,7 +9,7 @@ Purpose: The purpose of scheduling application is to provide the user with the
 	 - View reports of contact schedules, shift schedules, and appointment type
 	 - Track user activity
 
-Author: Tamicheal Wills
+Author: Mike Wills
 
 Contact: Twills2@wgu.edu
 
