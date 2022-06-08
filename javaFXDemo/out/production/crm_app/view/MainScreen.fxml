@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="userIdLabel" prefHeight="782.0" prefWidth="1323.0" stylesheets="@../stylesheets/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+   <children>
+      <VBox layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="100.0" />
+      <Label layoutX="17.0" layoutY="11.0" text="Customers">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnExit" layoutX="1089.0" layoutY="750.0" mnemonicParsing="false" onAction="#onActionExit" prefHeight="25.0" prefWidth="70.0" text="Exit" />
+      <TableView fx:id="customersTableView" layoutX="20.0" layoutY="51.0" prefHeight="200.0" prefWidth="1054.0">
+        <columns>
+          <TableColumn fx:id="cidCol" prefWidth="64.0" text="ID" />
+          <TableColumn fx:id="cNameCol" prefWidth="94.0" text="Name" />
+            <TableColumn fx:id="cAddressCol" prefWidth="85.0" text="Address" />
+            <TableColumn fx:id="cZipCol" prefWidth="115.0" text="Zip" />
+            <TableColumn fx:id="cPhoneCol" prefWidth="88.0" text="Phone" />
+            <TableColumn fx:id="cDateCol" prefWidth="143.0" text="Created" />
+            <TableColumn fx:id="cUpdatedCol" prefWidth="167.0" text="Updated" />
+            <TableColumn fx:id="cUpdatorCol" prefWidth="115.0" text="Updated By" />
+            <TableColumn fx:id="cDivisionCol" prefWidth="75.0" text="Division" />
+            <TableColumn fx:id="cCreatorCol" prefWidth="107.0" text="Created By" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAddCustomer" layoutX="344.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddCustomer" text="Add" />
+      <Button fx:id="btnUpdateCustomer" layoutX="505.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionUpdateCustomer" text="Update" />
+      <Button fx:id="btnDeleteCustomer" layoutX="663.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" text="Delete" />
+      <TableView fx:id="appointmentsTableView" layoutX="20.0" layoutY="313.0" prefHeight="200.0" prefWidth="1054.0">
+         <columns>
+            <TableColumn fx:id="appIdCol" prefWidth="36.0" text="ID" />
+            <TableColumn fx:id="appTitleCol" prefWidth="48.0" text="Title" />
+            <TableColumn fx:id="appDescriptionCol" prefWidth="99.0" text="Description" />
+            <TableColumn fx:id="appLocationCol" text="Location" />
+            <TableColumn fx:id="appTypeCol" prefWidth="61.0" text="Type" />
+            <TableColumn fx:id="appStartCol" prefWidth="120.0" text="Start" />
+            <TableColumn fx:id="appEndCol" prefWidth="109.0" text="End" />
+            <TableColumn fx:id="appCreatedCol" prefWidth="111.0" text="Created" />
+            <TableColumn fx:id="appCreatedByCol" prefWidth="71.0" text="Created By" />
+            <TableColumn fx:id="appLastUpdateCol" minWidth="8.0" prefWidth="106.0" text="Last Update" />
+            <TableColumn fx:id="appUpdatedByCol" prefWidth="71.0" text="Updated By" />
+            <TableColumn fx:id="appCustomerIdCol" prefWidth="60.0" text="Customer" />
+            <TableColumn fx:id="appUserIdCol" minWidth="0.0" prefWidth="31.0" text="User" />
+            <TableColumn fx:id="appContactIdCol" prefWidth="50.0" text="Contact" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnAddAppointment" layoutX="344.0" layoutY="519.0" mnemonicParsing="false" onAction="#onActionAddAppointment" text="Add" />
+      <Button fx:id="btnUpdateAppointment" layoutX="505.0" layoutY="519.0" mnemonicParsing="false" onAction="#onActionUpdateAppointment" text="Update" />
+      <Button fx:id="btnDeleteAppointment" layoutX="663.0" layoutY="519.0" mnemonicParsing="false" onAction="#onActionDeleteAppointment" text="Delete" />
+      <Label layoutX="17.0" layoutY="283.0" text="Appointments">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="appFilterMonthRadioBtn" layoutX="1083.0" layoutY="313.0" mnemonicParsing="false" onAction="#onActionFilterMonth" text="Filter By current  Month">
+         <toggleGroup>
+            <ToggleGroup fx:id="filterTG" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="appFilterWeekRadioBtn" layoutX="1083.0" layoutY="344.0" mnemonicParsing="false" onAction="#onActionFilterWeek" text="Filter By Current Week" toggleGroup="$filterTG" />
+      <Label fx:id="userIdMainLabel" alignment="CENTER" layoutX="1015.0" layoutY="11.0" prefHeight="17.0" prefWidth="70.0" textAlignment="RIGHT" />
+      <Label alignment="CENTER" layoutX="945.0" layoutY="11.0" prefHeight="17.0" prefWidth="70.0" text="User ID:" textAlignment="RIGHT" />
+      <Label layoutX="1085.0" layoutY="51.0" text="Reports:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1082.0" layoutY="80.0" prefHeight="30.0" prefWidth="165.0" text="Select button to view report" />
+      <RadioButton fx:id="reportMonthTotalRadioBtn" layoutX="1088.0" layoutY="121.0" mnemonicParsing="false" onAction="#onActionShowMonthAndTypeReport" text="Total by month and type" />
+      <RadioButton fx:id="reportByShiftRadioBtn" layoutX="1088.0" layoutY="148.0" mnemonicParsing="false" onAction="#onActionShowByShiftReport" text="Total by shift" />
+      <RadioButton fx:id="reportSchedulesRadioBtn" layoutX="1088.0" layoutY="176.0" mnemonicParsing="false" onAction="#onActionShowSchedules" text="Contact Schedules" />
+      <RadioButton fx:id="resetAppsRadioBtn" layoutX="1084.0" layoutY="372.0" mnemonicParsing="false" onAction="#onActionResetApps" text="Reset Appointments" toggleGroup="$filterTG" />
+      <Label alignment="CENTER" layoutX="29.0" layoutY="565.0" prefHeight="17.0" prefWidth="137.0" text="Report by Month/Type" textAlignment="RIGHT" />
+      <Label alignment="CENTER" layoutX="261.0" layoutY="565.0" prefHeight="17.0" prefWidth="171.0" text="Report by Contact Schedules" textAlignment="RIGHT" />
+      <ListView fx:id="reportOneListView" layoutX="29.0" layoutY="584.0" prefHeight="191.0" prefWidth="226.0" />
+      <ListView fx:id="scheduleOneListView" layoutX="261.0" layoutY="584.0" prefHeight="191.0" prefWidth="402.0" />
+      <ListView fx:id="shiftScheduleListView" layoutX="672.0" layoutY="584.0" prefHeight="191.0" prefWidth="402.0" />
+      <Label alignment="CENTER" layoutX="672.0" layoutY="565.0" prefHeight="17.0" prefWidth="152.0" text="Report by Shift Schedules" textAlignment="RIGHT" />
+   </children>   
+</AnchorPane>
