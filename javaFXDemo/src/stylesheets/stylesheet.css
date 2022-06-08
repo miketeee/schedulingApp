@@ -1,0 +1,44 @@
+.root {
+    -fx-font-family: "Times";
+    -fx-background-color: #4169e1;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-weight: bold;
+}
+
+.button {
+    -fx-pref-width: 150px;
+    -fx-background-color: #4169e1;
+    -fx-border-color: white;
+    -fx-border-radius: 50%;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #4169e1;
+    -fx-border-radius: 50%;
+    -fx-border-color: #4169e1;
+}
+
+.radio-button {
+    -fx-text-fill: white;
+}
+.table-view .column-header {
+    -fx-background-color: #4169e1;
+}
+
+.table-row-cell:hover {
+    -fx-text-background-color: #4169e1;
+}
+
+.date-picker-popup .button {
+    -fx-pref-width: 10px;
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-radius: 50%;
+    -fx-text-fill: white;
+}
